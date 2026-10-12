@@ -1,0 +1,105 @@
+{
+    "template_id": "heat_then_place_001",
+    "template_version": "0.3",
+    "category": "prepare_then_place",
+    "description": "Agent must heat food in a microwave, then place it in a receptacle. Target object must not be inside a closed container initially.",
+    "family_spec_template": {
+        "family": "prepare_then_place",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "target_receptacle"
+        },
+        "prepare": {
+            "subtemplate": "heat_then_place",
+            "target_role": "target_object",
+            "device_roles": [
+                "microwave"
+            ],
+            "tool_roles": [],
+            "final_receptacle_role": "target_receptacle"
+        }
+    },
+    "requires": {
+        "target_object": {
+            "taxonomy_group": "heatable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "relocate_if": {
+                "modes": [
+                    "evacuate_from_goal_receptacle"
+                ],
+                "to_receptacle_role": "target_relocate_target",
+                "fallback_to": null
+            }
+        },
+        "target_relocate_target": {
+            "taxonomy_group": "open_surface_receptacles",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true,
+            "same_room_as": "target_receptacle",
+            "relocate_target_only": true,
+            "optional": true
+        },
+        "microwave": {
+            "taxonomy_group": "heat_sources",
+            "must_be_openable": true,
+            "must_be_toggleable": true,
+            "must_be_receptacle": true,
+            "different_from": [
+                "target_object"
+            ]
+        },
+        "target_receptacle": {
+            "taxonomy_group": "place_receptacles",
+            "must_be_receptacle": true,
+            "different_from": [
+                "target_object",
+                "microwave"
+            ],
+            "object_type_blocklist": [
+                "Microwave"
+            ],
+            "must_not_be_pickupable": true
+        }
+    },
+    "initial_state_constraints": [
+        {
+            "type": "object_toggled_off",
+            "object_role": "microwave"
+        }
+    ],
+    "goal_predicates": [
+        {
+            "type": "object_hot",
+            "object_role": "target_object"
+        },
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "target_receptacle"
+        },
+        {
+            "type": "object_closed",
+            "object_role": "microwave"
+        },
+        {
+            "type": "object_toggled_off",
+            "object_role": "microwave"
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Heat the {target_object} in the {microwave} and put it on the {target_receptacle}.",
+        "Warm up the {target_object} and place it on the {target_receptacle}."
+    ],
+    "expected_events": [
+        "microwave_heat"
+    ],
+    "expected_brain_behaviors": [
+        "use_microwave_for_heating",
+        "open_close_microwave_correctly"
+    ]
+}

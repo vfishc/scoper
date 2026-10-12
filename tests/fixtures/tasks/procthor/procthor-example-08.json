@@ -1,0 +1,705 @@
+{
+  "backend": "procthor",
+  "category": "observation_conditioned_room_inspection",
+  "family_spec": {
+    "family": "observation_conditioned_room_inspection",
+    "observation_conditioned": {
+      "latent_payloads": [
+        {
+          "goal_predicates": [
+            {
+              "object_role": "issue_faucet",
+              "type": "object_toggled_off"
+            }
+          ],
+          "issue_type": "faucet_on",
+          "latent_id": "issue_0",
+          "object_family": "faucet",
+          "object_role": "issue_faucet",
+          "repair_plan_template": "toggle_off",
+          "room_id": "room|5"
+        },
+        {
+          "goal_predicates": [
+            {
+              "object_role": "issue_container",
+              "type": "object_closed"
+            }
+          ],
+          "issue_type": "open_container",
+          "latent_id": "issue_1",
+          "object_family": "drawer",
+          "object_role": "issue_container",
+          "repair_plan_template": "close",
+          "room_id": "room|5"
+        }
+      ],
+      "public_discovery_mode": "visual_only",
+      "require_visual_evidence": true,
+      "rooms": [
+        "room|5"
+      ],
+      "scan_policy": {
+        "num_views": 4,
+        "require_room_entry_before_scan": true
+      }
+    },
+    "scope": {
+      "label": "bathroom",
+      "room_ids": [
+        "room|5"
+      ],
+      "type": "single_room"
+    }
+  },
+  "goal": {
+    "predicates": [
+      {
+        "object_role": "issue_faucet",
+        "type": "object_toggled_off"
+      },
+      {
+        "object_role": "issue_container",
+        "type": "object_closed"
+      }
+    ],
+    "require_model_stop": true,
+    "type": "predicate"
+  },
+  "id": "procthor-example-08",
+  "init": {
+    "agent_pose": {
+      "horizon": 0.0,
+      "position": {
+        "x": 4.75,
+        "y": 0.9009997844696045,
+        "z": 2.0
+      },
+      "rotation": {
+        "y": 0.0
+      }
+    },
+    "object_pose_overrides": [
+      {
+        "floor_position_candidates": [
+          {
+            "x": 6.40578441628297,
+            "y": 0.05,
+            "z": 9.587080737783783
+          },
+          {
+            "x": 6.566584510824486,
+            "y": 0.05,
+            "z": 9.548091862234624
+          },
+          {
+            "x": 6.9000057585099634,
+            "y": 0.05,
+            "z": 9.997992283930982
+          },
+          {
+            "x": 6.910869019879522,
+            "y": 0.05,
+            "z": 9.836545816320164
+          },
+          {
+            "x": 6.428317625269222,
+            "y": 0.05,
+            "z": 9.342580847615503
+          },
+          {
+            "x": 6.758792081309093,
+            "y": 0.05,
+            "z": 9.503611395565738
+          },
+          {
+            "x": 6.938983400899672,
+            "y": 0.05,
+            "z": 9.660526244222138
+          },
+          {
+            "x": 6.603569382208132,
+            "y": 0.05,
+            "z": 9.317896326139659
+          },
+          {
+            "x": 7.150003621834075,
+            "y": 0.05,
+            "z": 9.99840774664878
+          },
+          {
+            "x": 6.973631853030543,
+            "y": 0.05,
+            "z": 9.46475718227959
+          },
+          {
+            "x": 6.796997366534495,
+            "y": 0.05,
+            "z": 9.285113890938463
+          },
+          {
+            "x": 7.156955237714872,
+            "y": 0.05,
+            "z": 9.819428316044245
+          },
+          {
+            "x": 6.442278219026802,
+            "y": 0.05,
+            "z": 9.09520746805549
+          },
+          {
+            "x": 7.176085297539718,
+            "y": 0.05,
+            "z": 9.632586822610948
+          },
+          {
+            "x": 6.629098232358921,
+            "y": 0.05,
+            "z": 9.078455115017658
+          },
+          {
+            "x": 7.007169956817236,
+            "y": 0.05,
+            "z": 9.252058664060288
+          }
+        ],
+        "mode": "near_primary_object_floor",
+        "object_role": "issue_container",
+        "open_parent_during_relocate": true,
+        "rationale": {
+          "candidates": [
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 0.7730385098042507,
+              "floor_position": {
+                "x": 6.40578441628297,
+                "y": 0.05,
+                "z": 9.587080737783783
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 6.5,
+                "y": 0.9009997844696045,
+                "z": 9.25
+              },
+              "reachable_position_index": 1102,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 0.8741479531400149,
+              "floor_position": {
+                "x": 6.566584510824486,
+                "y": 0.05,
+                "z": 9.548091862234624
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 6.75,
+                "y": 0.9009997844696045,
+                "z": 9.25
+              },
+              "reachable_position_index": 1079,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 0.9581079763179374,
+              "floor_position": {
+                "x": 6.9000057585099634,
+                "y": 0.05,
+                "z": 9.997992283930982
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 7.25,
+                "y": 0.9009997844696045,
+                "z": 10.0
+              },
+              "reachable_position_index": 1054,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 0.9887987063812982,
+              "floor_position": {
+                "x": 6.910869019879522,
+                "y": 0.05,
+                "z": 9.836545816320164
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 7.25,
+                "y": 0.9009997844696045,
+                "z": 9.75
+              },
+              "reachable_position_index": 1029,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.0160415961453804,
+              "floor_position": {
+                "x": 6.428317625269222,
+                "y": 0.05,
+                "z": 9.342580847615503
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 6.5,
+                "y": 0.9009997844696045,
+                "z": 9.0
+              },
+              "reachable_position_index": 1125,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.0274632598382185,
+              "floor_position": {
+                "x": 6.758792081309093,
+                "y": 0.05,
+                "z": 9.503611395565738
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 7.0,
+                "y": 0.9009997844696045,
+                "z": 9.25
+              },
+              "reachable_position_index": 1055,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.0781812784493172,
+              "floor_position": {
+                "x": 6.938983400899672,
+                "y": 0.05,
+                "z": 9.660526244222138
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 7.25,
+                "y": 0.9009997844696045,
+                "z": 9.5
+              },
+              "reachable_position_index": 1003,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.094936816184456,
+              "floor_position": {
+                "x": 6.603569382208132,
+                "y": 0.05,
+                "z": 9.317896326139659
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 6.75,
+                "y": 0.9009997844696045,
+                "z": 9.0
+              },
+              "reachable_position_index": 1103,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.208104714262201,
+              "floor_position": {
+                "x": 7.150003621834075,
+                "y": 0.05,
+                "z": 9.99840774664878
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 7.5,
+                "y": 0.9009997844696045,
+                "z": 10.0
+              },
+              "reachable_position_index": 1028,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.213353557977179,
+              "floor_position": {
+                "x": 6.973631853030543,
+                "y": 0.05,
+                "z": 9.46475718227959
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 7.25,
+                "y": 0.9009997844696045,
+                "z": 9.25
+              },
+              "reachable_position_index": 1030,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.2208328050042947,
+              "floor_position": {
+                "x": 6.796997366534495,
+                "y": 0.05,
+                "z": 9.285113890938463
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 7.0,
+                "y": 0.9009997844696045,
+                "z": 9.0
+              },
+              "reachable_position_index": 1080,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.2325863004592537,
+              "floor_position": {
+                "x": 7.156955237714872,
+                "y": 0.05,
+                "z": 9.819428316044245
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 7.5,
+                "y": 0.9009997844696045,
+                "z": 9.75
+              },
+              "reachable_position_index": 1002,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.2617814836789005,
+              "floor_position": {
+                "x": 6.442278219026802,
+                "y": 0.05,
+                "z": 9.09520746805549
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 6.5,
+                "y": 0.9009997844696045,
+                "z": 8.75
+              },
+              "reachable_position_index": 1145,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.3053815440464542,
+              "floor_position": {
+                "x": 7.176085297539718,
+                "y": 0.05,
+                "z": 9.632586822610948
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 7.5,
+                "y": 0.9009997844696045,
+                "z": 9.5
+              },
+              "reachable_position_index": 972,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.3261367270735807,
+              "floor_position": {
+                "x": 6.629098232358921,
+                "y": 0.05,
+                "z": 9.078455115017658
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 6.75,
+                "y": 0.9009997844696045,
+                "z": 8.75
+              },
+              "reachable_position_index": 1126,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "issue_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.380934047705811,
+              "floor_position": {
+                "x": 7.007169956817236,
+                "y": 0.05,
+                "z": 9.252058664060288
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 7.25,
+                "y": 0.9009997844696045,
+                "z": 9.0
+              },
+              "reachable_position_index": 1056,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": [
+                "room|5"
+              ]
+            }
+          ],
+          "floor_candidate_source": "reachable_positions_near_anchor",
+          "mode": "near_primary_object_floor"
+        },
+        "restore_parent_state_after_relocate": true,
+        "to_floor_anchor_role": "issue_faucet",
+        "type": "relocate_object"
+      }
+    ],
+    "object_state_overrides": [
+      {
+        "is_toggled": true,
+        "object_role": "issue_faucet",
+        "type": "set_toggle_state"
+      },
+      {
+        "is_open": true,
+        "object_role": "issue_container",
+        "type": "set_open_state"
+      }
+    ]
+  },
+  "instruction": "For objects or conditions that need to be identified by observation, inspect: bathroom. Objects already named in the instruction can be navigated to directly, without first navigating to a room. Inspect the bathroom for actionable household conditions and address only what your observations support. Apply these general rules only when the observations support them: turn off running water, close storage containers left open, and clean dirty washable items before putting them away. Some conditions may be absent; you do not need to find an instance of every condition.",
+  "online_requirements": {
+    "expected_brain_behaviors": [
+      "inspect_before_repair",
+      "infer_issue_from_visual_evidence"
+    ],
+    "expected_events": [
+      "navigate_to_room",
+      "scan",
+      "repair_visible_issue"
+    ]
+  },
+  "qa_overlay": {
+    "questions": [
+      {
+        "activation": {
+          "type": "before_stop"
+        },
+        "answer_set": [
+          "requirement 1 (faucet object toggled off) remains",
+          "requirement 2 (drawer object closed) remains",
+          "both remain",
+          "neither remains"
+        ],
+        "id": "qa_overlay_00",
+        "question": "Which listed task requirement is still incomplete?",
+        "question_type": "remaining_requirement_choice",
+        "resolver": {
+          "answer_by_incomplete_mask": {
+            "00": "neither remains",
+            "01": "requirement 2 (drawer object closed) remains",
+            "10": "requirement 1 (faucet object toggled off) remains",
+            "11": "both remain"
+          },
+          "clause_ids": [
+            "goal_clause_0",
+            "goal_clause_1"
+          ],
+          "type": "remaining_requirement_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "issue_faucet",
+          "tool_name": "navigate_to",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_01",
+        "question": "What was the outcome of navigating to faucet?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "issue_container",
+          "tool_name": "close",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_02",
+        "question": "What was the outcome of the attempted action on drawer?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      }
+    ],
+    "schema_version": "qa_overlay.v1"
+  },
+  "roles": {
+    "issue_container": {
+      "object_id": "ShelvingUnit|6|3___4",
+      "object_type": "Drawer"
+    },
+    "issue_faucet": {
+      "object_id": "Faucet|5|1|1",
+      "object_type": "Faucet"
+    }
+  },
+  "source": {
+    "house_id": "train_000279",
+    "house_path": "prior://procthor-10k/train/279",
+    "split": "train"
+  },
+  "template": {
+    "template_id": "observation_conditioned_safety_inspection_001",
+    "template_version": "2.0"
+  },
+  "version": "0.1",
+  "evaluation_binding": {
+    "require_observation": false
+  },
+  "task_binding_spec": {
+    "schema_version": "task-binding-spec.v1",
+    "task_id": "procthor-example-08",
+    "task_spec_sha256": "edb40572ecef5861fc9c36bc19a027fcc05cb0b6cd142ded186646361fadf395",
+    "compiler_version": "task-binding-compiler.v12",
+    "roles": {
+      "issue_container": {
+        "source_policy": "observation",
+        "public_terms": [
+          "drawer",
+          "storage drawer"
+        ],
+        "generic_terms": [],
+        "activation": "concrete_reference",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "issue_faucet": {
+        "source_policy": "observation",
+        "public_terms": [
+          "faucet",
+          "tap"
+        ],
+        "generic_terms": [],
+        "activation": "concrete_reference",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      }
+    },
+    "collections": {}
+  }
+}

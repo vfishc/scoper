@@ -1,0 +1,545 @@
+{
+  "backend": "behavior",
+  "category": "observation_conditioned_room_inspection",
+  "family_spec": {
+    "family": "observation_conditioned_room_inspection",
+    "observation_conditioned": {
+      "latent_payloads": [
+        {
+          "goal_predicates": [
+            {
+              "object_role": "issue_faucet",
+              "type": "object_toggled_off"
+            }
+          ],
+          "issue_type": "faucet_on",
+          "latent_id": "issue_0",
+          "object_family": "faucet",
+          "object_role": "issue_faucet",
+          "repair_plan_template": "toggle_off",
+          "room_id": "kitchen_0"
+        },
+        {
+          "goal_predicates": [
+            {
+              "object_role": "issue_container",
+              "type": "object_closed"
+            }
+          ],
+          "issue_type": "open_container",
+          "latent_id": "issue_1",
+          "object_family": "cabinet",
+          "object_role": "issue_container",
+          "repair_plan_template": "close",
+          "room_id": "kitchen_0"
+        }
+      ],
+      "public_discovery_mode": "visual_only",
+      "require_visual_evidence": true,
+      "rooms": [
+        "kitchen_0"
+      ],
+      "scan_policy": {
+        "num_views": 4,
+        "require_room_entry_before_scan": true
+      }
+    },
+    "scope": {
+      "label": "kitchen",
+      "room_ids": [
+        "kitchen_0"
+      ],
+      "type": "single_room"
+    }
+  },
+  "goal": {
+    "bddl_goal": null,
+    "predicates": [
+      {
+        "args": {
+          "object": "issue_faucet"
+        },
+        "type": "object_toggled_off"
+      },
+      {
+        "args": {
+          "object": "issue_container"
+        },
+        "type": "object_closed"
+      }
+    ],
+    "require_model_stop": true,
+    "type": "predicates"
+  },
+  "id": "behavior-example-08",
+  "init": [
+    {
+      "args": [
+        "issue_faucet"
+      ],
+      "predicate": "toggled_on"
+    },
+    {
+      "args": [
+        "issue_container"
+      ],
+      "predicate": "open"
+    }
+  ],
+  "init_source_predicates": [
+    {
+      "object_role": "issue_faucet",
+      "type": "object_toggled_on"
+    },
+    {
+      "object_role": "issue_container",
+      "type": "object_open"
+    }
+  ],
+  "instruction": "For objects or conditions that need to be identified by observation, inspect: kitchen. Objects already named in the instruction can be navigated to directly, without first navigating to a room. Inspect the kitchen for actionable household conditions and address only what your observations support. Apply these general rules only when the observations support them: turn off running water, close storage containers left open, and clean dirty washable items before putting them away. Some conditions may be absent; you do not need to find an instance of every condition.",
+  "metrics_config": {
+    "require_model_stop": true,
+    "track_predicate_progress": true,
+    "track_tool_success_rate": true
+  },
+  "online_requirements": {
+    "expected_brain_behaviors": [
+      "inspect_before_repair",
+      "infer_issue_from_visual_evidence"
+    ],
+    "expected_events": [
+      "navigate_to_room",
+      "scan",
+      "repair_visible_issue"
+    ]
+  },
+  "oracle_teacher_hint": {
+    "expected_brain_behaviors": [
+      "inspect_before_repair",
+      "infer_issue_from_visual_evidence"
+    ],
+    "expected_events": [
+      "navigate_to_room",
+      "scan",
+      "repair_visible_issue"
+    ],
+    "expected_plan_skeleton": [
+      "navigate_to_stateful_object",
+      "toggled_off",
+      "navigate_to_stateful_object",
+      "closed"
+    ],
+    "family": "observation_conditioned_room_inspection"
+  },
+  "qa_overlay": {
+    "questions": [
+      {
+        "activation": {
+          "type": "before_stop"
+        },
+        "answer_set": [
+          "requirement 1 (faucet object toggled off) remains",
+          "requirement 2 (cabinet object closed) remains",
+          "both remain",
+          "neither remains"
+        ],
+        "id": "qa_overlay_00",
+        "question": "Which listed task requirement is still incomplete?",
+        "question_type": "remaining_requirement_choice",
+        "resolver": {
+          "answer_by_incomplete_mask": {
+            "00": "neither remains",
+            "01": "requirement 2 (cabinet object closed) remains",
+            "10": "requirement 1 (faucet object toggled off) remains",
+            "11": "both remain"
+          },
+          "clause_ids": [
+            "goal_clause_0",
+            "goal_clause_1"
+          ],
+          "type": "remaining_requirement_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "issue_container",
+          "tool_name": "close",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_01",
+        "question": "What was the outcome of the attempted action on cabinet?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "issue_faucet",
+          "tool_name": "toggle_off",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_02",
+        "question": "What was the outcome of the attempted action on faucet?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      }
+    ],
+    "schema_version": "qa_overlay.v1"
+  },
+  "reset_plan": {
+    "assertions": [],
+    "required_init_mutations": [
+      "object_pose_relocation",
+      "state_override"
+    ],
+    "runtime_capabilities_required": [
+      "reachable_map",
+      "relocation:near_primary_object_floor",
+      "visibility_query_or_controlled_spawn_visibility"
+    ],
+    "state_and_relation_init": [
+      {
+        "args": [
+          "issue_faucet"
+        ],
+        "predicate": "toggled_on"
+      },
+      {
+        "args": [
+          "issue_container"
+        ],
+        "predicate": "open"
+      }
+    ]
+  },
+  "roles": {
+    "issue_container": {
+      "abilities": [
+        "container",
+        "openable",
+        "receptacle"
+      ],
+      "bbox_size": [
+        0.6527281188964844,
+        0.45297720336914066,
+        0.8682071838378906
+      ],
+      "bddl_inst": "cabinet.n.01_1",
+      "category": "bottom_cabinet_no_top",
+      "center": [
+        2.0253331661224365,
+        6.685229301452637,
+        0.40490996837615967
+      ],
+      "extent": [
+        0.57609998371021,
+        0.39899998240449713,
+        0.8696000647878754
+      ],
+      "init_states": {
+        "contains": {},
+        "filled": {},
+        "open": false
+      },
+      "model": "vzzafs",
+      "object_id": "bottom_cabinet_no_top_vzzafs_0",
+      "object_type": "Cabinet",
+      "position": {
+        "x": 2.0253331661224365,
+        "y": 0.40490996837615967,
+        "z": 6.685229301452637
+      },
+      "requires_spawn": false,
+      "room_id": "kitchen_0",
+      "root_orientation_xyzw": [
+        0.0,
+        0.0,
+        0.7096214890480042,
+        0.7045831084251404
+      ],
+      "root_position": {
+        "x": 2.0253331661224365,
+        "y": 6.685229301452637,
+        "z": 0.40490996837615967
+      },
+      "root_yaw": 1.5779217024225594,
+      "scale": [
+        0.8826032876968384,
+        0.8808389902114868,
+        1.0016043186187744
+      ],
+      "source_kind": "scene_instance",
+      "synset": "cabinet.n.01"
+    },
+    "issue_faucet": {
+      "abilities": [
+        "toggleable",
+        "water_source"
+      ],
+      "bbox_size": [
+        0.6241669311523438,
+        0.6660481567382812,
+        1.0297030639648437
+      ],
+      "bddl_inst": "faucet.n.01_1",
+      "category": "derived_faucet",
+      "center": [
+        2.870730400085449,
+        7.453393459320068,
+        0.5414985418319702
+      ],
+      "extent": [
+        0.579800048684272,
+        0.769499979621367,
+        1.199000099399127
+      ],
+      "init_states": {},
+      "model": "czyfhq",
+      "object_id": "furniture_sink_czyfhq_0::faucet",
+      "object_type": "Faucet",
+      "position": {
+        "x": 2.870730400085449,
+        "y": 0.5414985418319702,
+        "z": 7.453393459320068
+      },
+      "requires_spawn": false,
+      "room_id": "kitchen_0",
+      "root_orientation_xyzw": [
+        -4.618042481752127e-08,
+        -3.486525253752629e-15,
+        1.0,
+        -7.549790126404332e-08
+      ],
+      "root_position": {
+        "x": 2.870730400085449,
+        "y": 7.453393459320068,
+        "z": 0.5414985418319702
+      },
+      "root_yaw": -3.1415925025939906,
+      "scale": [
+        0.9289182424545288,
+        1.1553218364715576,
+        1.1644134521484375
+      ],
+      "source_kind": "derived_scene_part",
+      "synset": "faucet.n.01"
+    }
+  },
+  "source": {
+    "layout_variant_id": "Benevolence_1_int_var0000",
+    "occupancy_bounds": [
+      -4.1532206535339355,
+      -3.2163926362991333,
+      5.366779565811157,
+      11.288607597351074
+    ],
+    "room_catalog": [
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 7,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -1.427,
+            "y": 0.0,
+            "z": 3.413
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "corridor_0",
+        "room_type": "corridor",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 10,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 2.37,
+            "y": 0.0,
+            "z": 5.052
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "dining_room_0",
+        "room_type": "dining_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 28,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 1.77,
+            "y": 0.0,
+            "z": 8.026
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "kitchen_0",
+        "room_type": "kitchen",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 23,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 0.903,
+            "y": 0.0,
+            "z": 1.974
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "living_room_0",
+        "room_type": "living_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -0.529,
+            "y": 0.0,
+            "z": 7.605
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "pantry_room_0",
+        "room_type": "pantry_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 4,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -1.586,
+            "y": 0.0,
+            "z": 8.104
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "storage_room_0",
+        "room_type": "storage_room",
+        "source": "profile_in_rooms"
+      }
+    ],
+    "scene_model": "Benevolence_1_int",
+    "source_json": "assets/behavior/behavior-example-08-01.json",
+    "stage3_match_status": "matched_requires_runtime_validation",
+    "start_pose": {
+      "pitch": 0.0,
+      "pose_source": "object_center_centroid_placeholder",
+      "room_id": "kitchen_0",
+      "selection_source": "task_relevant_room_representative_pose",
+      "x": 1.77,
+      "y": 8.026,
+      "yaw": 0.0,
+      "z": 1.55
+    },
+    "template_id": "observation_conditioned_safety_inspection_001",
+    "template_version": "2.0",
+    "type": "template"
+  },
+  "template": {
+    "template_file": "observation_conditioned_safety_inspection_001.json",
+    "template_id": "observation_conditioned_safety_inspection_001",
+    "template_version": "2.0"
+  },
+  "version": "stage4.0",
+  "evaluation_binding": {
+    "require_observation": false
+  },
+  "task_binding_spec": {
+    "schema_version": "task-binding-spec.v1",
+    "task_id": "behavior-example-08",
+    "task_spec_sha256": "af7c50bcc55e5fed59f31aaca26433240a1164fb588ce7503aa871f77d669a97",
+    "compiler_version": "task-binding-compiler.v12",
+    "roles": {
+      "issue_container": {
+        "source_policy": "observation",
+        "public_terms": [
+          "base cabinet",
+          "cabinet",
+          "storage cabinet"
+        ],
+        "generic_terms": [],
+        "activation": "concrete_reference",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "issue_faucet": {
+        "source_policy": "observation",
+        "public_terms": [
+          "faucet",
+          "tap"
+        ],
+        "generic_terms": [],
+        "activation": "concrete_reference",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      }
+    },
+    "collections": {}
+  }
+}

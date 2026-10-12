@@ -1,0 +1,33 @@
+{
+  "template_id": "dynamic_state_change_toggle_001",
+  "template_version": "0.1",
+  "category": "dynamic_state_change",
+  "description": "A stable toggleable object has a task-relevant state requirement.",
+  "requires": {
+    "stateful_object": {
+      "taxonomy_group": "toggleable_objects",
+      "must_be_toggleable": true
+    }
+  },
+  "initial_state_constraints": [
+    {
+      "type": "object_toggled_off",
+      "object_role": "stateful_object"
+    }
+  ],
+  "goal_predicates": [
+    {
+      "type": "object_toggled_on",
+      "object_role": "stateful_object"
+    }
+  ],
+  "instruction_templates": [
+    "Turn on the {stateful_object}.",
+    "Switch on the {stateful_object}."
+  ],
+  "expected_events": ["dynamic_state_change"],
+  "expected_brain_behaviors": ["detect_state_change", "adapt_after_trigger"],
+  "dynamic_requirements": {
+    "v1_policy": "record_only"
+  }
+}

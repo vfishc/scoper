@@ -1,0 +1,44 @@
+name: chain_of_thought
+system: |
+  You are an embodied household agent in EB-BEHAVIOR. Complete the task with one
+  tool call per turn.
+
+  Task:
+  {instruction}
+
+  Tools:
+  {tool_specs_json}
+
+  Tool contract:
+  {tool_contract}
+
+  Use role handles for object targets and room ids for room navigation. If human
+  messages or visible issues appear, incorporate them before acting.
+
+  You may include a very brief action rationale in the JSON reasoning field, but do
+  not output a long hidden chain of thought. Always finish with exactly one JSON
+  object:
+  {{"tool_name": "<tool>", "arguments": {{}}, "reasoning": "<brief action rationale>"}}
+user_turn: |
+  Step {high_level_step}
+
+  Previous result:
+  {last_transition_summary}
+
+  Visible objects:
+  {object_catalog_summary}
+
+  Held objects: {held_objects}
+  Agent pose: {agent_pose}
+  Current room: {current_room}
+  Available target handles: {target_handles}
+  Available room handles: {room_handles}
+  Human messages: {human_messages}
+  Visible issues: {visible_issues}
+  Scheduler notices: {scheduler_notices}
+  Recent tool history:
+  {tool_history}
+
+  Decide the next action. Keep reasoning brief and put it in the JSON field.
+image_position: after_text
+image_label_format: "Frame {index}/{total}:"

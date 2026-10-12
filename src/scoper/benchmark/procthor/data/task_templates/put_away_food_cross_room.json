@@ -1,0 +1,91 @@
+{
+    "template_id": "put_away_food_cross_room_001",
+    "template_version": "0.1",
+    "category": "put_away_cross_room",
+    "description": "Pick up a food item in one room and put it into the fridge in another room.",
+    "family_spec_template": {
+        "family": "put_away_cross_room",
+        "scope": {
+            "type": "connected_area",
+            "label": "home",
+            "room_ids_from_roles": [
+                "source_anchor",
+                "fridge"
+            ]
+        },
+        "put_away": {
+            "semantic_category": "cold_food",
+            "target_roles": [
+                "target_food"
+            ],
+            "storage_roles": [
+                "fridge"
+            ],
+            "protected_distractor_roles": []
+        }
+    },
+    "requires": {
+        "target_food": {
+            "taxonomy_group": "cold_food",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "different_room_from": "fridge",
+            "relocate_if": {
+                "modes": [
+                    "near_primary_object_floor"
+                ],
+                "to_floor_anchor_role": "source_anchor",
+                "validation": "interactable_poses",
+                "fallback_to": null
+            }
+        },
+        "fridge": {
+            "taxonomy_group": "cold_food_storage",
+            "must_be_receptacle": true,
+            "must_be_openable": true,
+            "must_not_be_pickupable": true
+        },
+        "source_anchor": {
+            "taxonomy_group": "open_surface_receptacles",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true,
+            "different_room_from": "fridge"
+        }
+    },
+    "initial_state_constraints": [
+        {
+            "type": "object_not_in_receptacle",
+            "object_role": "target_food",
+            "receptacle_role": "fridge"
+        }
+    ],
+    "goal_predicates": [
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_food",
+            "receptacle_role": "fridge"
+        },
+        {
+            "type": "object_closed",
+            "object_role": "fridge",
+            "include_if": {
+                "role": "fridge",
+                "field": "openable",
+                "equals": true
+            }
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "The {target_food} is in another room. Put it away in the {fridge}."
+    ],
+    "expected_events": [
+        "cross_room_put_away"
+    ],
+    "expected_brain_behaviors": [
+        "navigate_across_rooms",
+        "store_food_in_fridge"
+    ]
+}

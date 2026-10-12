@@ -1,0 +1,111 @@
+{
+    "template_id": "clean_then_place_001",
+    "template_version": "0.3",
+    "category": "prepare_then_place",
+    "description": "Agent must clean a dirty object using a sink + faucet, then place it in a receptacle. The faucet and sink_basin must be in the same room so that toggling the faucet can clean the object placed in the sink.",
+    "family_spec_template": {
+        "family": "prepare_then_place",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "target_receptacle"
+        },
+        "prepare": {
+            "subtemplate": "wash_then_store",
+            "target_role": "target_object",
+            "device_roles": [
+                "sink_basin",
+                "faucet"
+            ],
+            "tool_roles": [],
+            "final_receptacle_role": "target_receptacle"
+        }
+    },
+    "requires": {
+        "target_object": {
+            "taxonomy_group": "dirtyable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "relocate_if": {
+                "modes": [
+                    "unblock_from_closed_container"
+                ],
+                "to_receptacle_role": "target_relocate_target",
+                "fallback_to": null
+            }
+        },
+        "target_relocate_target": {
+            "taxonomy_group": "open_surface_receptacles",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true,
+            "same_room_as": "target_receptacle",
+            "relocate_target_only": true,
+            "optional": true
+        },
+        "sink_basin": {
+            "taxonomy_group": "sink_basins",
+            "different_from": [
+                "target_object"
+            ]
+        },
+        "faucet": {
+            "taxonomy_group": "faucets",
+            "must_be_toggleable": true,
+            "different_from": [
+                "target_object",
+                "sink_basin"
+            ],
+            "parent_of_role_base": "sink_basin"
+        },
+        "target_receptacle": {
+            "taxonomy_group": "dishware_storage",
+            "must_be_receptacle": true,
+            "different_from": [
+                "target_object",
+                "sink_basin",
+                "faucet"
+            ],
+            "must_not_be_pickupable": true
+        }
+    },
+    "initial_state_constraints": [
+        {
+            "type": "object_dirty",
+            "object_role": "target_object"
+        }
+    ],
+    "goal_predicates": [
+        {
+            "type": "object_clean",
+            "object_role": "target_object"
+        },
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "target_receptacle"
+        },
+        {
+            "type": "object_closed",
+            "object_role": "target_receptacle",
+            "include_if": {
+                "role": "target_receptacle",
+                "field": "openable",
+                "equals": true
+            }
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Wash the {target_object} and put it in the {target_receptacle}.",
+        "Clean the dirty {target_object} in the sink, then place it on the {target_receptacle}."
+    ],
+    "expected_events": [
+        "faucet_clean"
+    ],
+    "expected_brain_behaviors": [
+        "place_in_sink",
+        "toggle_faucet_for_cleaning"
+    ]
+}

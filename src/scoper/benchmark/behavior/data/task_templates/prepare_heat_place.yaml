@@ -1,0 +1,25 @@
+template_id: prepare_heat_place_001
+template_version: "1.0"
+category: prepare_heat
+description: "Cook a food item on a heatsource."
+
+roles:
+  target_object:
+    abilities_required: ["cookable"]
+    default_extent: [0.12, 0.12, 0.12]
+  heatsource:
+    abilities_required: ["heatSource"]
+    different_from: ["target_object"]
+    default_extent: [0.70, 0.70, 0.90]
+
+init_constraints:
+  - predicate: toggled_off
+    args: [heatsource]
+
+goal_predicates:
+  - type: object_cooked
+    args: {object: target_object, heatsource: heatsource}
+
+instruction_templates:
+  - "Cook the {target_object} on the {heatsource}."
+  - "Heat the {target_object} using the {heatsource}."

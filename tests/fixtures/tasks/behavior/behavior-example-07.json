@@ -1,0 +1,717 @@
+{
+  "backend": "behavior",
+  "category": "verify_after_action",
+  "failure_spec": [
+    {
+      "after_step": 0,
+      "cooldown": 0,
+      "max_count": 1,
+      "mode": "grasp_slip",
+      "tool": "pick_up"
+    }
+  ],
+  "family_spec": {
+    "family": "verify_after_action",
+    "scope": {
+      "label": "childs room",
+      "room_ids": [
+        "childs_room_1"
+      ],
+      "type": "single_room"
+    },
+    "verify": {
+      "execution_anomaly": {
+        "agent_visible_feedback": "generic_finished",
+        "max_count": 1,
+        "mode": "grasp_slip",
+        "target_role": "target_object",
+        "tool": "pick_up"
+      },
+      "verification_task": {
+        "object_role": "target_object",
+        "receptacle_role": "target_receptacle",
+        "requires_clean_final_state": false,
+        "type": "place_object"
+      }
+    }
+  },
+  "goal": {
+    "bddl_goal": null,
+    "predicates": [
+      {
+        "args": {
+          "object": "target_object",
+          "receptacle": "target_receptacle"
+        },
+        "type": "object_in_receptacle"
+      }
+    ],
+    "require_model_stop": true,
+    "type": "predicates"
+  },
+  "id": "behavior-example-07",
+  "init": [],
+  "init_source_predicates": [],
+  "instruction": "Move the plant pot to the base cabinet. Make sure it is actually placed correctly before you stop.",
+  "metrics_config": {
+    "require_model_stop": true,
+    "track_predicate_progress": true,
+    "track_tool_success_rate": true
+  },
+  "online_requirements": {
+    "expected_brain_behaviors": [
+      "detect_grasp_slip",
+      "re_navigate_to_fallen_object",
+      "retry_pick_up_after_failure"
+    ],
+    "expected_events": [
+      "tool_execution_failure_grasp_slip",
+      "recover_from_grasp_slip"
+    ]
+  },
+  "oracle_teacher_hint": {
+    "expected_brain_behaviors": [
+      "detect_grasp_slip",
+      "re_navigate_to_fallen_object",
+      "retry_pick_up_after_failure"
+    ],
+    "expected_events": [
+      "tool_execution_failure_grasp_slip",
+      "recover_from_grasp_slip"
+    ],
+    "expected_plan_skeleton": [
+      "navigate_to_object",
+      "pick_up",
+      "navigate_to_receptacle",
+      "place"
+    ],
+    "family": "verify_after_action"
+  },
+  "renderer_asset_provenance": {
+    "assignments": [],
+    "audit_performed": false,
+    "failures": [],
+    "requires_symbolic_and_oracle_admission": true,
+    "schema_version": "balanced-concrete-assets.v1",
+    "status": "skipped_by_user"
+  },
+  "reset_plan": {
+    "assertions": [],
+    "required_init_mutations": [
+      "spawn_object"
+    ],
+    "runtime_capabilities_required": [
+      "spawn_placement"
+    ],
+    "state_and_relation_init": []
+  },
+  "roles": {
+    "spawn_support_1": {
+      "abilities": [
+        "receptacle",
+        "support_surface"
+      ],
+      "auxiliary_spawn_support": true,
+      "bbox_size": [
+        0.49741897583007816,
+        1.1938009643554688,
+        0.48083885192871095
+      ],
+      "bddl_inst": "breakfast_table_skczfi_1",
+      "category": "breakfast_table",
+      "center": [
+        4.3392462730407715,
+        -0.6400689482688904,
+        0.4003939926624298
+      ],
+      "extent": [
+        0.41880000886526436,
+        0.42900002086753375,
+        0.49239998704934806
+      ],
+      "init_states": {},
+      "model": "skczfi",
+      "object_id": "breakfast_table_skczfi_1",
+      "object_type": "DiningTable",
+      "position": {
+        "x": 4.3392462730407715,
+        "y": 0.4003939926624298,
+        "z": -0.6400689482688904
+      },
+      "requires_spawn": false,
+      "room_id": "childs_room_0",
+      "scale": [
+        0.8419461846351624,
+        0.3593564033508301,
+        1.0240436792373657
+      ],
+      "source_kind": "scene_instance",
+      "synset": "breakfast_table.n.01"
+    },
+    "target_object": {
+      "abilities": [
+        "breakable",
+        "dirtyable",
+        "disinfectable",
+        "dustyable",
+        "fillable",
+        "freezable",
+        "grassyable",
+        "heatable",
+        "moldyable",
+        "nonSubstance",
+        "pickupable",
+        "receptacle",
+        "rigidBody",
+        "rustable",
+        "scratchable",
+        "stainable",
+        "stickyable",
+        "support_surface",
+        "tarnishable",
+        "wetable",
+        "wrinkleable"
+      ],
+      "bddl_inst": "pot.n.04_259443534",
+      "catalog_object_id": "spawnable:plant_pot",
+      "category": "plant_pot",
+      "center": [
+        4.388646277473404,
+        -0.6400689482688904,
+        0.7265939861871038
+      ],
+      "extent": [
+        0.15636325270624754,
+        0.15636323814535757,
+        0.12
+      ],
+      "init_states": {
+        "contains": {},
+        "filled": {},
+        "saturated": {}
+      },
+      "model": "ihnfbi",
+      "object_id": "spawnable:target_object:bowl",
+      "object_type": "PlantPot",
+      "position": null,
+      "requires_spawn": true,
+      "room_id": null,
+      "source_kind": "spawnable_asset",
+      "spawn_placement": {
+        "anchor_role": "target_receptacle",
+        "background_occupants_checked": 0,
+        "clearance": 0.02,
+        "mode": "on_support_surface",
+        "offset": [
+          0.04940000443263218,
+          -0.0,
+          0.326199993524674
+        ],
+        "slot": 0,
+        "support_role": "spawn_support_1"
+      },
+      "synset": "pot.n.04"
+    },
+    "target_receptacle": {
+      "abilities": [
+        "container",
+        "openable",
+        "receptacle"
+      ],
+      "bbox_size": [
+        0.24564900970458986,
+        0.6843759155273438,
+        0.37503106689453125
+      ],
+      "bddl_inst": "cabinet.n.01_1",
+      "category": "bottom_cabinet",
+      "center": [
+        1.487683892250061,
+        3.0520055294036865,
+        0.34782737493515015
+      ],
+      "extent": [
+        0.3829000138859674,
+        1.0133998923480614,
+        0.6910000054715201
+      ],
+      "init_states": {
+        "contains": {},
+        "filled": {},
+        "open": false
+      },
+      "model": "jhymlr",
+      "object_id": "bottom_cabinet_jhymlr_2",
+      "object_type": "Cabinet",
+      "position": {
+        "x": 1.487683892250061,
+        "y": 0.34782737493515015,
+        "z": 3.0520055294036865
+      },
+      "requires_spawn": false,
+      "room_id": "childs_room_1",
+      "root_orientation_xyzw": [
+        -5.8291739151172806e-06,
+        5.1888873713323846e-05,
+        -0.0007702726288698614,
+        0.9999997019767761
+      ],
+      "root_position": {
+        "x": 1.487683892250061,
+        "y": 3.0520055294036865,
+        "z": 0.34782737493515015
+      },
+      "root_yaw": -0.0015405460212125513,
+      "scale": [
+        1.5587280988693237,
+        1.4807649850845337,
+        1.8425140380859375
+      ],
+      "source_kind": "scene_instance",
+      "synset": "cabinet.n.01"
+    }
+  },
+  "source": {
+    "layout_variant_id": "Beechwood_1_int_var0000",
+    "occupancy_bounds": [
+      -10.285743713378906,
+      -9.410677909851074,
+      7.454256057739258,
+      11.296900749206543
+    ],
+    "room_catalog": [
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 16,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 0.457,
+            "y": 0.0,
+            "z": 3.811
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "bathroom_0",
+        "room_type": "bathroom",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 20,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -6.924,
+            "y": 0.0,
+            "z": -2.308
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "bathroom_1",
+        "room_type": "bathroom",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 22,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -2.188,
+            "y": 0.0,
+            "z": -4.796
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "bedroom_0",
+        "room_type": "bedroom",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 13,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 2.81,
+            "y": 0.0,
+            "z": -0.724
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "childs_room_0",
+        "room_type": "childs_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 12,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 2.985,
+            "y": 0.0,
+            "z": 3.186
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "childs_room_1",
+        "room_type": "childs_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 8,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -5.606,
+            "y": 0.0,
+            "z": -0.999
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "closet_0",
+        "room_type": "closet",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 0.976,
+            "y": 0.0,
+            "z": -0.723
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "closet_1",
+        "room_type": "closet",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 4.937,
+            "y": 0.0,
+            "z": 4.586
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "closet_2",
+        "room_type": "closet",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 11,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -0.449,
+            "y": 0.0,
+            "z": -1.159
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "corridor_0",
+        "room_type": "corridor",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 23,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 2.01,
+            "y": 0.0,
+            "z": 7.582
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "playroom_0",
+        "room_type": "playroom",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -2.53,
+            "y": 0.0,
+            "z": -2.467
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "storage_room_0",
+        "room_type": "storage_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 4.937,
+            "y": 0.0,
+            "z": 6.742
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "storage_room_1",
+        "room_type": "storage_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 1.019,
+            "y": 0.0,
+            "z": 2.804
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "storage_room_2",
+        "room_type": "storage_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 16,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 2.388,
+            "y": 0.0,
+            "z": -4.39
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "television_room_0",
+        "room_type": "television_room",
+        "source": "profile_in_rooms"
+      }
+    ],
+    "scene_model": "Beechwood_1_int",
+    "source_json": "assets/behavior/behavior-example-07-01.json",
+    "stage3_match_status": "matched_requires_spawn",
+    "start_pose": {
+      "pitch": 0.0,
+      "pose_source": "object_center_centroid_placeholder",
+      "room_id": "childs_room_1",
+      "selection_source": "task_relevant_room_representative_pose",
+      "x": 2.985,
+      "y": 3.186,
+      "yaw": 0.0,
+      "z": 1.55
+    },
+    "template_id": "failure_recovery_grasp_slip_from_container_001",
+    "template_version": "0.1",
+    "type": "template"
+  },
+  "template": {
+    "template_file": "failure_recovery_grasp_slip.json",
+    "template_id": "failure_recovery_grasp_slip_from_container_001",
+    "template_version": "0.1"
+  },
+  "version": "stage4.0",
+  "evaluation_binding": {
+    "require_observation": false
+  },
+  "binding_policy": {
+    "roles": {
+      "target_object": {
+        "public_terms": [
+          "plant pot"
+        ]
+      }
+    }
+  },
+  "qa_overlay": {
+    "questions": [
+      {
+        "activation": {
+          "type": "before_stop"
+        },
+        "answer_set": [
+          "plantpot object in receptacle cabinet remains",
+          "that requirement is complete"
+        ],
+        "id": "qa_overlay_00",
+        "question": "Which listed task requirement is still incomplete?",
+        "question_type": "remaining_requirement_choice",
+        "resolver": {
+          "answer_by_incomplete_mask": {
+            "0": "that requirement is complete",
+            "1": "plantpot object in receptacle cabinet remains"
+          },
+          "clause_ids": [
+            "goal_clause_0"
+          ],
+          "type": "remaining_requirement_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "target_object",
+          "tool_name": "pick_up",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_01",
+        "question": "What was the outcome of picking up plantpot?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "target_receptacle",
+          "tool_name": "put_down",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_02",
+        "question": "What was the outcome of the attempted action on cabinet?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      }
+    ],
+    "schema_version": "qa_overlay.v1"
+  },
+  "task_binding_spec": {
+    "schema_version": "task-binding-spec.v1",
+    "task_id": "behavior-example-07",
+    "task_spec_sha256": "a8317fdb1a1dacfd5ed149752a63583d220206e52e5967f6972d6508910ada44",
+    "compiler_version": "task-binding-compiler.v12",
+    "roles": {
+      "target_object": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "plant pot"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "target_receptacle": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "base cabinet",
+          "cabinet",
+          "storage cabinet"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      }
+    },
+    "collections": {}
+  }
+}

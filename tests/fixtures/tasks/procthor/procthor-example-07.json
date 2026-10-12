@@ -1,0 +1,253 @@
+{
+  "backend": "procthor",
+  "category": "verify_after_action",
+  "disturbance_spec": {
+    "failures": [
+      {
+        "after_step": 0,
+        "cooldown": 0,
+        "max_count": 1,
+        "mode": "grasp_slip",
+        "tool": "pick_up"
+      }
+    ],
+    "seed": 0
+  },
+  "family_spec": {
+    "family": "verify_after_action",
+    "scope": {
+      "label": "living room",
+      "room_ids": [
+        "room|4"
+      ],
+      "type": "single_room"
+    },
+    "verify": {
+      "execution_anomaly": {
+        "agent_visible_feedback": "generic_finished",
+        "max_count": 1,
+        "mode": "grasp_slip",
+        "target_role": "target_object",
+        "tool": "pick_up"
+      },
+      "verification_task": {
+        "object_role": "target_object",
+        "receptacle_role": "target_receptacle",
+        "requires_clean_final_state": false,
+        "type": "place_object"
+      }
+    }
+  },
+  "goal": {
+    "predicates": [
+      {
+        "object_role": "target_object",
+        "receptacle_role": "target_receptacle",
+        "type": "object_in_receptacle"
+      }
+    ],
+    "require_model_stop": true,
+    "type": "predicate"
+  },
+  "id": "procthor-example-07",
+  "init": {
+    "agent_pose": {
+      "horizon": 0.0,
+      "position": {
+        "x": 12.75,
+        "y": 0.9009997844696045,
+        "z": 2.0
+      },
+      "rotation": {
+        "y": 0.0
+      }
+    },
+    "object_pose_overrides": [],
+    "object_state_overrides": []
+  },
+  "instruction": "Put the book in the bowl. Make sure it is actually placed correctly before you stop.",
+  "online_requirements": {
+    "expected_brain_behaviors": [
+      "detect_grasp_slip",
+      "re_navigate_to_fallen_object",
+      "retry_pick_up_after_failure"
+    ],
+    "expected_events": [
+      "tool_execution_failure_grasp_slip",
+      "recover_from_grasp_slip"
+    ]
+  },
+  "qa_overlay": {
+    "questions": [
+      {
+        "activation": {
+          "type": "before_stop"
+        },
+        "answer_set": [
+          "book object in receptacle bowl remains",
+          "that requirement is complete"
+        ],
+        "id": "qa_overlay_00",
+        "question": "Which listed task requirement is still incomplete?",
+        "question_type": "remaining_requirement_choice",
+        "resolver": {
+          "answer_by_incomplete_mask": {
+            "0": "that requirement is complete",
+            "1": "book object in receptacle bowl remains"
+          },
+          "clause_ids": [
+            "goal_clause_0"
+          ],
+          "type": "remaining_requirement_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "target_object",
+          "tool_name": "navigate_to",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_01",
+        "question": "What was the outcome of navigating to book?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "target_receptacle",
+          "tool_name": "put_down",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_02",
+        "question": "What was the outcome of the attempted action on bowl?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "type": "after_tool_result",
+          "tool_name": "put_down",
+          "target_role_or_null": "target_receptacle"
+        },
+        "answer_set": [
+          "yes",
+          "no"
+        ],
+        "id": "qa_added_target_relation_choice",
+        "question": "Is the following statement true now: the book is in or on the bowl?",
+        "question_type": "target_relation_choice",
+        "resolver": {
+          "type": "target_relation_choice",
+          "clause_ids": [
+            "goal_clause_0"
+          ],
+          "answer_by_incomplete_mask": {
+            "0": "yes",
+            "1": "no"
+          }
+        }
+      },
+      {
+        "activation": {
+          "type": "after_tool_result",
+          "tool_name": "put_down",
+          "target_role_or_null": "target_receptacle"
+        },
+        "answer_set": [
+          "completed",
+          "not completed"
+        ],
+        "id": "qa_added_mid_execution_progress_choice",
+        "question": "Has this requirement been completed so far: the book is in or on the bowl?",
+        "question_type": "mid_execution_progress_choice",
+        "resolver": {
+          "type": "mid_execution_progress_choice",
+          "clause_ids": [
+            "goal_clause_0"
+          ],
+          "answer_by_incomplete_mask": {
+            "0": "completed",
+            "1": "not completed"
+          }
+        }
+      }
+    ],
+    "schema_version": "qa_overlay.v2"
+  },
+  "roles": {
+    "target_object": {
+      "object_id": "Book|surface|8|82",
+      "object_type": "Book"
+    },
+    "target_receptacle": {
+      "object_id": "Bowl|surface|4|34",
+      "object_type": "Bowl"
+    }
+  },
+  "source": {
+    "house_id": "train_000507",
+    "house_path": "prior://procthor-10k/train/507",
+    "split": "train"
+  },
+  "template": {
+    "template_id": "failure_recovery_grasp_slip_from_container_001",
+    "template_version": "0.1"
+  },
+  "version": "0.1",
+  "evaluation_binding": {
+    "require_observation": false
+  },
+  "task_binding_spec": {
+    "schema_version": "task-binding-spec.v1",
+    "task_id": "procthor-example-07",
+    "task_spec_sha256": "bba2c5ca0c3aa74a9c42627e949a44da0eb829388644b64ebbed25514e7eb369",
+    "compiler_version": "task-binding-compiler.v12",
+    "roles": {
+      "target_object": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "book"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "target_receptacle": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "bowl"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      }
+    },
+    "collections": {}
+  }
+}

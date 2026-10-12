@@ -1,0 +1,111 @@
+{
+    "template_id": "semantic_re_dirty_after_staging_001",
+    "template_version": "0.1",
+    "category": "mid_execution_state_disturbance",
+    "description": "Wash a dirty object, leave it staged in the sink, handle another task, then return after it has become dirty again.",
+    "family_spec_template": {
+        "family": "mid_execution_state_disturbance",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "target_receptacle"
+        },
+        "mid_execution": {
+            "primary_task": {
+                "type": "state_re_dirty",
+                "object_role": "target_object",
+                "receptacle_role": "target_receptacle",
+                "staging_receptacle_role": "sink_basin",
+                "interrupt_role": "target_receptacle",
+                "interrupt_tools": ["navigate_to"],
+                "sink_role": "sink_basin",
+                "faucet_role": "faucet"
+            },
+            "disturbance": {
+                "type": "dirty_object",
+                "target_role": "target_object",
+                "activation": {
+                    "type": "after_tool_result",
+                    "tool": "put_down",
+                    "target_role": "sink_basin",
+                    "success": true,
+                    "after_distinct_tool_count": 1,
+                    "requires_target_not_held": true,
+                    "required_parent_role": "sink_basin"
+                },
+                "requires_out_of_view": false,
+                "once": true
+            }
+        }
+    },
+    "requires": {
+        "target_object": {
+            "taxonomy_group": "dirtyable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true
+        },
+        "sink_basin": {
+            "object_type_allowlist": ["SinkBasin"],
+            "must_be_receptacle": true
+        },
+        "faucet": {
+            "object_type_allowlist": ["Faucet"],
+            "must_be_toggleable": true,
+            "near_role": "sink_basin"
+        },
+        "target_receptacle": {
+            "taxonomy_group": "place_receptacles",
+            "must_be_receptacle": true,
+            "different_from": ["target_object", "sink_basin", "faucet"]
+        }
+    },
+    "initial_state_constraints": [
+        {"type": "object_dirty", "object_role": "target_object"},
+        {"type": "object_toggled_off", "object_role": "faucet"}
+    ],
+    "goal_predicates": [
+        {"type": "object_clean", "object_role": "target_object"},
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "target_receptacle"
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Wash the {target_object}, leave it staged in the {sink_basin}, go to the {target_receptacle} to prepare the placement, then return and make sure the {target_object} is still clean before you stop."
+    ],
+    "expected_events": [
+        "semantic_dirty_object_after_staging",
+        "recover_from_re_dirty"
+    ],
+    "expected_brain_behaviors": [
+        "stage_object_before_interrupt",
+        "leave_staging_location_before_disturbance",
+        "detect_object_re_dirtied_after_return",
+        "repeat_wash_chain"
+    ],
+    "disturbance_spec": {
+        "seed": 0,
+        "disturbances": [
+            {
+                "type": "dirty_object",
+                "target_role": "target_object",
+                "after_step": 8,
+                "requires_out_of_view": false,
+                "once": true,
+                "activation": {
+                    "type": "after_tool_result",
+                    "tool": "put_down",
+                    "target_role": "sink_basin",
+                    "success": true,
+                    "after_distinct_tool_count": 1,
+                    "requires_target_not_held": true,
+                    "required_parent_role": "sink_basin"
+                }
+            }
+        ]
+    }
+}

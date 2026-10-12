@@ -1,0 +1,23 @@
+adapter:
+  type: hf_local
+  model: OpenGVLab/InternVL3_5-14B-HF
+  max_tokens: 1024
+  temperature: 0.0
+  extra:
+    torch_dtype: bfloat16
+    attn_implementation: sdpa
+    device_map: auto
+    trust_remote_code: true
+
+observation:
+  mode: multi_frame
+  num_frames: 3
+  image_format: png
+  max_resolution: [1024, 1024]
+  max_history_turns: 5
+
+retry:
+  max_retries: 1
+  timeout_seconds: 600.0
+
+prompt_template: detailed

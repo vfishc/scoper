@@ -1,0 +1,95 @@
+{
+    "template_id": "cool_then_place_001",
+    "template_version": "0.3",
+    "category": "prepare_then_place",
+    "description": "Agent must cool food in a fridge, then place it in a receptacle. Target object must not be in a closed container initially.",
+    "family_spec_template": {
+        "family": "prepare_then_place",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "target_receptacle"
+        },
+        "prepare": {
+            "subtemplate": "cool_then_place",
+            "target_role": "target_object",
+            "device_roles": [
+                "fridge"
+            ],
+            "tool_roles": [],
+            "final_receptacle_role": "target_receptacle"
+        }
+    },
+    "requires": {
+        "target_object": {
+            "taxonomy_group": "coolable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "relocate_if": {
+                "modes": [
+                    "evacuate_from_goal_receptacle"
+                ],
+                "to_receptacle_role": "target_relocate_target",
+                "fallback_to": null
+            }
+        },
+        "target_relocate_target": {
+            "taxonomy_group": "open_surface_receptacles",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true,
+            "same_room_as": "target_receptacle",
+            "relocate_target_only": true,
+            "optional": true
+        },
+        "fridge": {
+            "taxonomy_group": "cool_sources",
+            "must_be_openable": true,
+            "must_be_receptacle": true,
+            "different_from": [
+                "target_object"
+            ]
+        },
+        "target_receptacle": {
+            "taxonomy_group": "place_receptacles",
+            "must_be_receptacle": true,
+            "different_from": [
+                "target_object",
+                "fridge"
+            ],
+            "object_type_blocklist": [
+                "Fridge"
+            ],
+            "must_not_be_pickupable": true
+        }
+    },
+    "initial_state_constraints": [],
+    "goal_predicates": [
+        {
+            "type": "object_cool",
+            "object_role": "target_object"
+        },
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "target_receptacle"
+        },
+        {
+            "type": "object_closed",
+            "object_role": "fridge"
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Cool the {target_object} in the {fridge} and put it on the {target_receptacle}.",
+        "Chill the {target_object} and then place it on the {target_receptacle}."
+    ],
+    "expected_events": [
+        "fridge_cool"
+    ],
+    "expected_brain_behaviors": [
+        "use_fridge_for_cooling",
+        "open_close_fridge_correctly"
+    ]
+}

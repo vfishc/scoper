@@ -1,0 +1,101 @@
+paper,table,backend,row,group,metrics,values
+SCOPER,blind,behavior,GPT-6 Astra,Routine Execution,SR|Progress|Coverage,0.0|22.2|37.5
+SCOPER,blind,behavior,GPT-6 Astra,Observation-dependent,SR|Progress|Coverage,1.1|18.5|34.8
+SCOPER,blind,behavior,GPT-6 Astra,Failure Recovery,SR|Progress|Coverage,0.8|28.5|48.1
+SCOPER,blind,behavior,GPT-6 Astra,Composite,SR|Progress|Coverage,2.0|29.5|30.1
+SCOPER,blind,behavior,GPT-6 Astra,Overall,SR|Progress|Coverage,1.0|25.1|38.5
+SCOPER,blind,behavior,Gemini-3.8-flash,Routine Execution,SR|Progress|Coverage,0.0|14.5|24.7
+SCOPER,blind,behavior,Gemini-3.8-flash,Observation-dependent,SR|Progress|Coverage,1.1|10.9|20.4
+SCOPER,blind,behavior,Gemini-3.8-flash,Failure Recovery,SR|Progress|Coverage,0.8|17.8|30.0
+SCOPER,blind,behavior,Gemini-3.8-flash,Composite,SR|Progress|Coverage,1.0|15.5|15.7
+SCOPER,blind,behavior,Gemini-3.8-flash,Overall,SR|Progress|Coverage,0.7|15.0|23.3
+SCOPER,blind,behavior,Embodied-R1.5,Routine Execution,SR|Progress|Coverage,2.0|24.8|16.0
+SCOPER,blind,behavior,Embodied-R1.5,Observation-dependent,SR|Progress|Coverage,7.8|20.6|25.6
+SCOPER,blind,behavior,Embodied-R1.5,Failure Recovery,SR|Progress|Coverage,8.5|18.9|23.5
+SCOPER,blind,behavior,Embodied-R1.5,Composite,SR|Progress|Coverage,3.0|21.8|13.0
+SCOPER,blind,behavior,Embodied-R1.5,Overall,SR|Progress|Coverage,5.5|21.3|19.6
+SCOPER,blind,behavior,RoboBrain2.5-8B,Routine Execution,SR|Progress|Coverage,1.0|20.6|11.0
+SCOPER,blind,behavior,RoboBrain2.5-8B,Observation-dependent,SR|Progress|Coverage,3.3|9.7|18.3
+SCOPER,blind,behavior,RoboBrain2.5-8B,Failure Recovery,SR|Progress|Coverage,4.6|14.2|16.8
+SCOPER,blind,behavior,RoboBrain2.5-8B,Composite,SR|Progress|Coverage,2.0|20.6|6.2
+SCOPER,blind,behavior,RoboBrain2.5-8B,Overall,SR|Progress|Coverage,2.9|16.3|13.2
+SCOPER,blind,behavior,RynnBrain11-9B,Routine Execution,SR|Progress|Coverage,1.0|22.5|11.4
+SCOPER,blind,behavior,RynnBrain11-9B,Observation-dependent,SR|Progress|Coverage,4.4|8.6|10.4
+SCOPER,blind,behavior,RynnBrain11-9B,Failure Recovery,SR|Progress|Coverage,3.1|11.4|13.8
+SCOPER,blind,behavior,RynnBrain11-9B,Composite,SR|Progress|Coverage,2.0|18.0|3.6
+SCOPER,blind,behavior,RynnBrain11-9B,Overall,SR|Progress|Coverage,2.6|15.0|10.1
+SCOPER,blind,behavior,Molmo2-ER-4B,Routine Execution,SR|Progress|Coverage,0.0|21.4|6.4
+SCOPER,blind,behavior,Molmo2-ER-4B,Observation-dependent,SR|Progress|Coverage,1.1|3.7|5.9
+SCOPER,blind,behavior,Molmo2-ER-4B,Failure Recovery,SR|Progress|Coverage,6.2|17.3|9.8
+SCOPER,blind,behavior,Molmo2-ER-4B,Composite,SR|Progress|Coverage,2.0|14.7|2.9
+SCOPER,blind,behavior,Molmo2-ER-4B,Overall,SR|Progress|Coverage,2.6|14.7|6.5
+SCOPER,blind,behavior,Qwen3.5-9B,Routine Execution,SR|Progress|Coverage,2.0|24.9|14.8
+SCOPER,blind,behavior,Qwen3.5-9B,Observation-dependent,SR|Progress|Coverage,10.0|14.9|16.8
+SCOPER,blind,behavior,Qwen3.5-9B,Failure Recovery,SR|Progress|Coverage,5.4|16.0|19.6
+SCOPER,blind,behavior,Qwen3.5-9B,Composite,SR|Progress|Coverage,2.0|20.3|7.6
+SCOPER,blind,behavior,Qwen3.5-9B,Overall,SR|Progress|Coverage,4.8|18.9|15.0
+SCOPER,blind,behavior,Qwen3.5-9B + harness,Routine Execution,SR|Progress|Coverage,2.0|23.4|28.5
+SCOPER,blind,behavior,Qwen3.5-9B + harness,Observation-dependent,SR|Progress|Coverage,4.4|16.5|27.2
+SCOPER,blind,behavior,Qwen3.5-9B + harness,Failure Recovery,SR|Progress|Coverage,1.5|23.3|36.5
+SCOPER,blind,behavior,Qwen3.5-9B + harness,Composite,SR|Progress|Coverage,2.0|25.8|21.1
+SCOPER,blind,behavior,Qwen3.5-9B + harness,Overall,SR|Progress|Coverage,2.4|22.5|28.9
+SCOPER,blind,behavior,Qwen3.8-27B,Routine Execution,SR|Progress|Coverage,5.0|24.9|21.5
+SCOPER,blind,behavior,Qwen3.8-27B,Observation-dependent,SR|Progress|Coverage,5.6|17.4|25.9
+SCOPER,blind,behavior,Qwen3.8-27B,Failure Recovery,SR|Progress|Coverage,7.7|23.2|27.4
+SCOPER,blind,behavior,Qwen3.8-27B,Composite,SR|Progress|Coverage,3.0|21.7|14.2
+SCOPER,blind,behavior,Qwen3.8-27B,Overall,SR|Progress|Coverage,5.5|22.0|22.5
+SCOPER,blind,behavior,Qwen3.8-27B + harness,Routine Execution,SR|Progress|Coverage,1.0|22.7|34.2
+SCOPER,blind,behavior,Qwen3.8-27B + harness,Observation-dependent,SR|Progress|Coverage,2.2|18.4|33.2
+SCOPER,blind,behavior,Qwen3.8-27B + harness,Failure Recovery,SR|Progress|Coverage,2.3|27.5|43.5
+SCOPER,blind,behavior,Qwen3.8-27B + harness,Composite,SR|Progress|Coverage,2.0|28.1|27.1
+SCOPER,blind,behavior,Qwen3.8-27B + harness,Overall,SR|Progress|Coverage,1.9|24.5|35.2
+SCOPER,blind,procthor,GPT-6 Astra,Routine Execution,SR|Progress|Coverage,4.6|38.6|43.4
+SCOPER,blind,procthor,GPT-6 Astra,Observation-dependent,SR|Progress|Coverage,3.3|35.4|46.6
+SCOPER,blind,procthor,GPT-6 Astra,Failure Recovery,SR|Progress|Coverage,3.8|35.1|51.4
+SCOPER,blind,procthor,GPT-6 Astra,Composite,SR|Progress|Coverage,2.0|32.2|36.2
+SCOPER,blind,procthor,GPT-6 Astra,Overall,SR|Progress|Coverage,3.6|35.5|44.7
+SCOPER,blind,procthor,Gemini-3.8-flash,Routine Execution,SR|Progress|Coverage,2.3|24.4|27.4
+SCOPER,blind,procthor,Gemini-3.8-flash,Observation-dependent,SR|Progress|Coverage,3.3|24.0|31.1
+SCOPER,blind,procthor,Gemini-3.8-flash,Failure Recovery,SR|Progress|Coverage,2.3|21.6|32.0
+SCOPER,blind,procthor,Gemini-3.8-flash,Composite,SR|Progress|Coverage,1.0|20.4|23.6
+SCOPER,blind,procthor,Gemini-3.8-flash,Overall,SR|Progress|Coverage,2.2|22.6|28.6
+SCOPER,blind,procthor,Embodied-R1.5,Routine Execution,SR|Progress|Coverage,1.5|23.0|6.2
+SCOPER,blind,procthor,Embodied-R1.5,Observation-dependent,SR|Progress|Coverage,5.6|12.6|15.0
+SCOPER,blind,procthor,Embodied-R1.5,Failure Recovery,SR|Progress|Coverage,3.1|14.5|14.8
+SCOPER,blind,procthor,Embodied-R1.5,Composite,SR|Progress|Coverage,1.0|22.2|4.9
+SCOPER,blind,procthor,Embodied-R1.5,Overall,SR|Progress|Coverage,2.7|18.3|10.1
+SCOPER,blind,procthor,RoboBrain2.5-8B,Routine Execution,SR|Progress|Coverage,0.0|16.4|4.1
+SCOPER,blind,procthor,RoboBrain2.5-8B,Observation-dependent,SR|Progress|Coverage,3.3|9.9|8.9
+SCOPER,blind,procthor,RoboBrain2.5-8B,Failure Recovery,SR|Progress|Coverage,3.1|12.8|8.5
+SCOPER,blind,procthor,RoboBrain2.5-8B,Composite,SR|Progress|Coverage,2.0|15.6|6.4
+SCOPER,blind,procthor,RoboBrain2.5-8B,Overall,SR|Progress|Coverage,2.0|13.9|6.8
+SCOPER,blind,procthor,RynnBrain11-9B,Routine Execution,SR|Progress|Coverage,1.5|22.6|5.8
+SCOPER,blind,procthor,RynnBrain11-9B,Observation-dependent,SR|Progress|Coverage,2.2|8.8|6.7
+SCOPER,blind,procthor,RynnBrain11-9B,Failure Recovery,SR|Progress|Coverage,0.8|18.8|8.6
+SCOPER,blind,procthor,RynnBrain11-9B,Composite,SR|Progress|Coverage,0.0|14.9|5.4
+SCOPER,blind,procthor,RynnBrain11-9B,Overall,SR|Progress|Coverage,1.1|17.0|6.7
+SCOPER,blind,procthor,Molmo2-ER-4B,Routine Execution,SR|Progress|Coverage,0.0|18.4|3.2
+SCOPER,blind,procthor,Molmo2-ER-4B,Observation-dependent,SR|Progress|Coverage,1.1|3.7|2.4
+SCOPER,blind,procthor,Molmo2-ER-4B,Failure Recovery,SR|Progress|Coverage,0.0|10.6|2.9
+SCOPER,blind,procthor,Molmo2-ER-4B,Composite,SR|Progress|Coverage,1.0|10.7|1.1
+SCOPER,blind,procthor,Molmo2-ER-4B,Overall,SR|Progress|Coverage,0.4|11.5|2.5
+SCOPER,blind,procthor,Qwen3.5-9B,Routine Execution,SR|Progress|Coverage,0.8|22.7|11.6
+SCOPER,blind,procthor,Qwen3.5-9B,Observation-dependent,SR|Progress|Coverage,6.7|16.1|15.4
+SCOPER,blind,procthor,Qwen3.5-9B,Failure Recovery,SR|Progress|Coverage,2.3|19.3|19.5
+SCOPER,blind,procthor,Qwen3.5-9B,Composite,SR|Progress|Coverage,2.0|24.1|11.9
+SCOPER,blind,procthor,Qwen3.5-9B,Overall,SR|Progress|Coverage,2.7|20.7|14.7
+SCOPER,blind,procthor,Qwen3.5-9B + harness,Routine Execution,SR|Progress|Coverage,3.8|31.8|31.2
+SCOPER,blind,procthor,Qwen3.5-9B + harness,Observation-dependent,SR|Progress|Coverage,4.4|28.5|35.2
+SCOPER,blind,procthor,Qwen3.5-9B + harness,Failure Recovery,SR|Progress|Coverage,2.3|28.0|37.3
+SCOPER,blind,procthor,Qwen3.5-9B + harness,Composite,SR|Progress|Coverage,2.0|28.3|26.6
+SCOPER,blind,procthor,Qwen3.5-9B + harness,Overall,SR|Progress|Coverage,3.1|29.3|32.7
+SCOPER,blind,procthor,Qwen3.8-27B,Routine Execution,SR|Progress|Coverage,2.3|29.9|29.5
+SCOPER,blind,procthor,Qwen3.8-27B,Observation-dependent,SR|Progress|Coverage,4.4|25.0|33.2
+SCOPER,blind,procthor,Qwen3.8-27B,Failure Recovery,SR|Progress|Coverage,3.8|30.6|33.3
+SCOPER,blind,procthor,Qwen3.8-27B,Composite,SR|Progress|Coverage,3.0|33.3|25.7
+SCOPER,blind,procthor,Qwen3.8-27B,Overall,SR|Progress|Coverage,3.3|29.9|30.5
+SCOPER,blind,procthor,Qwen3.8-27B + harness,Routine Execution,SR|Progress|Coverage,4.6|37.0|40.8
+SCOPER,blind,procthor,Qwen3.8-27B + harness,Observation-dependent,SR|Progress|Coverage,3.3|32.7|43.3
+SCOPER,blind,procthor,Qwen3.8-27B + harness,Failure Recovery,SR|Progress|Coverage,3.8|34.6|48.7
+SCOPER,blind,procthor,Qwen3.8-27B + harness,Composite,SR|Progress|Coverage,2.0|32.6|33.6
+SCOPER,blind,procthor,Qwen3.8-27B + harness,Overall,SR|Progress|Coverage,3.6|34.5|42.0

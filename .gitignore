@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.env
+configs/local.yaml
+configs/procthor.yaml
+configs/behavior.yaml
+outputs/
+runtime-cache/

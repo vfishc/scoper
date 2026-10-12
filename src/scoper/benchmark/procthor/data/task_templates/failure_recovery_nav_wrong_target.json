@@ -1,0 +1,82 @@
+{
+    "template_id": "failure_recovery_nav_wrong_target_001",
+    "template_version": "0.2",
+    "category": "verify_after_action",
+    "description": "Place-object task where the first navigation is redirected to a semantically distinct distractor. A recovery-aware brain must navigate to the intended object before continuing. The legacy distractor role name is retained for compatibility.",
+    "family_spec_template": {
+        "family": "verify_after_action",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "target_receptacle"
+        },
+        "verify": {
+            "verification_task": {
+                "type": "place_object",
+                "requires_clean_final_state": false,
+                "object_role": "target_object",
+                "receptacle_role": "target_receptacle"
+            },
+            "execution_anomaly": {
+                "mode": "nav_wrong_target",
+                "tool": "navigate_to",
+                "target_role": "target_object",
+                "max_count": 1,
+                "agent_visible_feedback": "generic_finished"
+            }
+        }
+    },
+    "requires": {
+        "target_object": {
+            "taxonomy_group": "pickupable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true
+        },
+        "same_type_distractor": {
+            "taxonomy_group": "pickupable_task_objects",
+            "must_be_pickupable": true,
+            "different_from": ["target_object"]
+        },
+        "target_receptacle": {
+            "taxonomy_group": "place_receptacles",
+            "must_be_receptacle": true,
+            "different_from": ["target_object", "same_type_distractor"]
+        }
+    },
+    "initial_state_constraints": [],
+    "goal_predicates": [
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "target_receptacle"
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Put the {target_object} in the {target_receptacle}. Make sure it is actually placed correctly before you stop."
+    ],
+    "expected_events": [
+        "tool_execution_failure_nav_wrong_target",
+        "recover_from_nav_wrong_target"
+    ],
+    "expected_brain_behaviors": [
+        "detect_navigation_wrong_target",
+        "navigate_to_correct_target"
+    ],
+    "disturbance_spec": {
+        "seed": 0,
+        "failures": [
+            {
+                "tool": "navigate_to",
+                "mode": "nav_wrong_target",
+                "targets": ["same_type_distractor"],
+                "target_role": "target_object",
+                "after_step": 0,
+                "max_count": 1,
+                "cooldown": 0
+            }
+        ]
+    }
+}

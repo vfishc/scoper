@@ -1,0 +1,76 @@
+{
+    "template_id": "failure_recovery_nav_blocked_001",
+    "template_version": "0.1",
+    "category": "verify_after_action",
+    "description": "Place-object task where the first navigation toward the object is blocked partway. A recovery-aware brain must re-navigate to the object before continuing.",
+    "family_spec_template": {
+        "family": "verify_after_action",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "target_receptacle"
+        },
+        "verify": {
+            "verification_task": {
+                "type": "place_object",
+                "requires_clean_final_state": false,
+                "object_role": "target_object",
+                "receptacle_role": "target_receptacle"
+            },
+            "execution_anomaly": {
+                "mode": "nav_blocked_partway",
+                "tool": "navigate_to",
+                "target_role": "target_object",
+                "max_count": 1,
+                "agent_visible_feedback": "generic_finished"
+            }
+        }
+    },
+    "requires": {
+        "target_object": {
+            "taxonomy_group": "pickupable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true
+        },
+        "target_receptacle": {
+            "taxonomy_group": "place_receptacles",
+            "must_be_receptacle": true,
+            "different_from": ["target_object"]
+        }
+    },
+    "initial_state_constraints": [],
+    "goal_predicates": [
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "target_receptacle"
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Put the {target_object} in the {target_receptacle}. Make sure it is actually placed correctly before you stop."
+    ],
+    "expected_events": [
+        "tool_execution_failure_nav_blocked_partway",
+        "recover_from_nav_blocked_partway"
+    ],
+    "expected_brain_behaviors": [
+        "detect_navigation_not_at_target",
+        "retry_navigate_to_target"
+    ],
+    "disturbance_spec": {
+        "seed": 0,
+        "failures": [
+            {
+                "tool": "navigate_to",
+                "mode": "nav_blocked_partway",
+                "target_role": "target_object",
+                "after_step": 0,
+                "max_count": 1,
+                "cooldown": 0
+            }
+        ]
+    }
+}

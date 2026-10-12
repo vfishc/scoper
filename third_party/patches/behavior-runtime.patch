@@ -1,0 +1,68 @@
+diff --git a/OmniGibson/omnigibson/object_states/particle_source_or_sink.py b/OmniGibson/omnigibson/object_states/particle_source_or_sink.py
+index 5cd8e8cb7..410e0cf10 100644
+--- a/OmniGibson/omnigibson/object_states/particle_source_or_sink.py
++++ b/OmniGibson/omnigibson/object_states/particle_source_or_sink.py
+@@ -84,7 +84,10 @@ class ParticleSource(ParticleApplier):
+             source_height = m.DEFAULT_SOURCE_HEIGHT if source_height is None else source_height
+             projection_mesh_params = {
+                 "type": "Cylinder",
+-                "extents": [source_radius * 2, source_radius * 2, source_height],
++                "extents": th.tensor(
++                    [source_radius * 2, source_radius * 2, source_height],
++                    dtype=th.float32,
++                ),
+             }
+         else:
+             projection_mesh_params = None
+@@ -206,7 +209,10 @@ class ParticleSink(ParticleRemover):
+             sink_height = m.DEFAULT_SINK_HEIGHT if sink_height is None else sink_height
+             projection_mesh_params = {
+                 "type": "Cylinder",
+-                "extents": [sink_radius * 2, sink_radius * 2, sink_height],
++                "extents": th.tensor(
++                    [sink_radius * 2, sink_radius * 2, sink_height],
++                    dtype=th.float32,
++                ),
+             }
+         else:
+             projection_mesh_params = None
+diff --git a/OmniGibson/omnigibson/utils/usd_utils.py b/OmniGibson/omnigibson/utils/usd_utils.py
+index 836d4432c..a2d278acc 100644
+--- a/OmniGibson/omnigibson/utils/usd_utils.py
++++ b/OmniGibson/omnigibson/utils/usd_utils.py
+@@ -657,12 +657,18 @@ class RigidContactAPIImpl:
+ 
+         # Get the row indices corresponding to the sensor prim paths
+         row_idxs = self.get_contact_row_indices(scene_idx, query_set)
++        # Visual-only rigid links are intentionally absent from the PhysX contact
++        # matrix. Treat a query containing only such links as having no contacts.
++        if row_idxs.numel() == 0:
++            return set()
+ 
+         # Slice the contact matrix and the index matrix with the same indexing so that
+         # nonzero positions in the submatrix can be mapped back to original row/col indices.
+         idx_matrix = self._INDEX_MATRIX[scene_idx]
+         if with_set is not None:
+             col_idxs = self.get_contact_col_indices(scene_idx, with_set)
++            if col_idxs.numel() == 0:
++                return set()
+             in_contact = contact_matrix[row_idxs[:, None], col_idxs[None, :]]
+             idx_matrix = idx_matrix[row_idxs[:, None], col_idxs[None, :]]
+         else:
+diff --git a/OmniGibson/tests/test_object_states.py b/OmniGibson/tests/test_object_states.py
+index 447c83e2c..844bb29c9 100644
+--- a/OmniGibson/tests/test_object_states.py
++++ b/OmniGibson/tests/test_object_states.py
+@@ -1258,6 +1258,12 @@ def test_kinematic_only_contact_no_error():
+     assert not RigidContactAPI.is_in_contact(
+         scene_idx=scene_idx, query_set=[bowl], with_set=[table], ignore_set=None, current_only=True
+     )
++    assert RigidContactAPI.get_contact_pairs(
++        scene_idx=scene_idx, query_set=[table], with_set=None, current_only=True
++    ) == set()
++    assert RigidContactAPI.get_contact_pairs(
++        scene_idx=scene_idx, query_set=[table], with_set=[bowl], current_only=True
++    ) == set()
+ 
+     test_clear_sim()
+ 

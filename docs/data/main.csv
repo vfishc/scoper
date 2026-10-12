@@ -1,0 +1,101 @@
+paper,table,backend,row,group,metrics,values
+SCOPER,main,behavior,GPT-6 Astra,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,42.0|74.6|72.6|81.8|54.3
+SCOPER,main,behavior,GPT-6 Astra,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,40.0|56.9|69.1|85.9|82.5
+SCOPER,main,behavior,GPT-6 Astra,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,76.2|85.1|88.2|84.4|74.7
+SCOPER,main,behavior,GPT-6 Astra,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,35.0|75.4|59.4|43.9|58.1
+SCOPER,main,behavior,GPT-6 Astra,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,50.5|74.2|73.5|74.4|68.9
+SCOPER,main,behavior,Gemini-3.8-flash,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,25.0|44.6|42.3|48.5|30.6
+SCOPER,main,behavior,Gemini-3.8-flash,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,25.6|35.4|43.5|54.4|53.2
+SCOPER,main,behavior,Gemini-3.8-flash,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,50.8|57.3|59.2|57.0|51.1
+SCOPER,main,behavior,Gemini-3.8-flash,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,20.0|41.2|32.4|24.2|31.9
+SCOPER,main,behavior,Gemini-3.8-flash,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,31.9|45.7|45.4|46.5|44.1
+SCOPER,main,behavior,Embodied-R1.5,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,5.0|35.4|29.1|48.2|70.6
+SCOPER,main,behavior,Embodied-R1.5,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,15.6|26.8|44.3|52.9|71.5
+SCOPER,main,behavior,Embodied-R1.5,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,16.9|25.2|38.4|63.7|51.4
+SCOPER,main,behavior,Embodied-R1.5,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,2.0|27.5|18.5|18.5|43.6
+SCOPER,main,behavior,Embodied-R1.5,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,10.2|28.5|32.7|46.9|60.1
+SCOPER,main,behavior,RoboBrain2.5-8B,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,1.0|27.0|16.2|28.0|51.8
+SCOPER,main,behavior,RoboBrain2.5-8B,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,11.1|13.7|29.3|29.3|72.4
+SCOPER,main,behavior,RoboBrain2.5-8B,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,10.8|18.9|27.7|43.3|44.6
+SCOPER,main,behavior,RoboBrain2.5-8B,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,1.0|24.3|12.4|11.1|60.6
+SCOPER,main,behavior,RoboBrain2.5-8B,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,6.2|21.0|21.7|29.0|53.6
+SCOPER,main,behavior,RynnBrain11-9B,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,2.0|30.3|21.3|45.1|57.5
+SCOPER,main,behavior,RynnBrain11-9B,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,10.0|12.0|22.7|44.0|75.4
+SCOPER,main,behavior,RynnBrain11-9B,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,6.9|17.3|30.7|51.8|38.3
+SCOPER,main,behavior,RynnBrain11-9B,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,0.0|24.6|9.6|15.8|46.8
+SCOPER,main,behavior,RynnBrain11-9B,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,4.8|21.0|21.7|39.9|52.8
+SCOPER,main,behavior,Molmo2-ER-4B,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,0.0|28.5|13.1|40.4|46.7
+SCOPER,main,behavior,Molmo2-ER-4B,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,3.3|5.4|11.5|41.3|67.3
+SCOPER,main,behavior,Molmo2-ER-4B,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,13.1|21.9|18.1|50.3|33.3
+SCOPER,main,behavior,Molmo2-ER-4B,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,0.0|22.0|5.5|12.8|29.0
+SCOPER,main,behavior,Molmo2-ER-4B,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,4.8|20.0|12.5|37.0|44.4
+SCOPER,main,behavior,Qwen3.5-9B,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,5.0|35.7|25.6|47.1|60.7
+SCOPER,main,behavior,Qwen3.5-9B,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,15.6|19.8|33.0|46.7|66.1
+SCOPER,main,behavior,Qwen3.5-9B,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,15.4|24.9|35.8|49.5|43.8
+SCOPER,main,behavior,Qwen3.5-9B,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,0.0|25.0|13.2|15.4|56.5
+SCOPER,main,behavior,Qwen3.5-9B,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,9.3|26.4|27.4|40.2|55.1
+SCOPER,main,behavior,Qwen3.5-9B + harness,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,28.0|58.9|54.0|68.5|56.7
+SCOPER,main,behavior,Qwen3.5-9B + harness,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,30.0|41.0|53.6|68.5|74.3
+SCOPER,main,behavior,Qwen3.5-9B + harness,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,50.8|60.9|67.1|71.0|65.0
+SCOPER,main,behavior,Qwen3.5-9B + harness,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,22.0|56.1|41.7|33.0|59.6
+SCOPER,main,behavior,Qwen3.5-9B + harness,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,34.1|55.0|55.0|60.8|64.2
+SCOPER,main,behavior,Qwen3.8-27B,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,13.0|44.5|43.2|60.9|49.2
+SCOPER,main,behavior,Qwen3.8-27B,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,14.4|28.7|46.7|65.6|62.4
+SCOPER,main,behavior,Qwen3.8-27B,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,20.8|39.4|55.1|75.8|50.0
+SCOPER,main,behavior,Qwen3.8-27B,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,9.0|46.2|35.8|42.3|82.5
+SCOPER,main,behavior,Qwen3.8-27B,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,14.8|39.9|45.9|62.1|57.9
+SCOPER,main,behavior,Qwen3.8-27B + harness,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,36.0|68.7|66.8|78.0|52.4
+SCOPER,main,behavior,Qwen3.8-27B + harness,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,34.4|50.6|64.1|80.9|78.1
+SCOPER,main,behavior,Qwen3.8-27B + harness,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,65.4|75.8|81.2|83.0|69.6
+SCOPER,main,behavior,Qwen3.8-27B + harness,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,30.0|70.3|55.3|43.8|63.5
+SCOPER,main,behavior,Qwen3.8-27B + harness,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,43.3|67.4|67.9|72.0|66.2
+SCOPER,main,procthor,GPT-6 Astra,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,35.4|75.7|68.8|79.0|60.5
+SCOPER,main,procthor,GPT-6 Astra,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,41.1|66.4|74.1|82.0|68.4
+SCOPER,main,procthor,GPT-6 Astra,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,43.9|69.6|78.8|80.9|59.7
+SCOPER,main,procthor,GPT-6 Astra,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,18.0|67.3|50.8|52.3|65.6
+SCOPER,main,procthor,GPT-6 Astra,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,35.1|70.2|68.7|74.2|62.7
+SCOPER,main,procthor,Gemini-3.8-flash,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,20.8|47.1|42.4|49.1|37.4
+SCOPER,main,procthor,Gemini-3.8-flash,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,25.6|43.8|49.6|55.3|45.4
+SCOPER,main,procthor,Gemini-3.8-flash,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,27.7|43.5|49.0|49.3|39.7
+SCOPER,main,procthor,Gemini-3.8-flash,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,14.0|49.7|37.5|38.8|48.2
+SCOPER,main,procthor,Gemini-3.8-flash,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,22.2|46.0|44.7|48.1|41.8
+SCOPER,main,procthor,Embodied-R1.5,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,3.9|34.1|15.7|36.0|63.5
+SCOPER,main,procthor,Embodied-R1.5,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,15.6|18.3|32.9|42.0|69.2
+SCOPER,main,procthor,Embodied-R1.5,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,7.7|21.7|30.4|59.0|58.9
+SCOPER,main,procthor,Embodied-R1.5,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,1.0|29.1|12.8|19.4|30.4
+SCOPER,main,procthor,Embodied-R1.5,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,6.7|26.2|22.7|40.2|59.1
+SCOPER,main,procthor,RoboBrain2.5-8B,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,1.5|26.9|11.8|21.5|46.3
+SCOPER,main,procthor,RoboBrain2.5-8B,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,10.0|14.4|21.7|25.9|60.6
+SCOPER,main,procthor,RoboBrain2.5-8B,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,9.2|22.7|24.8|40.7|44.2
+SCOPER,main,procthor,RoboBrain2.5-8B,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,3.0|28.7|16.2|19.4|55.4
+SCOPER,main,procthor,RoboBrain2.5-8B,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,5.8|23.6|18.5|27.5|49.4
+SCOPER,main,procthor,RynnBrain11-9B,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,2.3|33.1|16.7|35.2|51.5
+SCOPER,main,procthor,RynnBrain11-9B,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,7.8|12.8|18.5|32.6|60.2
+SCOPER,main,procthor,RynnBrain11-9B,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,2.3|24.6|20.9|35.5|38.2
+SCOPER,main,procthor,RynnBrain11-9B,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,0.0|26.4|13.2|18.3|52.8
+SCOPER,main,procthor,RynnBrain11-9B,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,2.9|25.1|17.5|31.0|49.0
+SCOPER,main,procthor,Molmo2-ER-4B,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,0.0|28.7|7.3|16.3|58.1
+SCOPER,main,procthor,Molmo2-ER-4B,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,1.1|5.6|4.8|12.9|51.5
+SCOPER,main,procthor,Molmo2-ER-4B,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,0.8|14.6|5.8|23.5|28.9
+SCOPER,main,procthor,Molmo2-ER-4B,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,0.0|18.9|2.5|5.5|25.0
+SCOPER,main,procthor,Molmo2-ER-4B,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,0.4|17.8|5.3|15.4|41.3
+SCOPER,main,procthor,Qwen3.5-9B,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,0.8|34.1|25.8|44.1|55.4
+SCOPER,main,procthor,Qwen3.5-9B,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,18.9|25.6|40.9|50.6|62.8
+SCOPER,main,procthor,Qwen3.5-9B,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,8.5|29.2|43.6|64.5|44.9
+SCOPER,main,procthor,Qwen3.5-9B,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,2.0|35.8|23.5|31.1|75.6
+SCOPER,main,procthor,Qwen3.5-9B,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,6.9|31.4|33.4|48.5|55.7
+SCOPER,main,procthor,Qwen3.5-9B + harness,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,20.8|59.1|51.9|65.6|58.2
+SCOPER,main,procthor,Qwen3.5-9B + harness,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,32.2|49.6|60.8|69.5|66.1
+SCOPER,main,procthor,Qwen3.5-9B + harness,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,30.0|53.5|64.7|74.3|54.5
+SCOPER,main,procthor,Qwen3.5-9B + harness,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,12.0|54.6|39.7|43.7|69.8
+SCOPER,main,procthor,Qwen3.5-9B + harness,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,23.8|54.6|54.7|64.1|60.3
+SCOPER,main,procthor,Qwen3.8-27B,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,16.2|50.2|46.5|65.6|64.8
+SCOPER,main,procthor,Qwen3.8-27B,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,30.0|44.2|54.0|71.0|79.0
+SCOPER,main,procthor,Qwen3.8-27B,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,26.2|46.7|57.4|72.3|52.7
+SCOPER,main,procthor,Qwen3.8-27B,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,13.0|57.4|48.1|55.7|83.9
+SCOPER,main,procthor,Qwen3.8-27B,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,21.1|49.6|51.5|66.4|67.4
+SCOPER,main,procthor,Qwen3.8-27B + harness,Routine Execution,SR|Progress|Coverage|QA_trigger|QA_accuracy,33.1|71.1|64.6|76.5|61.7
+SCOPER,main,procthor,Qwen3.8-27B + harness,Observation-dependent,SR|Progress|Coverage|QA_trigger|QA_accuracy,37.8|61.5|70.0|79.8|70.4
+SCOPER,main,procthor,Qwen3.8-27B + harness,Failure Recovery,SR|Progress|Coverage|QA_trigger|QA_accuracy,39.2|64.7|74.4|79.1|58.5
+SCOPER,main,procthor,Qwen3.8-27B + harness,Composite,SR|Progress|Coverage|QA_trigger|QA_accuracy,17.0|65.3|50.3|53.0|69.6
+SCOPER,main,procthor,Qwen3.8-27B + harness,Overall,SR|Progress|Coverage|QA_trigger|QA_accuracy,32.2|66.1|65.4|72.7|63.8

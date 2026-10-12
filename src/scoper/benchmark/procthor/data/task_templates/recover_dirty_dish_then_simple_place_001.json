@@ -1,0 +1,151 @@
+{
+    "template_id": "recover_dirty_dish_then_simple_place_001",
+    "template_version": "0.1",
+    "category": "recover_and_store_incident_object",
+    "description": "Place a primary object while incidentally washing and storing a dirty dish discovered en route.",
+    "family_spec_template": {
+        "family": "recover_and_store_incident_object",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "primary_receptacle"
+        },
+        "recover": {
+            "primary_task": {
+                "type": "simple_place",
+                "object_role": "primary_object",
+                "receptacle_role": "primary_receptacle"
+            },
+            "incident": {
+                "id": "incident_0",
+                "type": "dirty_dish_on_floor_or_surface",
+                "object_role": "incident_dish",
+                "support_roles": {
+                    "sink": "incident_sink",
+                    "faucet": "incident_faucet",
+                    "storage": "incident_storage"
+                },
+                "urgency": "before_stop",
+                "activation": {
+                    "type": "visual_discovery",
+                    "expected_visibility": "navigation_stream_or_scan",
+                    "initially_visible": false
+                },
+                "policy_text": "if you notice dirty dishes, wash them and put them away"
+            }
+        }
+    },
+    "requires": {
+        "primary_object": {
+            "taxonomy_group": "pickupable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true
+        },
+        "primary_receptacle": {
+            "taxonomy_group": "place_receptacles",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true,
+            "different_from": [
+                "primary_object"
+            ]
+        },
+        "incident_dish": {
+            "taxonomy_group": "dirtyable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "different_from": [
+                "primary_object",
+                "primary_receptacle"
+            ],
+            "same_room_as": "primary_receptacle",
+            "visible_from_initial_pose": false,
+            "relocate_if": {
+                "modes": [
+                    "near_primary_object_floor"
+                ],
+                "to_floor_anchor_role": "primary_object",
+                "validation": "interactable_poses",
+                "fallback_to": null
+            }
+        },
+        "incident_dish_relocate_target": {
+            "taxonomy_group": "open_surface_receptacles",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true,
+            "same_room_as": "primary_receptacle",
+            "relocate_target_only": true,
+            "optional": true
+        },
+        "incident_sink": {
+            "taxonomy_group": "sink_basins",
+            "must_be_receptacle": true
+        },
+        "incident_faucet": {
+            "taxonomy_group": "faucets",
+            "must_be_toggleable": true,
+            "parent_of_role_base": "incident_sink"
+        },
+        "incident_storage": {
+            "taxonomy_group": "dishware_storage",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true,
+            "different_from": [
+                "primary_receptacle"
+            ]
+        }
+    },
+    "initial_state_constraints": [
+        {
+            "type": "object_dirty",
+            "object_role": "incident_dish"
+        }
+    ],
+    "goal_predicates": [
+        {
+            "type": "object_in_receptacle",
+            "object_role": "primary_object",
+            "receptacle_role": "primary_receptacle"
+        },
+        {
+            "type": "object_clean",
+            "object_role": "incident_dish"
+        },
+        {
+            "type": "object_in_receptacle",
+            "object_role": "incident_dish",
+            "receptacle_role": "incident_storage"
+        },
+        {
+            "type": "object_closed",
+            "object_role": "incident_storage",
+            "include_if": {
+                "role": "incident_storage",
+                "field": "openable",
+                "equals": true
+            }
+        },
+        {
+            "type": "object_closed",
+            "object_role": "primary_receptacle",
+            "include_if": {
+                "role": "primary_receptacle",
+                "field": "openable",
+                "equals": true
+            }
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Put the {primary_object} on or in the {primary_receptacle}. While working, keep the home tidy and safe: if you notice dirty dishes, wash them and put them away. Make sure everything is handled before you stop."
+    ],
+    "expected_events": [
+        "recover_incident_dirty_dish"
+    ],
+    "expected_brain_behaviors": [
+        "complete_primary_task",
+        "discover_incident_via_streaming",
+        "wash_and_store_incident_dish_before_stop"
+    ]
+}

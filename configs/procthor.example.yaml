@@ -1,0 +1,6 @@
+# Copy to an untracked file. Paths resolve relative to this YAML.
+resource_root: ..
+procthor_prior_home: /path/to/procthor-cache
+procthor_executable: /path/to/thor-CloudRendering-f0825767cd50d69f666c7f282e54abfe58f1e917
+model: /path/to/models/Qwen3.5-9B
+cache_root: /path/to/scoper-cache/procthor

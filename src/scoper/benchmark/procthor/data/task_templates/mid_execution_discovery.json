@@ -1,0 +1,38 @@
+{
+  "template_id": "mid_execution_discovery_place_001",
+  "template_version": "0.1",
+  "category": "mid_execution_discovery",
+  "description": "Target object is initially not visible and should become task-relevant during execution.",
+  "requires": {
+    "target_object": {
+      "taxonomy_group": "pickupable_task_objects",
+      "must_be_pickupable": true,
+      "must_not_be_visible_from_start": true
+    },
+    "target_receptacle": {
+      "taxonomy_group": "place_receptacles",
+      "must_be_receptacle": true,
+      "different_from": ["target_object"]
+    }
+  },
+  "initial_state_constraints": [
+    {
+      "type": "object_not_in_receptacle",
+      "object_role": "target_object",
+      "receptacle_role": "target_receptacle"
+    }
+  ],
+  "goal_predicates": [
+    {
+      "type": "object_in_receptacle",
+      "object_role": "target_object",
+      "receptacle_role": "target_receptacle"
+    }
+  ],
+  "instruction_templates": [
+    "Find the {target_object} and put it in the {target_receptacle}.",
+    "Move the {target_object} to the {target_receptacle} once you find it."
+  ],
+  "expected_events": ["target_first_visible"],
+  "expected_brain_behaviors": ["notice_new_evidence", "revise_current_skill"]
+}

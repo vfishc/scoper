@@ -1,0 +1,141 @@
+{
+  "backend": "procthor",
+  "category": "observation_conditioned_container_inspection",
+  "conditional_storage_policy": {
+    "cabinet_role": "cabinet",
+    "dishware_types": [
+      "Bowl",
+      "Cup",
+      "Mug",
+      "Plate"
+    ],
+    "expected_branch": "no_dishware",
+    "initial_state": "closed",
+    "mandatory_observation_gate": false,
+    "schema_version": "conditional-storage-policy.v1"
+  },
+  "goal": {
+    "predicates": [
+      {
+        "object_role": "cabinet",
+        "type": "object_open"
+      }
+    ],
+    "require_model_stop": true,
+    "type": "predicate"
+  },
+  "id": "procthor-example-04",
+  "init": {
+    "agent_pose": {
+      "horizon": 0.0,
+      "position": {
+        "x": 2.25,
+        "y": 0.9009997844696045,
+        "z": 2.5
+      },
+      "rotation": {
+        "y": 0.0
+      }
+    },
+    "object_pose_overrides": [],
+    "object_state_overrides": [
+      {
+        "is_open": false,
+        "object_role": "cabinet",
+        "type": "set_open_state"
+      }
+    ]
+  },
+  "instruction": "Inspect the cabinet. Open it to check its contents. If it contains dishware (cups, mugs, bowls, or plates), close it; otherwise, leave it open.",
+  "online_requirements": {
+    "expected_brain_behaviors": [],
+    "expected_events": []
+  },
+  "qa_overlay": {
+    "questions": [
+      {
+        "activation": {
+          "target_role_or_null": "cabinet",
+          "tool_name": "navigate_to",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_01",
+        "question": "What was the outcome of navigating to cabinet?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": null,
+          "tool_name": "scan",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_02",
+        "question": "What was the outcome of scanning the scene?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      }
+    ],
+    "schema_version": "qa_overlay.v1"
+  },
+  "roles": {
+    "cabinet": {
+      "object_id": "Dresser|4|1___3",
+      "object_type": "Cabinet"
+    }
+  },
+  "source": {
+    "house_id": "train_009830",
+    "house_path": "prior://procthor-10k/train/9830",
+    "split": "train"
+  },
+  "template": {
+    "template_id": "inspect_and_restore_storage_container_001",
+    "template_version": "1.0"
+  },
+  "version": "0.1",
+  "task_binding_spec": {
+    "schema_version": "task-binding-spec.v1",
+    "task_id": "procthor-example-04",
+    "task_spec_sha256": "1c053e425ff84fa0422155c065a327784a18d05f1a5ccd1697005088acff75f8",
+    "compiler_version": "task-binding-compiler.v12",
+    "roles": {
+      "cabinet": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "cabinet",
+          "storage cabinet"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      }
+    },
+    "collections": {}
+  }
+}

@@ -1,0 +1,38 @@
+template_id: put_away_by_category_001
+template_version: "1.0"
+category: static_simple
+description: "Put away all objects of a category into a container (forall quantifier)."
+# Quantifier (forall) template: the goal ranges over every object of the category, so it
+# needs a bddl_goal tree, not flat predicates. Generation of quantifier tasks is deferred
+# to Stage 5 (ledger D14); generate_task_bank skips templates with requires_bddl_goal.
+requires_bddl_goal: true
+
+roles:
+  target_object:
+    abilities_required: ["rigidBody"]
+    default_extent: [0.15, 0.15, 0.15]
+  target_container:
+    abilities_required: ["openable"]
+    different_from: ["target_object"]
+    default_extent: [0.70, 0.70, 1.60]
+
+init_constraints:
+  - predicate: open
+    args: [target_container]
+    negate: true
+
+# forall x of category(target_object): inside(x, target_container)
+bddl_goal:
+  forall:
+    category: target_object
+    predicate:
+      type: object_in_receptacle
+      args: {object: target_object, receptacle: target_container}
+
+goal_predicates:
+  - type: object_in_receptacle
+    args: {object: target_object, receptacle: target_container}
+
+instruction_templates:
+  - "Put away all the {target_object}s into the {target_container}."
+  - "Store every {target_object} in the {target_container}."

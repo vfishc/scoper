@@ -1,0 +1,31 @@
+{
+  "schema_version": "conditional-template-definition.v1",
+  "template_id": "inspect_and_restore_storage_container_001",
+  "template_version": "1.0",
+  "category": "observation_conditioned_container_inspection",
+  "title": "Inspect and Restore a Storage Container",
+  "backends": [
+    "procthor",
+    "behavior"
+  ],
+  "initial_cabinet_open": false,
+  "dishware_types": [
+    "Cup",
+    "Mug",
+    "Bowl",
+    "Plate"
+  ],
+  "conditional_goal": {
+    "contains_dishware": "object_closed(cabinet)",
+    "otherwise": "object_open(cabinet)"
+  },
+  "require_model_stop": true,
+  "mandatory_observation_gate": false,
+  "quota_per_backend": {
+    "dishware": 5,
+    "no_dishware": 5
+  },
+  "initial_contents_admission": "validate full initialized scene, including native background objects",
+  "visual_admission": "dishware must be visible after cabinet opening; rendered segmentation for BEHAVIOR",
+  "qa_policy": "2-3 post_action_outcome_choice questions, no branch-revealing remaining-requirement questions"
+}

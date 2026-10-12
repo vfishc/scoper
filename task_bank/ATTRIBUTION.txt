@@ -1,0 +1,12 @@
+SCOPER task bank
+Towards a Systematic Study of Embodied System 2 over Full Task Execution Cycles
+Creators: Yuxi Wei, Ye Fang, Shuai Yang, Tong Wu, Tai Wang, Xiaojuan Qi
+Copyright (c) 2026 SCOPER contributors
+Project: https://vfishc.github.io/scoper/
+Dataset: https://huggingface.co/datasets/vfishc/SCOPER
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+
+Applies to SCOPER-authored task configurations and accompanying generated data.
+Third-party simulator assets and code retain their respective terms.
+Retain attribution, provide the license link, and indicate any modifications.

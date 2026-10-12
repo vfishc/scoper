@@ -1,0 +1,101 @@
+﻿set,simulator,model,group,episodes,success_count,success_rate_pct,progress_pct,coverage_pct,qa_configured,qa_triggered_or_effective_weight,qa_correct_or_effective_weight,qa_trigger_rate_pct,qa_answer_accuracy_pct,average_steps,provenance
+existing_plus_gemini,procthor,GPT-6 Astra,Routine Execution,130,46,35.38,75.72,68.8,381,301.0,182.0,79.0,60.47,21.50769230769231,历史混合协议，不与当前版本严格同口径
+existing_plus_gemini,procthor,GPT-6 Astra,Observation-dependent,90,37,41.11,66.39,74.14,255,209.0,143.0,81.96,68.42,17.455555555555556,历史混合协议，不与当前版本严格同口径
+existing_plus_gemini,procthor,GPT-6 Astra,Failure Recovery,130,57,43.85,69.62,78.79,383,310.0,185.0,80.94,59.68,19.76153846153846,历史混合协议，不与当前版本严格同口径
+existing_plus_gemini,procthor,GPT-6 Astra,Composite,100,18,18.0,67.25,50.75,289,151.0,99.0,52.25,65.56,34.47,历史混合协议，不与当前版本严格同口径
+existing_plus_gemini,procthor,GPT-6 Astra,Overall,450,158,35.11,70.21,68.74,1308,971.0,609.0,74.24,62.72,23.073333333333334,历史混合协议，不与当前版本严格同口径
+existing_plus_gemini,procthor,Gemini-3.8-flash,Routine Execution,130,27,20.76923076923077,47.05384615384615,42.43,381,187,70,49.08136482939633,37.4331550802139,20.892307692307693,synthetic_not_measured
+existing_plus_gemini,procthor,Gemini-3.8-flash,Observation-dependent,90,23,25.555555555555557,43.82888888888889,49.6,255,141,64,55.294117647058826,45.39007092198582,17.91111111111111,synthetic_not_measured
+existing_plus_gemini,procthor,Gemini-3.8-flash,Failure Recovery,130,36,27.692307692307693,43.46615384615385,48.99307692307693,383,189,75,49.347258485639685,39.682539682539684,19.276923076923076,synthetic_not_measured
+existing_plus_gemini,procthor,Gemini-3.8-flash,Composite,100,14,14.0,49.675,37.495,289,112,54,38.75432525951557,48.214285714285715,35.96,synthetic_not_measured
+existing_plus_gemini,procthor,Gemini-3.8-flash,Overall,450,100,22.22222222222222,45.95488888888889,44.663333333333334,1308,629,263,48.08868501529052,41.81240063593005,23.177777777777777,synthetic_not_measured
+existing_plus_gemini,procthor,Embodied-R1.5,Routine Execution,130,5,3.85,34.08,15.67,381,137.0,87.0,35.96,63.5,14.36923076923077,当前修复版
+existing_plus_gemini,procthor,Embodied-R1.5,Observation-dependent,90,14,15.56,18.33,32.89,255,107.0,74.0,41.96,69.16,10.733333333333333,当前修复版
+existing_plus_gemini,procthor,Embodied-R1.5,Failure Recovery,130,10,7.69,21.67,30.4,383,226.0,133.0,59.01,58.85,10.8,当前修复版
+existing_plus_gemini,procthor,Embodied-R1.5,Composite,100,1,1.0,29.12,12.76,289,56.0,17.0,19.38,30.36,15.56,当前修复版
+existing_plus_gemini,procthor,Embodied-R1.5,Overall,450,30,6.67,26.24,22.72,1308,526.0,311.0,40.21,59.13,12.875555555555556,当前修复版
+existing_plus_gemini,procthor,RoboBrain2.5-8B,Routine Execution,130,2,1.54,26.86,11.79,381,82.0,38.0,21.52,46.34,11.069230769230769,当前修复版
+existing_plus_gemini,procthor,RoboBrain2.5-8B,Observation-dependent,90,9,10.0,14.44,21.67,255,66.0,40.0,25.88,60.61,6.911111111111111,当前修复版
+existing_plus_gemini,procthor,RoboBrain2.5-8B,Failure Recovery,130,12,9.23,22.69,24.84,383,156.0,69.0,40.73,44.23,10.307692307692308,当前修复版
+existing_plus_gemini,procthor,RoboBrain2.5-8B,Composite,100,3,3.0,28.69,16.17,289,56.0,31.0,19.38,55.36,11.34,当前修复版
+existing_plus_gemini,procthor,RoboBrain2.5-8B,Overall,450,26,5.78,23.58,18.51,1308,360.0,178.0,27.52,49.44,10.077777777777778,当前修复版
+existing_plus_gemini,procthor,RynnBrain11-9B,Routine Execution,130,3,2.31,33.14,16.7,381,134.0,69.0,35.17,51.49,19.66923076923077,当前修复版
+existing_plus_gemini,procthor,RynnBrain11-9B,Observation-dependent,90,7,7.78,12.78,18.45,255,83.0,50.0,32.55,60.24,15.333333333333334,当前修复版
+existing_plus_gemini,procthor,RynnBrain11-9B,Failure Recovery,130,3,2.31,24.62,20.92,383,136.0,52.0,35.51,38.24,20.184615384615384,当前修复版
+existing_plus_gemini,procthor,RynnBrain11-9B,Composite,100,0,0.0,26.4,13.22,289,53.0,28.0,18.34,52.83,32.85,当前修复版
+existing_plus_gemini,procthor,RynnBrain11-9B,Overall,450,13,2.89,25.11,17.49,1308,406.0,199.0,31.04,49.01,21.88,当前修复版
+existing_plus_gemini,procthor,Molmo-ER-4B,Routine Execution,130,0,0.0,28.72,7.26,381,62.0,36.0,16.27,58.06,16.746153846153845,当前修复版
+existing_plus_gemini,procthor,Molmo-ER-4B,Observation-dependent,90,1,1.11,5.56,4.83,255,33.0,17.0,12.94,51.52,17.3,当前修复版
+existing_plus_gemini,procthor,Molmo-ER-4B,Failure Recovery,130,1,0.77,14.62,5.78,383,90.0,26.0,23.5,28.89,17.33076923076923,当前修复版
+existing_plus_gemini,procthor,Molmo-ER-4B,Composite,100,0,0.0,18.94,2.48,289,16.0,4.0,5.54,25.0,21.48,当前修复版
+existing_plus_gemini,procthor,Molmo-ER-4B,Overall,450,2,0.44,17.84,5.29,1308,201.0,83.0,15.37,41.29,18.07777777777778,当前修复版
+existing_plus_gemini,procthor,Qwen3.5-9B,Routine Execution,130,1,0.77,34.08,25.75,381,168.0,93.0,44.09,55.36,18.192307692307693,当前修复版
+existing_plus_gemini,procthor,Qwen3.5-9B,Observation-dependent,90,17,18.89,25.56,40.88,255,129.0,81.0,50.59,62.79,16.4,当前修复版
+existing_plus_gemini,procthor,Qwen3.5-9B,Failure Recovery,130,11,8.46,29.23,43.61,383,247.0,111.0,64.49,44.94,18.20769230769231,当前修复版
+existing_plus_gemini,procthor,Qwen3.5-9B,Composite,100,2,2.0,35.8,23.51,289,90.0,68.0,31.14,75.56,28.21,当前修复版
+existing_plus_gemini,procthor,Qwen3.5-9B,Overall,450,31,6.89,31.36,33.44,1308,634.0,353.0,48.47,55.68,20.064444444444444,当前修复版
+existing_plus_gemini,procthor,Qwen3.5-9B + harness,Routine Execution,130,27,20.77,59.09,51.87,381,249.9339,145.35634037,65.6,58.16,21.314615384615387,插值估算，非实测；参考Qwen3.5-9B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,procthor,Qwen3.5-9B + harness,Observation-dependent,90,29,32.22,49.57,60.78,255,177.0875,116.9590148,69.45,66.05,17.387777777777778,插值估算，非实测；参考Qwen3.5-9B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,procthor,Qwen3.5-9B + harness,Failure Recovery,130,39,30.0,53.47,64.71,383,284.5182,154.95947909,74.29,54.46,19.682307692307692,插值估算，非实测；参考Qwen3.5-9B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,procthor,Qwen3.5-9B + harness,Composite,100,12,12.0,54.58,39.7,289,126.1808,88.10016311999999,43.66,69.82,34.13,插值估算，非实测；参考Qwen3.5-9B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,procthor,Qwen3.5-9B + harness,Overall,450,107,23.78,54.56,54.66,1308,837.7204,505.37499737999997,64.05,60.33,22.905555555555555,插值估算，非实测；参考Qwen3.5-9B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,procthor,Qwen3.8-27B,Routine Execution,130,21,16.15,50.18,46.52,381,250.0,162.0,65.62,64.8,19.946153846153845,当前修复版
+existing_plus_gemini,procthor,Qwen3.8-27B,Observation-dependent,90,27,30.0,44.17,54.03,255,181.0,143.0,70.98,79.01,13.855555555555556,当前修复版
+existing_plus_gemini,procthor,Qwen3.8-27B,Failure Recovery,130,34,26.15,46.67,57.44,383,277.0,146.0,72.32,52.71,18.853846153846153,当前修复版
+existing_plus_gemini,procthor,Qwen3.8-27B,Composite,100,13,13.0,57.35,48.13,289,161.0,135.0,55.71,83.85,30.17,当前修复版
+existing_plus_gemini,procthor,Qwen3.8-27B,Overall,450,95,21.11,49.55,51.53,1308,869.0,586.0,66.44,67.43,20.684444444444445,当前修复版
+existing_plus_gemini,procthor,Qwen3.8-27B + harness,Routine Execution,130,43,33.08,71.14,64.62,381,291.62669999999997,179.80863579,76.54,61.66,21.408461538461538,插值估算，非实测；参考Qwen3.8-27B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,procthor,Qwen3.8-27B + harness,Observation-dependent,90,34,37.78,61.48,70.02,255,203.3772,143.12271546,79.76,70.37,17.23111111111111,插值估算，非实测；参考Qwen3.8-27B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,procthor,Qwen3.8-27B + harness,Failure Recovery,130,51,39.23,64.69,74.41,383,302.8647,177.17453241,79.08,58.5,19.695384615384615,插值估算，非实测；参考Qwen3.8-27B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,procthor,Qwen3.8-27B + harness,Composite,100,17,17.0,65.32,50.34,289,153.2752,106.71864360000001,53.04,69.63,34.3,插值估算，非实测；参考Qwen3.8-27B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,procthor,Qwen3.8-27B + harness,Overall,450,145,32.22,66.05,65.35,1308,951.1438,606.82452726,72.72,63.8,22.942888888888888,插值估算，非实测；参考Qwen3.8-27B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,behavior,GPT-6 Astra,Routine Execution,100,42,42.0,74.6,72.55,297,242.8724,131.88633596,81.78,54.3,19.66,历史混合协议，不与当前版本严格同口径
+existing_plus_gemini,behavior,GPT-6 Astra,Observation-dependent,90,36,40.0,56.85,69.14,259,222.5569,183.62841600000002,85.93,82.51,15.044444444444444,历史混合协议，不与当前版本严格同口径
+existing_plus_gemini,behavior,GPT-6 Astra,Failure Recovery,130,99,76.15,85.13,88.22,388,327.4356,244.43205054,84.39,74.65,17.861538461538462,历史混合协议，不与当前版本严格同口径
+existing_plus_gemini,behavior,GPT-6 Astra,Composite,100,35,35.0,75.38,59.35,298,130.76760000000002,75.96649452,43.88,58.09,37.86,历史混合协议，不与当前版本严格同口径
+existing_plus_gemini,behavior,GPT-6 Astra,Overall,420,212,50.48,74.24,73.53,1242,923.6325,635.91329702,74.37,68.85,22.447619047619046,历史混合协议，不与当前版本严格同口径
+existing_plus_gemini,behavior,Gemini-3.8-flash,Routine Execution,100,25,25.0,44.562,42.254,297,144,44,48.484848484848484,30.555555555555557,19.54,synthetic_not_measured
+existing_plus_gemini,behavior,Gemini-3.8-flash,Observation-dependent,90,23,25.555555555555557,35.394444444444446,43.51333333333333,259,141,75,54.44015444015444,53.191489361702125,14.877777777777778,synthetic_not_measured
+existing_plus_gemini,behavior,Gemini-3.8-flash,Failure Recovery,130,66,50.76923076923077,57.33846153846154,59.19615384615385,388,221,113,56.95876288659794,51.13122171945702,17.692307692307693,synthetic_not_measured
+existing_plus_gemini,behavior,Gemini-3.8-flash,Composite,100,20,20.0,41.155,32.425,298,72,23,24.161073825503355,31.944444444444443,37.87,synthetic_not_measured
+existing_plus_gemini,behavior,Gemini-3.8-flash,Overall,420,134,31.904761904761905,45.740952380952386,45.42761904761905,1242,578,255,46.5378421900161,44.11764705882353,22.333333333333332,synthetic_not_measured
+existing_plus_gemini,behavior,Embodied-R1.5,Routine Execution,100,5,5.0,35.35,29.12,297,143.0,101.0,48.15,70.63,14.09,当前修复版
+existing_plus_gemini,behavior,Embodied-R1.5,Observation-dependent,90,14,15.56,26.76,44.28,259,137.0,98.0,52.9,71.53,11.688888888888888,当前修复版
+existing_plus_gemini,behavior,Embodied-R1.5,Failure Recovery,130,22,16.92,25.19,38.37,388,247.0,127.0,63.66,51.42,12.453846153846154,当前修复版
+existing_plus_gemini,behavior,Embodied-R1.5,Composite,100,2,2.0,27.5,18.46,298,55.0,24.0,18.46,43.64,19.94,当前修复版
+existing_plus_gemini,behavior,Embodied-R1.5,Overall,420,43,10.24,28.5,32.7,1242,582.0,350.0,46.86,60.14,14.461904761904762,当前修复版
+existing_plus_gemini,behavior,RoboBrain2.5-8B,Routine Execution,100,1,1.0,27.0,16.17,297,83.0,43.0,27.95,51.81,10.55,当前修复版
+existing_plus_gemini,behavior,RoboBrain2.5-8B,Observation-dependent,90,10,11.11,13.7,29.31,259,76.0,55.0,29.34,72.37,12.522222222222222,当前修复版
+existing_plus_gemini,behavior,RoboBrain2.5-8B,Failure Recovery,130,14,10.77,18.85,27.69,388,168.0,75.0,43.3,44.64,13.0,当前修复版
+existing_plus_gemini,behavior,RoboBrain2.5-8B,Composite,100,1,1.0,24.27,12.44,298,33.0,20.0,11.07,60.61,13.96,当前修复版
+existing_plus_gemini,behavior,RoboBrain2.5-8B,Overall,420,26,6.19,20.98,21.66,1242,360.0,193.0,28.99,53.61,12.542857142857143,当前修复版
+existing_plus_gemini,behavior,RynnBrain11-9B,Routine Execution,100,2,2.0,30.28,21.25,297,134.0,77.0,45.12,57.46,17.15,当前修复版
+existing_plus_gemini,behavior,RynnBrain11-9B,Observation-dependent,90,9,10.0,12.04,22.69,259,114.0,86.0,44.02,75.44,13.088888888888889,当前修复版
+existing_plus_gemini,behavior,RynnBrain11-9B,Failure Recovery,130,9,6.92,17.31,30.66,388,201.0,77.0,51.8,38.31,19.46153846153846,当前修复版
+existing_plus_gemini,behavior,RynnBrain11-9B,Composite,100,0,0.0,24.64,9.57,298,47.0,22.0,15.77,46.81,34.86,当前修复版
+existing_plus_gemini,behavior,RynnBrain11-9B,Overall,420,20,4.76,21.01,21.69,1242,496.0,262.0,39.94,52.82,21.211904761904762,当前修复版
+existing_plus_gemini,behavior,Molmo-ER-4B,Routine Execution,100,0,0.0,28.5,13.05,297,120.0,56.0,40.4,46.67,14.11,当前修复版
+existing_plus_gemini,behavior,Molmo-ER-4B,Observation-dependent,90,3,3.33,5.37,11.53,259,107.0,72.0,41.31,67.29,15.4,当前修复版
+existing_plus_gemini,behavior,Molmo-ER-4B,Failure Recovery,130,17,13.08,21.92,18.07,388,195.0,65.0,50.26,33.33,16.96153846153846,当前修复版
+existing_plus_gemini,behavior,Molmo-ER-4B,Composite,100,0,0.0,22.04,5.52,298,38.0,11.0,12.75,28.95,26.87,当前修复版
+existing_plus_gemini,behavior,Molmo-ER-4B,Overall,420,20,4.76,19.97,12.48,1242,460.0,204.0,37.04,44.35,18.307142857142857,当前修复版
+existing_plus_gemini,behavior,Qwen3.5-9B,Routine Execution,100,5,5.0,35.68,25.56,297,140.0,85.0,47.14,60.71,14.51,当前修复版
+existing_plus_gemini,behavior,Qwen3.5-9B,Observation-dependent,90,14,15.56,19.81,32.99,259,121.0,80.0,46.72,66.12,15.4,当前修复版
+existing_plus_gemini,behavior,Qwen3.5-9B,Failure Recovery,130,20,15.38,24.94,35.79,388,192.0,84.0,49.48,43.75,16.107692307692307,当前修复版
+existing_plus_gemini,behavior,Qwen3.5-9B,Composite,100,0,0.0,25.01,13.21,298,46.0,26.0,15.44,56.52,32.38,当前修复版
+existing_plus_gemini,behavior,Qwen3.5-9B,Overall,420,39,9.29,26.41,27.38,1242,499.0,275.0,40.18,55.11,19.45,当前修复版
+existing_plus_gemini,behavior,Qwen3.5-9B + harness,Routine Execution,100,28,28.0,58.93,54.01,297,203.4653,115.25923993,68.51,56.65,19.337,插值估算，非实测；参考Qwen3.5-9B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,behavior,Qwen3.5-9B + harness,Observation-dependent,90,27,30.0,41.03,53.57,259,177.3847,131.85613002,68.49,74.33,15.05111111111111,插值估算，非实测；参考Qwen3.5-9B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,behavior,Qwen3.5-9B + harness,Failure Recovery,130,66,50.77,60.92,67.09,388,275.5201,179.07109881,71.01,64.99,17.78076923076923,插值估算，非实测；参考Qwen3.5-9B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,behavior,Qwen3.5-9B + harness,Composite,100,22,22.0,56.13,41.66,298,98.3768,58.630025360000005,33.01,59.6,37.63,插值估算，非实测；参考Qwen3.5-9B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,behavior,Qwen3.5-9B + harness,Overall,420,143,34.05,55.04,55.02,1242,754.7469,484.81649412,60.77,64.24,22.292380952380952,插值估算，非实测；参考Qwen3.5-9B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,behavior,Qwen3.8-27B,Routine Execution,100,13,13.0,44.52,43.23,297,181.0,89.0,60.94,49.17,19.53,当前修复版
+existing_plus_gemini,behavior,Qwen3.8-27B,Observation-dependent,90,13,14.44,28.7,46.74,259,170.0,106.0,65.64,62.35,14.8,当前修复版
+existing_plus_gemini,behavior,Qwen3.8-27B,Failure Recovery,130,27,20.77,39.36,55.14,388,294.0,147.0,75.77,50.0,19.43846153846154,当前修复版
+existing_plus_gemini,behavior,Qwen3.8-27B,Composite,100,9,9.0,46.21,35.8,298,126.0,104.0,42.28,82.54,32.94,当前修复版
+existing_plus_gemini,behavior,Qwen3.8-27B,Overall,420,62,14.76,39.93,45.9,1242,771.0,446.0,62.08,57.85,21.68095238095238,当前修复版
+existing_plus_gemini,behavior,Qwen3.8-27B + harness,Routine Execution,100,36,36.0,68.68,66.77,297,231.7229,121.31192252,78.02,52.35,19.669,插值估算，非实测；参考Qwen3.8-27B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,behavior,Qwen3.8-27B + harness,Observation-dependent,90,31,34.44,50.59,64.13,259,209.4505,163.48435795,80.87,78.05,15.045555555555554,插值估算，非实测；参考Qwen3.8-27B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,behavior,Qwen3.8-27B + harness,Failure Recovery,130,85,65.38,75.84,81.18,388,321.9977,224.23101445,82.99,69.64,17.962307692307693,插值估算，非实测；参考Qwen3.8-27B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,behavior,Qwen3.8-27B + harness,Composite,100,30,30.0,70.34,55.26,298,130.6018,82.91536218,43.83,63.49,37.58,插值估算，非实测；参考Qwen3.8-27B当前修复版与GPT-6历史混合协议
+existing_plus_gemini,behavior,Qwen3.8-27B + harness,Overall,420,182,43.33,67.41,67.92,1242,893.7729,591.9426571,71.96,66.23,22.41452380952381,插值估算，非实测；参考Qwen3.8-27B当前修复版与GPT-6历史混合协议

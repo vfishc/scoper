@@ -1,0 +1,215 @@
+{
+  "backend": "procthor",
+  "category": "static_simple",
+  "goal": {
+    "predicates": [
+      {
+        "object_role": "target_object",
+        "receptacle_role": "target_receptacle",
+        "type": "object_in_receptacle"
+      }
+    ],
+    "require_model_stop": true,
+    "type": "predicate"
+  },
+  "id": "procthor-example-05",
+  "init": {
+    "agent_pose": {
+      "horizon": 0.0,
+      "position": {
+        "x": 4.5,
+        "y": 0.9009997844696045,
+        "z": 2.0
+      },
+      "rotation": {
+        "y": 0.0
+      }
+    },
+    "object_pose_overrides": [],
+    "object_state_overrides": []
+  },
+  "instruction": "Put the book on the shelf.",
+  "online_requirements": {
+    "expected_brain_behaviors": [
+      "plan_next_skill",
+      "stop_after_completion"
+    ],
+    "expected_events": [
+      "skill_success"
+    ]
+  },
+  "qa_overlay": {
+    "questions": [
+      {
+        "activation": {
+          "target_role_or_null": "target_receptacle",
+          "tool_name": "navigate_to",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_00",
+        "question": "What was the outcome of navigating to shelf?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "target_receptacle",
+          "tool_name": "put_down",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_01",
+        "question": "What was the outcome of the attempted action on shelf?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "target_object",
+          "tool_name": "pick_up",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_02",
+        "question": "What was the outcome of picking up book?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "type": "after_tool_result",
+          "tool_name": "put_down",
+          "target_role_or_null": "target_receptacle"
+        },
+        "answer_set": [
+          "yes",
+          "no"
+        ],
+        "id": "qa_added_target_relation_choice",
+        "question": "Is the following statement true now: the book is in or on the shelf?",
+        "question_type": "target_relation_choice",
+        "resolver": {
+          "type": "target_relation_choice",
+          "clause_ids": [
+            "goal_clause_0"
+          ],
+          "answer_by_incomplete_mask": {
+            "0": "yes",
+            "1": "no"
+          }
+        }
+      },
+      {
+        "activation": {
+          "type": "after_tool_result",
+          "tool_name": "put_down",
+          "target_role_or_null": "target_receptacle"
+        },
+        "answer_set": [
+          "completed",
+          "not completed"
+        ],
+        "id": "qa_added_mid_execution_progress_choice",
+        "question": "Has this requirement been completed so far: the book is in or on the shelf?",
+        "question_type": "mid_execution_progress_choice",
+        "resolver": {
+          "type": "mid_execution_progress_choice",
+          "clause_ids": [
+            "goal_clause_0"
+          ],
+          "answer_by_incomplete_mask": {
+            "0": "completed",
+            "1": "not completed"
+          }
+        }
+      }
+    ],
+    "schema_version": "qa_overlay.v2"
+  },
+  "roles": {
+    "target_object": {
+      "object_id": "Book|surface|2|2",
+      "object_type": "Book"
+    },
+    "target_receptacle": {
+      "object_id": "TVStand|2|3|0___4",
+      "object_type": "Shelf"
+    }
+  },
+  "source": {
+    "house_id": "test_000237",
+    "house_path": "prior://procthor-10k/test/237",
+    "split": "test"
+  },
+  "template": {
+    "template_id": "static_place_001",
+    "template_version": "0.1"
+  },
+  "version": "0.1",
+  "evaluation_binding": {
+    "require_observation": false
+  },
+  "task_binding_spec": {
+    "schema_version": "task-binding-spec.v1",
+    "task_id": "procthor-example-05",
+    "task_spec_sha256": "fd3654511843bb3098a1ab9ac4ac888f73d69193379085f8fea1203a2bdf5157",
+    "compiler_version": "task-binding-compiler.v12",
+    "roles": {
+      "target_object": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "book"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "target_receptacle": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "shelf"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      }
+    },
+    "collections": {}
+  }
+}

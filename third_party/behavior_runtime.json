@@ -1,0 +1,13 @@
+{
+  "upstream_project": "StanfordVL/BEHAVIOR-1K",
+  "base_commit": "b9c66728f423a20d77883cda8803424029581657",
+  "patch": "patches/behavior-runtime.patch",
+  "patch_sha256": "9dd0cf5e4360c17f7e16fa1e6ab1257d8a9e2dbac8cabf22dda5940aa4c28ff8",
+  "modified_files": [
+    "OmniGibson/omnigibson/object_states/particle_source_or_sink.py",
+    "OmniGibson/omnigibson/utils/usd_utils.py",
+    "OmniGibson/tests/test_object_states.py"
+  ],
+  "patch_applies_cleanly": true,
+  "patched_files_match_source": true
+}

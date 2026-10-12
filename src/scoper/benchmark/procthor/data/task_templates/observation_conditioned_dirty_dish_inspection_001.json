@@ -1,0 +1,104 @@
+{
+  "template_id": "observation_conditioned_dirty_dish_inspection_001",
+  "template_version": "2.0",
+  "category": "observation_conditioned_room_inspection",
+  "requires": {
+    "dirty_dish": {
+      "taxonomy_group": "dishware",
+      "object_type_allowlist": ["Plate", "Bowl", "Cup", "Mug"],
+      "must_be_pickupable": true,
+      "must_be_dirtyable": true,
+      "visible_from_initial_pose": false,
+      "relocate_if": {
+        "modes": ["near_primary_object_floor"],
+        "to_floor_anchor_role": "sink_basin",
+        "validation": "interactable_poses",
+        "fallback_to": null
+      }
+    },
+    "sink_basin": {
+      "object_type_allowlist": ["SinkBasin"],
+      "must_be_receptacle": true
+    },
+    "faucet": {
+      "object_type_allowlist": ["Faucet"],
+      "must_be_toggleable": true,
+      "same_room_as": "sink_basin"
+    },
+    "storage": {
+      "object_type_allowlist": ["Cabinet", "Drawer", "Shelf", "CounterTop"],
+      "must_be_receptacle": true
+    }
+  },
+  "initial_state_constraints": [
+    {
+      "type": "object_dirty",
+      "object_role": "dirty_dish"
+    }
+  ],
+  "goal_predicates": [
+    {
+      "type": "object_clean",
+      "object_role": "dirty_dish"
+    },
+    {
+      "type": "object_in_receptacle",
+      "object_role": "dirty_dish",
+      "receptacle_role": "storage"
+    }
+  ],
+  "instruction_templates": [
+    "Inspect the {scope_room_label} and clean and put away any visibly soiled item that requires attention."
+  ],
+  "expected_events": [
+    "navigate_to_room",
+    "scan",
+    "repair_visible_issue"
+  ],
+  "expected_brain_behaviors": [
+    "enter_room_before_scan",
+    "condition_repair_on_visible_issue",
+    "wash_dirty_dish_then_store"
+  ],
+  "family_spec_template": {
+    "family": "observation_conditioned_room_inspection",
+    "scope": {
+      "type": "single_room",
+      "label": "inspection room",
+      "room_ids_from_role": "sink_basin"
+    },
+    "observation_conditioned": {
+    "room_from_role": "sink_basin",
+      "scan_policy": {
+        "num_views": 4,
+        "require_room_entry_before_scan": true
+      },
+      "latent_payload_templates": [
+        {
+          "latent_id": "dirty_dish_issue",
+          "issue_type": "dirty_dish",
+          "room_from_role": "sink_basin",
+          "object_role": "dirty_dish",
+          "object_family_from_role": "dirty_dish",
+          "repair_plan_template": "wash_then_place",
+          "support_roles": {
+            "sink": "sink_basin",
+            "faucet": "faucet",
+            "storage": "storage"
+          },
+          "goal_predicates": [
+            {
+              "type": "object_clean",
+              "object_role": "dirty_dish"
+            },
+            {
+              "type": "object_in_receptacle",
+              "object_role": "dirty_dish",
+              "receptacle_role": "storage"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

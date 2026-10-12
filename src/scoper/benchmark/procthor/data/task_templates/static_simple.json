@@ -1,0 +1,39 @@
+{
+  "template_id": "static_place_001",
+  "template_version": "0.1",
+  "category": "static_simple",
+  "description": "Move a visible pickupable object to a stable receptacle.",
+  "requires": {
+    "target_object": {
+      "taxonomy_group": "pickupable_task_objects",
+      "must_be_pickupable": true,
+      "must_be_visible_from_start": true
+    },
+    "target_receptacle": {
+      "taxonomy_group": "place_receptacles",
+      "must_be_receptacle": true,
+      "different_from": ["target_object"],
+      "same_room_as": "target_object"
+    }
+  },
+  "initial_state_constraints": [
+    {
+      "type": "object_not_in_receptacle",
+      "object_role": "target_object",
+      "receptacle_role": "target_receptacle"
+    }
+  ],
+  "goal_predicates": [
+    {
+      "type": "object_in_receptacle",
+      "object_role": "target_object",
+      "receptacle_role": "target_receptacle"
+    }
+  ],
+  "instruction_templates": [
+    "Put the {target_object} in the {target_receptacle}.",
+    "Move the {target_object} to the {target_receptacle}."
+  ],
+  "expected_events": ["skill_success"],
+  "expected_brain_behaviors": ["plan_next_skill", "stop_after_completion"]
+}

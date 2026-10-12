@@ -1,0 +1,170 @@
+{
+  "backend": "procthor",
+  "category": "observation_conditioned_container_inspection",
+  "conditional_storage_policy": {
+    "cabinet_role": "cabinet",
+    "dishware_types": [
+      "Bowl",
+      "Cup",
+      "Mug",
+      "Plate"
+    ],
+    "expected_branch": "dishware",
+    "initial_state": "closed",
+    "mandatory_observation_gate": false,
+    "schema_version": "conditional-storage-policy.v1"
+  },
+  "goal": {
+    "predicates": [
+      {
+        "object_role": "cabinet",
+        "type": "object_closed"
+      }
+    ],
+    "require_model_stop": true,
+    "type": "predicate"
+  },
+  "id": "procthor-example-01",
+  "init": {
+    "agent_pose": {
+      "horizon": 9.336322855211419,
+      "position": {
+        "x": 5.5,
+        "y": 0.9009997844696045,
+        "z": 2.25
+      },
+      "rotation": {
+        "y": 282.9373111763523
+      },
+      "standing": true
+    },
+    "object_pose_overrides": [
+      {
+        "collision_checked_relocation": true,
+        "keep_object_kinematic": true,
+        "mode": "same_room_as",
+        "object_role": "contents",
+        "open_parent_during_relocate": true,
+        "open_target_during_relocate": true,
+        "prefer_receptacle_center": true,
+        "require_inside_receptacle": true,
+        "restore_parent_state_after_relocate": true,
+        "to_receptacle_role": "cabinet",
+        "type": "relocate_object"
+      }
+    ],
+    "object_state_overrides": [
+      {
+        "is_open": false,
+        "object_role": "cabinet",
+        "type": "set_open_state"
+      }
+    ]
+  },
+  "instruction": "Inspect the cabinet. Open it to check its contents. If it contains dishware (cups, mugs, bowls, or plates), close it; otherwise, leave it open.",
+  "online_requirements": {
+    "expected_brain_behaviors": [],
+    "expected_events": []
+  },
+  "qa_overlay": {
+    "questions": [
+      {
+        "activation": {
+          "target_role_or_null": "cabinet",
+          "tool_name": "close",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_01",
+        "question": "What was the outcome of the attempted action on cabinet?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "cabinet",
+          "tool_name": "navigate_to",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_02",
+        "question": "What was the outcome of navigating to cabinet?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      }
+    ],
+    "schema_version": "qa_overlay.v1"
+  },
+  "roles": {
+    "cabinet": {
+      "object_id": "Desk|4|2|0___3",
+      "object_type": "Cabinet"
+    },
+    "contents": {
+      "object_id": "Mug|surface|6|16",
+      "object_type": "Mug"
+    }
+  },
+  "source": {
+    "house_id": "train_004272",
+    "house_path": "prior://procthor-10k/train/4272",
+    "split": "train"
+  },
+  "template": {
+    "template_id": "inspect_and_restore_storage_container_001",
+    "template_version": "1.0"
+  },
+  "version": "0.1",
+  "task_binding_spec": {
+    "schema_version": "task-binding-spec.v1",
+    "task_id": "procthor-example-01",
+    "task_spec_sha256": "e9c44c5d906a20bd03fbe837ee70f517f36d7d1514b6f256a92bc36a4ea8cd66",
+    "compiler_version": "task-binding-compiler.v12",
+    "roles": {
+      "cabinet": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "cabinet",
+          "storage cabinet"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "contents": {
+        "source_policy": "observation",
+        "public_terms": [
+          "mug"
+        ],
+        "generic_terms": [],
+        "activation": "concrete_reference",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      }
+    },
+    "collections": {}
+  }
+}

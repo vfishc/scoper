@@ -1,0 +1,973 @@
+{
+  "backend": "behavior",
+  "category": "composite",
+  "family_spec": {
+    "composite": {
+      "ordering": "sequential",
+      "subtasks": [
+        {
+          "category": "dynamic_state_change",
+          "goal_predicates": [
+            {
+              "args": {
+                "object": "task0__stateful_object"
+              },
+              "owner_subtask_id": "subtask_0",
+              "type": "object_toggled_on"
+            }
+          ],
+          "instruction_fragment": "Switch on the electric switch.",
+          "source_task_id": "behavior__composite_3__Benevolence_1_int_var0000__000217__behavior_Benevolence_1_int_Benevolence_1_int_var0000_dynamic_state_change_toggle_001_seed504858519_01",
+          "subtask_id": "subtask_0"
+        },
+        {
+          "category": "prepare_then_place",
+          "family_spec": {
+            "family": "prepare_then_place",
+            "prepare": {
+              "device_roles": [
+                "task1__microwave"
+              ],
+              "final_receptacle_role": "task1__target_receptacle",
+              "stages": [
+                {
+                  "heatsource": "task1__microwave",
+                  "type": "heat"
+                },
+                {
+                  "receptacle": "task1__target_receptacle",
+                  "type": "store"
+                }
+              ],
+              "subtemplate": "heat_then_place",
+              "target_role": "task1__target_object",
+              "tool_roles": []
+            },
+            "scope": {
+              "label": "dining room",
+              "room_ids": [
+                "dining_room_0"
+              ],
+              "type": "single_room"
+            }
+          },
+          "goal_predicates": [
+            {
+              "args": {
+                "heatsource": "task1__microwave",
+                "object": "task1__target_object"
+              },
+              "owner_subtask_id": "subtask_1",
+              "type": "object_hot"
+            },
+            {
+              "args": {
+                "object": "task1__target_object",
+                "receptacle": "task1__target_receptacle"
+              },
+              "owner_subtask_id": "subtask_1",
+              "type": "object_on_receptacle"
+            },
+            {
+              "args": {
+                "object": "task1__microwave"
+              },
+              "owner_subtask_id": "subtask_1",
+              "type": "object_closed"
+            },
+            {
+              "args": {
+                "object": "task1__microwave"
+              },
+              "owner_subtask_id": "subtask_1",
+              "type": "object_toggled_off"
+            }
+          ],
+          "instruction_fragment": "Warm up the apple and place it on the countertop. Use the oven for the relevant preparation step. Leave the oven closed when finished.",
+          "source_task_id": "behavior__composite_3__Benevolence_1_int_var0000__000217__behavior_Benevolence_1_int_Benevolence_1_int_var0000_heat_then_place_001_seed504858519_01",
+          "subtask_id": "subtask_1"
+        },
+        {
+          "category": "static_simple",
+          "goal_predicates": [
+            {
+              "args": {
+                "object": "task2__target_object",
+                "receptacle": "task2__target_receptacle"
+              },
+              "owner_subtask_id": "subtask_2",
+              "type": "object_on_receptacle"
+            }
+          ],
+          "instruction_fragment": "Move the mug to the breakfast table.",
+          "source_task_id": "behavior__composite_3__Benevolence_1_int_var0000__000217__behavior_Benevolence_1_int_Benevolence_1_int_var0000_static_place_001_seed504858519_05",
+          "subtask_id": "subtask_2"
+        }
+      ]
+    },
+    "family": "composite"
+  },
+  "goal": {
+    "bddl_goal": null,
+    "predicates": [
+      {
+        "args": {
+          "object": "task0__stateful_object"
+        },
+        "owner_subtask_id": "subtask_0",
+        "type": "object_toggled_on"
+      },
+      {
+        "args": {
+          "heatsource": "task1__microwave",
+          "object": "task1__target_object"
+        },
+        "owner_subtask_id": "subtask_1",
+        "type": "object_hot"
+      },
+      {
+        "args": {
+          "object": "task1__target_object",
+          "receptacle": "task1__target_receptacle"
+        },
+        "owner_subtask_id": "subtask_1",
+        "type": "object_on_receptacle"
+      },
+      {
+        "args": {
+          "object": "task1__microwave"
+        },
+        "owner_subtask_id": "subtask_1",
+        "type": "object_closed"
+      },
+      {
+        "args": {
+          "object": "task1__microwave"
+        },
+        "owner_subtask_id": "subtask_1",
+        "type": "object_toggled_off"
+      },
+      {
+        "args": {
+          "object": "task2__target_object",
+          "receptacle": "task2__target_receptacle"
+        },
+        "owner_subtask_id": "subtask_2",
+        "type": "object_on_receptacle"
+      }
+    ],
+    "require_model_stop": true,
+    "type": "predicates"
+  },
+  "id": "behavior-example-10",
+  "init": [
+    {
+      "args": [
+        "task0__stateful_object"
+      ],
+      "predicate": "toggled_off"
+    },
+    {
+      "args": [
+        "task1__microwave"
+      ],
+      "predicate": "toggled_off"
+    }
+  ],
+  "instruction": "Complete these tasks in order: (1) Switch on the electric switch. (2) Warm up the apple and place it on the countertop. Use the oven for the relevant preparation step. Leave the oven closed when finished. (3) Move the mug to the breakfast table. Stop only after completing all subtasks; a subtask instruction to stop means finish that subtask and continue to the next one.",
+  "metrics_config": {
+    "track_predicate_progress": true,
+    "track_tool_success_rate": true
+  },
+  "oracle_teacher_hint": {
+    "expected_brain_behaviors": [
+      "sequential_composition",
+      "handoff_between_subtasks"
+    ],
+    "expected_events": [
+      "sequential_composite"
+    ],
+    "family": "composite"
+  },
+  "qa_overlay": {
+    "questions": [
+      {
+        "activation": {
+          "target_role_or_null": "task0__stateful_object",
+          "tool_name": "toggle_on",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_00",
+        "owner_subtask_id": "subtask_0",
+        "question": "What was the outcome of the attempted action on lightswitch?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "task1__target_object",
+          "tool_name": "heat",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_01",
+        "owner_subtask_id": "subtask_1",
+        "question": "What was the outcome of the attempted action on apple?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "task2__target_receptacle",
+          "tool_name": "put_down",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_02",
+        "owner_subtask_id": "subtask_2",
+        "question": "What was the outcome of the attempted action on diningtable?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      }
+    ],
+    "schema_version": "qa_overlay.v1"
+  },
+  "renderer_asset_provenance": {
+    "assignments": [],
+    "audit_performed": false,
+    "failures": [],
+    "requires_symbolic_and_oracle_admission": true,
+    "schema_version": "balanced-concrete-assets.v1",
+    "status": "skipped_by_user"
+  },
+  "reset_plan": {
+    "assertions": [
+      {
+        "args": {
+          "object": "task2__target_object",
+          "receptacle": "task2__target_receptacle"
+        },
+        "relation": "ontop",
+        "type": "object_not_in_receptacle"
+      },
+      {
+        "args": {
+          "object": "task2__target_object",
+          "receptacle": "task2__target_receptacle"
+        },
+        "relation": "ontop",
+        "type": "object_not_in_receptacle"
+      }
+    ],
+    "required_init_mutations": [
+      "object_pose_relocation",
+      "spawn_object",
+      "state_override"
+    ],
+    "runtime_capabilities_required": [
+      "reachable_map",
+      "relocation:evacuate_from_goal_receptacle",
+      "spawn_placement",
+      "visibility_query_or_controlled_spawn_visibility"
+    ],
+    "state_and_relation_init": [
+      {
+        "args": [
+          "task0__stateful_object"
+        ],
+        "predicate": "toggled_off"
+      },
+      {
+        "args": [
+          "task1__microwave"
+        ],
+        "predicate": "toggled_off"
+      }
+    ]
+  },
+  "roles": {
+    "task0__stateful_object": {
+      "abilities": [
+        "receptacle",
+        "support_surface",
+        "toggleable"
+      ],
+      "bbox_size": [
+        0.03614012908935547,
+        0.07621467971801758,
+        0.11430620193481446
+      ],
+      "bddl_inst": "task0__stateful_object",
+      "category": "electric_switch",
+      "center": [
+        3.238621711730957,
+        3.776454210281372,
+        1.200287103652954
+      ],
+      "extent": [
+        0.04,
+        0.07620000209628529,
+        0.11429999512732253
+      ],
+      "init_states": {},
+      "model": "wseglt",
+      "object_id": "electric_switch_wseglt_0",
+      "object_type": "LightSwitch",
+      "position": {
+        "x": 3.238621711730957,
+        "y": 1.200287103652954,
+        "z": 3.776454210281372
+      },
+      "requires_spawn": false,
+      "room_id": "dining_room_0",
+      "root_orientation_xyzw": [
+        1.0,
+        -4.76837158203125e-07,
+        3.6000204689046536e-14,
+        -7.549790126404332e-08
+      ],
+      "root_position": {
+        "x": 3.238621711730957,
+        "y": 3.776454210281372,
+        "z": 1.200287103652954
+      },
+      "root_yaw": -9.536743164064001e-07,
+      "scale": [
+        0.9988896250724792,
+        0.9998074173927307,
+        0.9999457001686096
+      ],
+      "source_kind": "scene_instance",
+      "synset": "switch.n.01"
+    },
+    "task1__microwave": {
+      "abilities": [
+        "container",
+        "heatSource",
+        "openable",
+        "receptacle",
+        "support_surface",
+        "toggleable"
+      ],
+      "bbox_size": [
+        0.4167789764404297,
+        0.48367494201660155,
+        0.6985000305175781
+      ],
+      "bddl_inst": "task1__microwave",
+      "category": "oven",
+      "center": [
+        1.4694501161575317,
+        8.80051326751709,
+        0.5036258101463318
+      ],
+      "extent": [
+        0.6357999801296774,
+        0.7782999652522848,
+        0.8705999453752702
+      ],
+      "init_states": {},
+      "model": "wuinhm",
+      "object_id": "oven_wuinhm_0",
+      "object_type": "Oven",
+      "position": {
+        "x": 1.4694501161575317,
+        "y": 0.5036258101463318,
+        "z": 8.80051326751709
+      },
+      "requires_spawn": false,
+      "room_id": "kitchen_0",
+      "root_orientation_xyzw": [
+        -4.3213397304953105e-09,
+        -4.3152237338972554e-09,
+        0.7076073884963989,
+        -0.7066057920455933
+      ],
+      "root_position": {
+        "x": 1.4694501161575317,
+        "y": 8.80051326751709,
+        "z": 0.5036258101463318
+      },
+      "root_yaw": -1.5722127598323694,
+      "scale": [
+        1.5255087614059448,
+        1.6091384887695312,
+        1.2463849782943726
+      ],
+      "source_kind": "scene_instance",
+      "synset": "oven.n.01"
+    },
+    "task1__spawn_support_1": {
+      "abilities": [
+        "receptacle",
+        "support_surface"
+      ],
+      "auxiliary_spawn_support": true,
+      "bbox_size": [
+        0.3048114013671875,
+        0.9242373962402344,
+        0.5260288848876953
+      ],
+      "bddl_inst": "task1__spawn_support_1",
+      "category": "console_table",
+      "center": [
+        -1.4824448823928833,
+        0.31830528378486633,
+        0.5632767081260681
+      ],
+      "extent": [
+        0.31800000684605034,
+        0.5687000166500639,
+        0.6912999721295382
+      ],
+      "init_states": {},
+      "model": "emeeke",
+      "object_id": "console_table_emeeke_0",
+      "object_type": "SideTable",
+      "position": {
+        "x": -1.4824448823928833,
+        "y": 0.5632767081260681,
+        "z": 0.31830528378486633
+      },
+      "requires_spawn": false,
+      "room_id": "corridor_0",
+      "scale": [
+        1.043268084526062,
+        0.6153181195259094,
+        1.3141863346099854
+      ],
+      "source_kind": "scene_instance",
+      "synset": "console_table.n.01"
+    },
+    "task1__target_object": {
+      "abilities": [
+        "cuttable",
+        "pickupable",
+        "soakable",
+        "wipeable"
+      ],
+      "bddl_inst": "task1__target_object",
+      "catalog_object_id": "spawnable:apple",
+      "category": "apple",
+      "center": [
+        -1.4434448789698582,
+        0.31830528378486633,
+        0.9889266941908372
+      ],
+      "extent": [
+        0.12,
+        0.12,
+        0.12
+      ],
+      "init_states": {
+        "cooked": false,
+        "cooled": false,
+        "saturated": {},
+        "sliced": false
+      },
+      "model": "agveuv",
+      "object_id": "spawnable:target_object:apple",
+      "object_type": "Apple",
+      "position": null,
+      "requires_spawn": true,
+      "room_id": null,
+      "source_kind": "spawnable_asset",
+      "spawn_placement": {
+        "anchor_role": "task1__target_receptacle",
+        "background_occupants_checked": 0,
+        "clearance": 0.02,
+        "mode": "on_support_surface",
+        "offset": [
+          0.039000003423025176,
+          -0.0,
+          0.4256499860647691
+        ],
+        "slot": 0,
+        "support_role": "task1__spawn_support_1"
+      },
+      "synset": "apple.n.01"
+    },
+    "task1__target_receptacle": {
+      "abilities": [
+        "receptacle",
+        "support_surface"
+      ],
+      "bbox_size": [
+        0.5570894165039063,
+        1.0214765014648437,
+        0.03174999809265137
+      ],
+      "bddl_inst": "task1__target_receptacle",
+      "category": "countertop",
+      "center": [
+        2.021772861480713,
+        6.208117485046387,
+        1.0514628887176514
+      ],
+      "extent": [
+        0.45650002727178074,
+        2.3131000733635156,
+        0.09319999689257975
+      ],
+      "init_states": {},
+      "model": "tpuwys",
+      "object_id": "countertop_tpuwys_0",
+      "object_type": "CounterTop",
+      "position": {
+        "x": 2.021772861480713,
+        "y": 1.0514628887176514,
+        "z": 6.208117485046387
+      },
+      "requires_spawn": false,
+      "room_id": "dining_room_0",
+      "root_orientation_xyzw": [
+        0.0,
+        0.0,
+        0.7071068286895752,
+        -0.7071067094802856
+      ],
+      "root_position": {
+        "x": 2.021772861480713,
+        "y": 6.208117485046387,
+        "z": 1.0514628887176514
+      },
+      "root_yaw": -1.5707964611537577,
+      "scale": [
+        0.8194376230239868,
+        2.264467239379883,
+        2.9354331493377686
+      ],
+      "source_kind": "scene_instance",
+      "synset": "countertop.n.01"
+    },
+    "task2__spawn_support_1": {
+      "abilities": [
+        "receptacle",
+        "support_surface"
+      ],
+      "auxiliary_spawn_support": true,
+      "bbox_size": [
+        0.5570894165039063,
+        1.0214765014648437,
+        0.03174999809265137
+      ],
+      "bddl_inst": "task2__spawn_support_1",
+      "category": "countertop",
+      "center": [
+        2.016772985458374,
+        6.752720355987549,
+        0.8902007937431335
+      ],
+      "extent": [
+        0.6292000388692541,
+        2.2832000626551014,
+        0.04
+      ],
+      "init_states": {},
+      "model": "tpuwys",
+      "object_id": "countertop_tpuwys_2",
+      "object_type": "CounterTop",
+      "position": {
+        "x": 2.016772985458374,
+        "y": 0.8902007937431335,
+        "z": 6.752720355987549
+      },
+      "requires_spawn": false,
+      "room_id": "kitchen_0",
+      "scale": [
+        1.129441738128662,
+        2.2351958751678467,
+        0.5858268141746521
+      ],
+      "source_kind": "scene_instance",
+      "synset": "countertop.n.01"
+    },
+    "task2__target_object": {
+      "abilities": [
+        "breakable",
+        "dirtyable",
+        "disinfectable",
+        "dustyable",
+        "fillable",
+        "freezable",
+        "grassyable",
+        "heatable",
+        "moldyable",
+        "nonSubstance",
+        "pickupable",
+        "receptacle",
+        "rigidBody",
+        "rustable",
+        "scratchable",
+        "stainable",
+        "stickyable",
+        "support_surface",
+        "tarnishable",
+        "wetable",
+        "wrinkleable"
+      ],
+      "bddl_inst": "mug.n.04_259443534",
+      "catalog_object_id": "spawnable:mug",
+      "category": "mug",
+      "center": [
+        2.171373004893001,
+        6.752720355987549,
+        0.9769661159341942
+      ],
+      "extent": [
+        0.16479685927363733,
+        0.2,
+        0.09353064438212119
+      ],
+      "init_states": {
+        "contains": {},
+        "filled": {},
+        "saturated": {}
+      },
+      "model": "jgethp",
+      "object_id": "spawnable:target_object:bowl",
+      "object_type": "Mug",
+      "position": null,
+      "requires_spawn": true,
+      "room_id": null,
+      "source_kind": "spawnable_asset",
+      "spawn_placement": {
+        "anchor_role": "task2__target_receptacle",
+        "background_occupants_checked": 0,
+        "clearance": 0.02,
+        "mode": "on_support_surface",
+        "offset": [
+          0.15460001943462706,
+          -0.0,
+          0.08676532219106069
+        ],
+        "slot": 0,
+        "support_role": "task2__spawn_support_1"
+      },
+      "synset": "mug.n.04"
+    },
+    "task2__target_receptacle": {
+      "abilities": [
+        "receptacle",
+        "support_surface"
+      ],
+      "bbox_size": [
+        0.4883719024658203,
+        1.1937998046875,
+        0.42325665283203123
+      ],
+      "bddl_inst": "task2__target_receptacle",
+      "category": "breakfast_table",
+      "center": [
+        1.9217729568481445,
+        4.952544689178467,
+        0.6417210102081299
+      ],
+      "extent": [
+        0.7031999688591549,
+        1.1368998986590886,
+        0.7493999984551628
+      ],
+      "init_states": {},
+      "model": "idnnmz",
+      "object_id": "breakfast_table_idnnmz_0",
+      "object_type": "DiningTable",
+      "position": {
+        "x": 1.9217729568481445,
+        "y": 0.6417210102081299,
+        "z": 4.952544689178467
+      },
+      "requires_spawn": false,
+      "room_id": "dining_room_0",
+      "root_orientation_xyzw": [
+        -6.888210180022725e-08,
+        -4.2063764027489015e-08,
+        0.7071068286895752,
+        -0.7071067094802856
+      ],
+      "root_position": {
+        "x": 1.9217729568481445,
+        "y": 4.952544689178467,
+        "z": 0.6417210102081299
+      },
+      "root_yaw": -1.5707964611537613,
+      "scale": [
+        1.439886212348938,
+        0.9523371458053589,
+        1.770556926727295
+      ],
+      "source_kind": "scene_instance",
+      "synset": "breakfast_table.n.01"
+    }
+  },
+  "source": {
+    "composite_child_task_ids": [
+      "behavior__composite_3__Benevolence_1_int_var0000__000217__behavior_Benevolence_1_int_Benevolence_1_int_var0000_dynamic_state_change_toggle_001_seed504858519_01",
+      "behavior__composite_3__Benevolence_1_int_var0000__000217__behavior_Benevolence_1_int_Benevolence_1_int_var0000_heat_then_place_001_seed504858519_01",
+      "behavior__composite_3__Benevolence_1_int_var0000__000217__behavior_Benevolence_1_int_Benevolence_1_int_var0000_static_place_001_seed504858519_05"
+    ],
+    "layout_variant_id": "Benevolence_1_int_var0000",
+    "occupancy_bounds": [
+      -4.1532206535339355,
+      -3.2163926362991333,
+      5.366779565811157,
+      11.288607597351074
+    ],
+    "room_catalog": [
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 7,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -1.427,
+            "y": 0.0,
+            "z": 3.413
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "corridor_0",
+        "room_type": "corridor",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 10,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 2.37,
+            "y": 0.0,
+            "z": 5.052
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "dining_room_0",
+        "room_type": "dining_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 28,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 1.77,
+            "y": 0.0,
+            "z": 8.026
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "kitchen_0",
+        "room_type": "kitchen",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 23,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 0.903,
+            "y": 0.0,
+            "z": 1.974
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "living_room_0",
+        "room_type": "living_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -0.529,
+            "y": 0.0,
+            "z": 7.605
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "pantry_room_0",
+        "room_type": "pantry_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 4,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -1.586,
+            "y": 0.0,
+            "z": 8.104
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "storage_room_0",
+        "room_type": "storage_room",
+        "source": "profile_in_rooms"
+      }
+    ],
+    "scene_model": "Benevolence_1_int",
+    "source_json": "assets/behavior/behavior-example-10-01.json",
+    "stage3_match_status": "matched_requires_runtime_validation",
+    "start_pose": {
+      "pitch": 0.0,
+      "pose_source": "object_center_centroid_placeholder",
+      "room_id": "dining_room_0",
+      "selection_source": "task_relevant_room_representative_pose",
+      "x": 2.37,
+      "y": 5.052,
+      "yaw": 0.0,
+      "z": 1.55
+    },
+    "template_id": "dynamic_state_change_toggle_001",
+    "template_version": "0.1",
+    "type": "template"
+  },
+  "version": "stage4.0-composite",
+  "evaluation_binding": {
+    "require_observation": false
+  },
+  "task_binding_spec": {
+    "schema_version": "task-binding-spec.v1",
+    "task_id": "behavior-example-10",
+    "task_spec_sha256": "4c563189736fc52056658f4aa01484ba77bde4406e76422144eb2d3869dd0d67",
+    "compiler_version": "task-binding-compiler.v12",
+    "roles": {
+      "task0__stateful_object": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "electric switch",
+          "light switch",
+          "switch"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "task1__microwave": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "oven"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "task1__target_object": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "apple"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "task1__target_receptacle": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "counter",
+          "counter top",
+          "countertop"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "task2__target_object": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "mug"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "task2__target_receptacle": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "breakfast table",
+          "dining table"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      }
+    },
+    "collections": {}
+  }
+}

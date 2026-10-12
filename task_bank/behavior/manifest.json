@@ -1,0 +1,12 @@
+{
+  "schema_version": "scoper-release-bank.v1",
+  "task_count": 420,
+  "bank_sha256": "95f3132bd2e1a5f45735ab45b83c72e9563f8cd7b340bf772c6cd4456fba46ba",
+  "source_bank_sha256": "806e70b9b410338a0267b8c500dc8d83dc4803d0c58b2e994720fcc68b63dcd2",
+  "replaced_standalone_template": "human_qa_simple_place_001",
+  "replacement_template": "inspect_and_restore_storage_container_001",
+  "composite_policy": "preserve existing children unchanged",
+  "retained_composite_native_qa_count": 30,
+  "overlay_qa_count": 1631,
+  "runtime_acceptance": "pending; not a new evaluation result"
+}

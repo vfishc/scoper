@@ -1,0 +1,17 @@
+{
+  "validation_date": "2026-10-08",
+  "model": "Qwen3.5-9B",
+  "mode": "direct VLM, standard_vlm, multi_frame",
+  "smoke_step_limit": 8,
+  "formal_evaluation": false,
+  "packages": {
+    "torch": "2.7.0+cu128",
+    "transformers": "5.5.4",
+    "isaacsim": "5.1.0.0",
+    "ai2thor": "5.0.0",
+    "numpy": "1.26.0",
+    "Pillow": "11.3.0",
+    "PyYAML": "6.0.2"
+  },
+  "scope": "Observed working versions, not a complete environment lockfile"
+}

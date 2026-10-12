@@ -1,0 +1,75 @@
+{
+  "template_id": "observation_conditioned_storage_policy_001",
+  "template_version": "2.0",
+  "category": "observation_conditioned_room_inspection",
+  "description": "Inspect a kitchen and visually discover dishware left outside its intended storage.",
+  "requires": {
+    "issue_object": {
+      "taxonomy_group": "dishware",
+      "object_type_allowlist": ["Plate", "Bowl", "Cup", "Mug"],
+      "must_be_pickupable": true,
+      "must_not_have_closed_parent_receptacle": true,
+      "same_room_as": "policy_storage",
+      "different_from": ["policy_storage"],
+      "visible_from_initial_pose": false,
+      "relocate_if": {
+        "modes": ["near_primary_object_floor"],
+        "to_floor_anchor_role": "policy_storage",
+        "validation": "interactable_poses",
+        "fallback_to": null
+      }
+    },
+    "policy_storage": {
+      "taxonomy_group": "dishware_storage",
+      "must_be_receptacle": true,
+      "must_not_be_pickupable": true
+    },
+    "issue_object_relocate_target": {
+      "taxonomy_group": "open_surface_receptacles",
+      "must_be_receptacle": true,
+      "must_not_be_pickupable": true,
+      "same_room_as": "policy_storage",
+      "relocate_target_only": true,
+      "optional": true
+    }
+  },
+  "initial_state_constraints": [
+    {"type": "object_not_in_receptacle", "object_role": "issue_object", "receptacle_role": "policy_storage"}
+  ],
+  "goal_predicates": [
+    {"type": "object_in_any_receptacle", "object_role": "issue_object", "receptacle_roles": ["policy_storage"]}
+  ],
+  "goal_options": {"require_model_stop": true},
+  "instruction_templates": [
+    "Inspect the {scope_room_label} and put away any misplaced item you can identify, using an appropriate receptacle."
+  ],
+  "expected_events": ["navigate_to_room", "scan", "repair_visible_issue"],
+  "expected_brain_behaviors": ["inspect_before_repair", "apply_storage_policy_to_visible_object"],
+  "family_spec_template": {
+    "family": "observation_conditioned_room_inspection",
+    "scope": {
+      "type": "single_room",
+      "room_ids_from_role": "policy_storage"
+    },
+    "observation_conditioned": {
+      "rooms_from_roles": ["policy_storage"],
+      "public_discovery_mode": "visual_only",
+      "require_visual_evidence": true,
+      "scan_policy": {"num_views": 4, "require_room_entry_before_scan": true},
+      "latent_payload_templates": [
+        {
+          "latent_id": "issue_0",
+          "issue_type": "misplaced_object",
+          "room_from_role": "policy_storage",
+          "object_role": "issue_object",
+          "object_family_from_role": "issue_object",
+          "support_roles": {"storage": "policy_storage"},
+          "repair_plan_template": "place",
+          "goal_predicates": [
+            {"type": "object_in_any_receptacle", "object_role": "issue_object", "receptacle_roles": ["policy_storage"]}
+          ]
+        }
+      ]
+    }
+  }
+}

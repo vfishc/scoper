@@ -1,0 +1,47 @@
+adapter:
+  type: hf_local
+  model: IffYuan/Embodied-R1.5
+  max_tokens: 256
+  temperature: 0.0
+  extra:
+    torch_dtype: bfloat16
+    device_map: auto
+    trust_remote_code: true
+    chat_template_kwargs:
+      enable_thinking: false
+    generation_params:
+      max_new_tokens: 256
+      do_sample: false
+      use_cache: true
+
+observation:
+  mode: single_frame
+  num_frames: 1
+  image_format: jpeg
+  max_resolution: [512, 512]
+  jpeg_quality: 90
+  max_history_turns: 2
+
+metadata:
+  mode: standard
+  expose_visible_catalog: true
+  expose_raw_object_ids: false
+  expose_states: false
+  expose_bbox: false
+  expose_segmentation: false
+  log_privileged_metadata: true
+
+retry:
+  max_retries: 0
+  timeout_seconds: 600.0
+
+prompt_template: detailed
+eval_mode: standard_vlm
+
+binding:
+  allow_role_handles: false
+  allow_visible_aliases: true
+  allow_memory: true
+  allow_description_match: true
+  allow_raw_object_ids: false
+  allow_task_text_candidates: false

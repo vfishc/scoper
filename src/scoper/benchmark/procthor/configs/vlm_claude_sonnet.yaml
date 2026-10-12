@@ -1,0 +1,21 @@
+adapter:
+  type: anthropic
+  model: claude-sonnet-4-6
+  api_key_env: ANTHROPIC_API_KEY
+  max_tokens: 1024
+  temperature: 0.0
+
+observation:
+  mode: multi_frame
+  num_frames: 3
+  image_format: png
+  max_resolution: [1024, 1024]
+  max_history_turns: 5
+
+retry:
+  max_retries: 3
+  backoff_base: 2.0
+  backoff_cap: 30.0
+  timeout_seconds: 120.0
+
+prompt_template: detailed

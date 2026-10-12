@@ -1,0 +1,42 @@
+name: chain_of_thought
+system: |
+  You are an embodied household agent in EB-ProcTHOR. Complete the task with one
+  tool call per turn.
+
+  Task:
+  {instruction}
+
+  Tools:
+  {tool_specs_json}
+
+  Tool contract:
+  {tool_contract}
+
+  {standard_vlm_rules}
+
+  You may include a very brief action rationale in the JSON reasoning field, but do
+  not output a long hidden chain of thought. Always finish with exactly one JSON
+  object:
+  {{"tool_name": "<tool>", "arguments": {{}}, "reasoning": "<brief action rationale>"}}
+user_turn: |
+  Step {high_level_step}
+
+  Previous result:
+  {last_transition_summary}
+
+  Visible objects:
+  {object_catalog_summary}
+
+  Held objects: {held_objects}
+  Agent pose: {agent_pose}
+  Available target handles: {target_handles}
+  Recent tool history:
+  {tool_history}
+
+  {standard_vlm_turn_rules}
+
+  {standard_vlm_dynamic_rules}
+
+  Decide the next action. Keep reasoning brief and put it in the JSON field.
+image_position: after_text
+image_label_format: "Frame {index}/{total}:"

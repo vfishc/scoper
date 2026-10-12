@@ -1,0 +1,10 @@
+paper,table,backend,row,group,metrics,values
+SCOPER,average_steps,both,GPT-6 Astra,all,ProcTHOR|BEHAVIOR,23.07|22.45
+SCOPER,average_steps,both,Embodied-R1.5,all,ProcTHOR|BEHAVIOR,12.88|14.46
+SCOPER,average_steps,both,RoboBrain2.5-8B,all,ProcTHOR|BEHAVIOR,10.08|12.54
+SCOPER,average_steps,both,RynnBrain11-9B,all,ProcTHOR|BEHAVIOR,21.88|21.21
+SCOPER,average_steps,both,Molmo2-ER-4B,all,ProcTHOR|BEHAVIOR,18.08|18.31
+SCOPER,average_steps,both,Qwen3.5-9B,all,ProcTHOR|BEHAVIOR,20.06|19.45
+SCOPER,average_steps,both,Qwen3.5-9B + Harness,all,ProcTHOR|BEHAVIOR,22.91|22.29
+SCOPER,average_steps,both,Qwen3.8-27B,all,ProcTHOR|BEHAVIOR,20.68|21.68
+SCOPER,average_steps,both,Qwen3.8-27B + Harness,all,ProcTHOR|BEHAVIOR,22.94|22.41

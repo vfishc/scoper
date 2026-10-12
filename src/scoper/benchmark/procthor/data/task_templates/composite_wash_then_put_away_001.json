@@ -1,0 +1,172 @@
+{
+    "template_id": "composite_wash_then_put_away_001",
+    "template_version": "0.1",
+    "category": "composite",
+    "description": "Sequential composite task: wash a dirty dish, then put it away.",
+    "family_spec_template": {
+        "family": "composite",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "storage_receptacle"
+        },
+        "composite": {
+            "ordering": "sequential",
+            "subtasks": [
+                {
+                    "subtask_id": "wash_dish",
+                    "category": "prepare_multi_stage",
+                    "instruction_fragment": "Wash the dirty {target_object} in the sink.",
+                    "family_spec": {
+                        "family": "prepare_multi_stage",
+                        "scope": {
+                            "type": "single_room",
+                            "label": "kitchen",
+                            "room_ids_from_role": "storage_receptacle"
+                        },
+                        "prepare": {
+                            "target_role": "target_object",
+                            "final_receptacle_role": "sink_basin",
+                            "device_roles": [
+                                "sink_basin",
+                                "faucet"
+                            ],
+                            "tool_roles": [],
+                            "stages": [
+                                {
+                                    "type": "wash",
+                                    "receptacle_role": "sink_basin",
+                                    "faucet_role": "faucet"
+                                }
+                            ]
+                        }
+                    },
+                    "goal_predicates": [
+                        {
+                            "type": "object_clean",
+                            "object_role": "target_object"
+                        }
+                    ]
+                },
+                {
+                    "subtask_id": "put_away_dish",
+                    "category": "put_away_by_category",
+                    "instruction_fragment": "Then put it away in the {storage_receptacle}.",
+                    "family_spec": {
+                        "family": "put_away_by_category",
+                        "scope": {
+                            "type": "single_room",
+                            "label": "kitchen",
+                            "room_ids_from_role": "storage_receptacle"
+                        },
+                        "put_away": {
+                            "semantic_category": "dishware",
+                            "target_roles": [
+                                "target_object"
+                            ],
+                            "storage_roles": [
+                                "storage_receptacle"
+                            ],
+                            "protected_distractor_roles": []
+                        }
+                    },
+                    "goal_predicates": [
+                        {
+                            "type": "object_in_receptacle",
+                            "object_role": "target_object",
+                            "receptacle_role": "storage_receptacle"
+                        }
+                    ]
+                }
+            ],
+            "combined_instruction_template": "Wash the dirty {target_object} in the sink, then put it away in the {storage_receptacle}."
+        }
+    },
+    "requires": {
+        "target_object": {
+            "taxonomy_group": "dishware",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "same_room_as": "storage_receptacle",
+            "different_from": [
+                "sink_basin",
+                "faucet",
+                "storage_receptacle"
+            ],
+            "relocate_if": {
+                "modes": [
+                    "same_room_as"
+                ],
+                "anchor_role": "storage_receptacle",
+                "to_receptacle_role": "target_object_relocate_target",
+                "fallback_to": null
+            }
+        },
+        "target_object_relocate_target": {
+            "taxonomy_group": "open_surface_receptacles",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true,
+            "same_room_as": "storage_receptacle",
+            "relocate_target_only": true,
+            "optional": true
+        },
+        "sink_basin": {
+            "taxonomy_group": "sink_basins",
+            "must_be_receptacle": true,
+            "same_room_as": "storage_receptacle"
+        },
+        "faucet": {
+            "taxonomy_group": "faucets",
+            "must_be_toggleable": true,
+            "parent_of_role_base": "sink_basin"
+        },
+        "storage_receptacle": {
+            "taxonomy_group": "dishware_storage",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true,
+            "same_room_as": "sink_basin"
+        }
+    },
+    "initial_state_constraints": [
+        {
+            "type": "object_dirty",
+            "object_role": "target_object"
+        }
+    ],
+    "goal_predicates": [
+        {
+            "type": "object_clean",
+            "object_role": "target_object",
+            "owner_subtask_id": "wash_dish"
+        },
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "storage_receptacle",
+            "owner_subtask_id": "put_away_dish"
+        },
+        {
+            "type": "object_closed",
+            "object_role": "storage_receptacle",
+            "owner_subtask_id": "put_away_dish",
+            "include_if": {
+                "role": "storage_receptacle",
+                "field": "openable",
+                "equals": true
+            }
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Wash the dirty {target_object} in the sink, then put it away in the {storage_receptacle}."
+    ],
+    "expected_events": [
+        "composite_wash_then_put_away"
+    ],
+    "expected_brain_behaviors": [
+        "sequential_composition",
+        "handoff_between_subtasks"
+    ]
+}

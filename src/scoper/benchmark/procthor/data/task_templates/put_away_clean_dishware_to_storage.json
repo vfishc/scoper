@@ -1,0 +1,143 @@
+{
+    "template_id": "put_away_clean_dishware_to_storage_001",
+    "template_version": "0.1",
+    "category": "put_away_visual_judgment",
+    "description": "Visually identify clean dishware and put them away, leaving dirty dishware untouched.",
+    "family_spec_template": {
+        "family": "put_away_visual_judgment",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "storage_0",
+            "required_room_types": ["kitchen"]
+        },
+        "put_away": {
+            "semantic_category": "dishware",
+            "target_roles_prefix": "target_",
+            "protected_distractor_roles_prefix": "distractor_",
+            "storage_roles": [
+                "storage_0"
+            ]
+        }
+    },
+    "requires": {
+        "storage_0": {
+            "taxonomy_group": "dishware_storage",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true
+        },
+        "target_0": {
+            "taxonomy_group": "dishware",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "same_room_as": "storage_0",
+            "different_from": [
+                "storage_0",
+                "distractor_0"
+            ]
+        },
+        "target_1": {
+            "taxonomy_group": "dishware",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "same_room_as": "storage_0",
+            "different_from": [
+                "storage_0",
+                "target_0",
+                "distractor_0"
+            ]
+        },
+        "target_2": {
+            "taxonomy_group": "dishware",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "same_room_as": "storage_0",
+            "different_from": [
+                "storage_0",
+                "target_0",
+                "target_1",
+                "distractor_0"
+            ],
+            "optional": true
+        },
+        "distractor_0": {
+            "taxonomy_group": "cleaning_supplies",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "same_room_as": "storage_0",
+            "different_from": [
+                "storage_0",
+                "target_0",
+                "target_1",
+                "target_2"
+            ]
+        }
+    },
+    "initial_state_constraints": [
+        {
+            "type": "object_clean",
+            "object_role": "target_0"
+        },
+        {
+            "type": "object_clean",
+            "object_role": "target_1"
+        },
+        {
+            "type": "object_dirty",
+            "object_role": "distractor_0"
+        }
+    ],
+    "goal_predicates": [
+        {
+            "type": "object_in_any_receptacle",
+            "object_role": "target_0",
+            "receptacle_roles": [
+                "storage_0"
+            ]
+        },
+        {
+            "type": "object_in_any_receptacle",
+            "object_role": "target_1",
+            "receptacle_roles": [
+                "storage_0"
+            ]
+        },
+        {
+            "type": "object_in_any_receptacle",
+            "object_role": "target_2",
+            "receptacle_roles": [
+                "storage_0"
+            ],
+            "include_if": "target_2"
+        },
+        {
+            "type": "object_not_in_any_receptacle",
+            "object_role": "distractor_0",
+            "receptacle_roles": [
+                "storage_0"
+            ]
+        },
+        {
+            "type": "object_closed",
+            "object_role": "storage_0",
+            "include_if": {
+                "role": "storage_0",
+                "field": "openable",
+                "equals": true
+            }
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Put away all clean dishware into the {storage_0}. Leave dirty dishware where it is."
+    ],
+    "expected_events": [
+        "put_away_targets"
+    ],
+    "expected_brain_behaviors": [
+        "identify_clean_dishware",
+        "avoid_dirty_dishware"
+    ]
+}

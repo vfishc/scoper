@@ -1,0 +1,5 @@
+# Configure official OmniGibson assets independently in its environment too.
+resource_root: ..
+behavior_assets: /path/to/behavior-1k-assets
+model: /path/to/models/Qwen3.5-9B
+cache_root: /path/to/scoper-cache/behavior

@@ -1,0 +1,15 @@
+include README.md
+recursive-include configs *.yaml
+recursive-include task_bank *.json
+recursive-include third_party *.json *.patch
+recursive-include licenses *
+recursive-include docs *.json
+recursive-include tests *.py *.json
+global-exclude __pycache__ *.py[cod]
+prune .git
+prune .hg
+prune .svn
+prune .pytest_cache
+prune outputs
+prune runtime-cache
+global-exclude *.log *.bak *.orig *.rej

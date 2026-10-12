@@ -1,0 +1,85 @@
+{
+    "template_id": "mid_execution_object_relocated_001",
+    "template_version": "0.1",
+    "category": "mid_execution_state_disturbance",
+    "description": "Place an object, but the object is moved after the agent inspects the old location.",
+    "family_spec_template": {
+        "family": "mid_execution_state_disturbance",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "target_receptacle"
+        },
+        "mid_execution": {
+            "primary_task": {
+                "type": "object_relocated",
+                "object_role": "target_object",
+                "receptacle_role": "target_receptacle"
+            },
+            "disturbance": {
+                "type": "relocate_object",
+                "target_role": "target_object",
+                "activation": {"type": "high_level_step", "after_step": 2},
+                "requires_out_of_view": false,
+                "once": true
+            }
+        }
+    },
+    "requires": {
+        "target_object": {
+            "taxonomy_group": "pickupable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true
+        },
+        "target_receptacle": {
+            "taxonomy_group": "place_receptacles",
+            "must_be_receptacle": true,
+            "different_from": ["target_object"]
+        },
+        "faucet": {
+            "taxonomy_group": "faucets",
+            "must_be_toggleable": true,
+            "different_from": ["target_object", "target_receptacle"]
+        }
+    },
+    "initial_state_constraints": [],
+    "goal_predicates": [
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "target_receptacle"
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Find the {target_object} and put it in the {target_receptacle}, even if it has moved."
+    ],
+    "expected_events": [
+        "mid_execution_relocate_object",
+        "recover_from_object_relocated"
+    ],
+    "expected_brain_behaviors": [
+        "detect_object_missing_from_old_location",
+        "scan_to_relocalize_object",
+        "navigate_to_relocated_object"
+    ],
+    "disturbance_spec": {
+        "seed": 0,
+        "disturbances": [
+            {
+                "type": "relocate_object",
+                "target_role": "target_object",
+                "after_step": 2,
+                "requires_out_of_view": false,
+                "once": true,
+                "extra": {
+                    "min_distance": 0.5,
+                    "max_distance": 3.0,
+                    "exclude_roles": ["target_receptacle"]
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,36 @@
+name: minimal
+system: |
+  You are an embodied household agent. Complete the task using the available tools.
+
+  Task:
+  {instruction}
+
+  Available tools:
+  {tool_specs_json}
+
+  Tool contract:
+  {tool_contract}
+
+  {standard_vlm_rules}
+
+  Always respond with exactly one JSON object:
+  {{"tool_name": "<tool>", "arguments": {{}}, "reasoning": "<brief reason>"}}
+user_turn: |
+  Step {high_level_step}
+
+  {last_transition_summary}
+
+  Visible objects:
+  {object_catalog_summary}
+
+  Held objects: {held_objects}
+  Agent pose: {agent_pose}
+  Available target handles: {target_handles}
+
+  {standard_vlm_turn_rules}
+
+  {standard_vlm_dynamic_rules}
+
+  Use the image(s) and context to choose the next tool call.
+image_position: after_text
+image_label_format: ""

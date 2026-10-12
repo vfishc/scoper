@@ -1,0 +1,38 @@
+{
+  "name": "eb_behavior_stage2_smoke",
+  "version": "1.0",
+  "tasks": [
+    {
+      "id": "behavior_stage2_place_000001",
+      "version": "1.0",
+      "backend": "behavior",
+      "category": "static_simple",
+      "source": {"type": "template", "scene_model": "Rs_int"},
+      "instruction": "Put the mug on the breakfast table and open the fridge.",
+      "roles": {
+        "floor": {"synset": "floor.n.01", "bddl_inst": "floors_1", "category": "floors",
+                  "center": [5.0, 3.0, -0.02], "extent": [10.0, 6.0, 0.04]},
+        "target_object": {"synset": "mug.n.01", "bddl_inst": "mug.n.01_1", "category": "mug",
+                          "abilities": ["pickupable"], "extent": [0.16, 0.16, 0.18]},
+        "target_receptacle": {"synset": "breakfast_table.n.01", "bddl_inst": "breakfast_table.n.01_1",
+                              "category": "breakfast_table", "abilities": ["support_surface"],
+                              "center": [6.5, 4.5, 0.45], "extent": [0.7, 0.7, 0.9]},
+        "fridge": {"synset": "electric_refrigerator.n.01", "bddl_inst": "electric_refrigerator.n.01_1",
+                   "category": "fridge", "abilities": ["openable"],
+                   "center": [2.5, 4.5, 1.0], "extent": [0.8, 0.8, 2.0], "init_states": {"open": false}}
+      },
+      "init": [
+        {"predicate": "closed", "args": ["fridge"]}
+      ],
+      "goal": {
+        "type": "predicates",
+        "require_model_stop": false,
+        "bddl_goal": null,
+        "predicates": [
+          {"type": "object_on_receptacle", "args": {"object": "target_object", "receptacle": "target_receptacle"}},
+          {"type": "object_open", "args": {"object": "fridge"}}
+        ]
+      }
+    }
+  ]
+}

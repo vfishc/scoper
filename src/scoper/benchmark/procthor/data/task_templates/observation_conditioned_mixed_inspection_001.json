@@ -1,0 +1,120 @@
+{
+  "template_id": "observation_conditioned_mixed_inspection_001",
+  "template_version": "2.0",
+  "category": "observation_conditioned_room_inspection",
+  "description": "Inspect one kitchen and repair three visually discovered issue types.",
+  "requires": {
+    "issue_dish": {
+      "taxonomy_group": "dirtyable_task_objects",
+      "must_be_pickupable": true,
+      "must_not_have_closed_parent_receptacle": true,
+      "object_type_allowlist": ["Plate", "Bowl", "Cup", "Mug"],
+      "visible_from_initial_pose": false,
+      "different_from": ["dish_storage"],
+      "relocate_if": {
+        "modes": ["near_primary_object_floor"],
+        "to_floor_anchor_role": "sink_basin",
+        "validation": "interactable_poses",
+        "fallback_to": null
+      }
+    },
+    "sink_basin": {
+      "taxonomy_group": "sink_basins",
+      "must_be_receptacle": true,
+      "different_from": ["issue_dish"]
+    },
+    "issue_faucet": {
+      "taxonomy_group": "faucets",
+      "must_be_toggleable": true,
+      "same_room_as": "sink_basin",
+      "visible_from_initial_pose": false
+    },
+    "dish_storage": {
+      "taxonomy_group": "dishware_storage",
+      "must_be_receptacle": true,
+      "must_not_be_pickupable": true
+    },
+    "issue_dish_relocate_target": {
+      "taxonomy_group": "open_surface_receptacles",
+      "must_be_receptacle": true,
+      "must_not_be_pickupable": true,
+      "same_room_as": "sink_basin",
+      "relocate_target_only": true,
+      "optional": true
+    },
+    "issue_container": {
+      "taxonomy_group": "policy_open_containers",
+      "must_be_openable": true,
+      "same_room_as": "sink_basin",
+      "different_from": ["dish_storage", "issue_faucet"],
+      "visible_from_initial_pose": false,
+      "relocate_if": {
+        "modes": ["near_primary_object_floor"],
+        "to_floor_anchor_role": "sink_basin",
+        "validation": "interactable_poses",
+        "fallback_to": null
+      }
+    }
+  },
+  "initial_state_constraints": [
+    {"type": "object_dirty", "object_role": "issue_dish"},
+    {"type": "object_toggled_on", "object_role": "issue_faucet"},
+    {"type": "object_open", "object_role": "issue_container"}
+  ],
+  "goal_predicates": [
+    {"type": "object_clean", "object_role": "issue_dish"},
+    {"type": "object_in_receptacle", "object_role": "issue_dish", "receptacle_role": "dish_storage"},
+    {"type": "object_toggled_off", "object_role": "issue_faucet"},
+    {"type": "object_closed", "object_role": "issue_container"}
+  ],
+  "goal_options": {"require_model_stop": true},
+  "instruction_templates": [
+    "Inspect the {scope_room_label} and resolve any applicable household issues supported by your observations before stopping."
+  ],
+  "expected_events": ["navigate_to_room", "scan", "repair_visible_issue"],
+  "expected_brain_behaviors": ["inspect_before_repair", "handle_multiple_visible_issues"],
+  "family_spec_template": {
+    "family": "observation_conditioned_room_inspection",
+    "scope": {
+      "type": "single_room",
+      "room_ids_from_role": "sink_basin"
+    },
+    "observation_conditioned": {
+      "rooms_from_roles": ["sink_basin"],
+      "public_discovery_mode": "visual_only",
+      "require_visual_evidence": true,
+      "scan_policy": {"num_views": 4, "require_room_entry_before_scan": true},
+      "latent_payload_templates": [
+        {
+          "latent_id": "issue_0",
+          "issue_type": "faucet_on",
+          "room_from_role": "issue_faucet",
+          "object_role": "issue_faucet",
+          "repair_plan_template": "toggle_off",
+          "goal_predicates": [{"type": "object_toggled_off", "object_role": "issue_faucet"}]
+        },
+        {
+          "latent_id": "issue_1",
+          "issue_type": "open_container",
+          "room_from_role": "sink_basin",
+          "object_role": "issue_container",
+          "repair_plan_template": "close",
+          "goal_predicates": [{"type": "object_closed", "object_role": "issue_container"}]
+        },
+        {
+          "latent_id": "issue_2",
+          "issue_type": "dirty_dish",
+          "room_from_role": "sink_basin",
+          "object_role": "issue_dish",
+          "object_family_from_role": "issue_dish",
+          "support_roles": {"sink": "sink_basin", "faucet": "issue_faucet", "storage": "dish_storage"},
+          "repair_plan_template": "wash_then_place",
+          "goal_predicates": [
+            {"type": "object_clean", "object_role": "issue_dish"},
+            {"type": "object_in_receptacle", "object_role": "issue_dish", "receptacle_role": "dish_storage"}
+          ]
+        }
+      ]
+    }
+  }
+}

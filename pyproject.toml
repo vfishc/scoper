@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "scoper-supplement"
+version = "1.3.0"
+description = "SCOPER embodied task generation, oracle execution and evaluation"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["numpy", "Pillow", "PyYAML"]
+[project.scripts]
+scoper = "scoper.cli:main"
+scoper-procthor = "scoper.procthor:main"
+scoper-behavior = "scoper.behavior:main"
+[project.optional-dependencies]
+procthor = ["ai2thor", "prior"]
+api = ["openai", "anthropic", "google-genai"]
+local = ["torch", "torchvision", "transformers", "accelerate", "safetensors", "peft"]
+render = ["opencv-python", "imageio", "imageio-ffmpeg"]
+test = ["pytest>=8"]
+[tool.setuptools.packages.find]
+where = ["src"]
+[tool.setuptools.package-data]
+"*" = ["data/**/*.json", "data/**/*.yaml", "data/**/*.txt", "data/**/*.j2", "data/**/*.jinja2", "configs/*.yaml", "docs/spec_assets/*.json", "templates/*", "*.json"]
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

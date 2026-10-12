@@ -1,0 +1,688 @@
+{
+  "backend": "behavior",
+  "category": "composite",
+  "family_spec": {
+    "composite": {
+      "ordering": "sequential",
+      "subtasks": [
+        {
+          "category": "dynamic_state_change",
+          "goal_predicates": [
+            {
+              "args": {
+                "object": "task0__stateful_object"
+              },
+              "owner_subtask_id": "subtask_0",
+              "type": "object_toggled_on"
+            }
+          ],
+          "instruction_fragment": "Turn on the electric switch.",
+          "source_task_id": "behavior_Beechwood_1_int_Beechwood_1_int_var0000_dynamic_state_change_toggle_001_seed105199395_02",
+          "subtask_id": "subtask_0"
+        },
+        {
+          "category": "tidy_by_policy",
+          "family_spec": {
+            "family": "tidy_by_policy",
+            "scope": {
+              "label": "bathroom",
+              "room_ids": [
+                "bathroom_0"
+              ],
+              "type": "single_room"
+            },
+            "tidy": {
+              "policy_rules": [
+                "turn_off_running_faucets",
+                "close_storage_containers",
+                "wash_dirty_dishes_before_storage"
+              ],
+              "policy_text": "Apply these rules only to relevant issues you actually observe: if water is running, turn it off; if a storage container is open, close it; and if a dirty dish needs putting away, wash it before storing it. Some issue types may not be present.",
+              "violations": [
+                {
+                  "object_role": "task1__faucet",
+                  "type": "faucet_on",
+                  "urgency": "immediate"
+                }
+              ]
+            }
+          },
+          "goal_predicates": [
+            {
+              "args": {
+                "object": "task1__faucet"
+              },
+              "owner_subtask_id": "subtask_1",
+              "type": "object_toggled_off"
+            }
+          ],
+          "instruction_fragment": "For objects or conditions that need to be identified by observation, inspect: bathroom 1. Objects already named in the instruction can be navigated to directly, without first navigating to a room. In the bathroom, briefly inspect and make the area tidy and safe. Apply these rules only to relevant issues you actually observe: if water is running, turn it off; if a storage container is open, close it; and if a dirty dish needs putting away, wash it before storing it. Some issue types may not be present. Do not repeatedly search just to find an example of every rule. After handling the applicable issues you observed, stop.",
+          "source_task_id": "behavior_Beechwood_1_int_Beechwood_1_int_var0000_tidy_by_policy_001_seed105199395_00",
+          "subtask_id": "subtask_1"
+        }
+      ]
+    },
+    "family": "composite"
+  },
+  "goal": {
+    "bddl_goal": null,
+    "predicates": [
+      {
+        "args": {
+          "object": "task0__stateful_object"
+        },
+        "owner_subtask_id": "subtask_0",
+        "type": "object_toggled_on"
+      },
+      {
+        "args": {
+          "object": "task1__faucet"
+        },
+        "owner_subtask_id": "subtask_1",
+        "type": "object_toggled_off"
+      }
+    ],
+    "require_model_stop": true,
+    "type": "predicates"
+  },
+  "id": "behavior-example-09",
+  "init": [
+    {
+      "args": [
+        "task0__stateful_object"
+      ],
+      "predicate": "toggled_off"
+    },
+    {
+      "args": [
+        "task1__faucet"
+      ],
+      "predicate": "toggled_on"
+    }
+  ],
+  "instruction": "Complete these tasks in order: (1) Turn on the electric switch. (2) For objects or conditions that need to be identified by observation, inspect: bathroom 1. Objects already named in the instruction can be navigated to directly, without first navigating to a room. In the bathroom, briefly inspect and make the area tidy and safe. Apply these rules only to relevant issues you actually observe: if water is running, turn it off; if a storage container is open, close it; and if a dirty dish needs putting away, wash it before storing it. Some issue types may not be present. Do not repeatedly search just to find an example of every rule. After handling the applicable issues you observed, stop. Stop only after completing all subtasks; a subtask instruction to stop means finish that subtask and continue to the next one.",
+  "metrics_config": {
+    "track_predicate_progress": true,
+    "track_tool_success_rate": true
+  },
+  "oracle_teacher_hint": {
+    "expected_brain_behaviors": [
+      "sequential_composition",
+      "handoff_between_subtasks"
+    ],
+    "expected_events": [
+      "sequential_composite"
+    ],
+    "family": "composite"
+  },
+  "qa_overlay": {
+    "questions": [
+      {
+        "activation": {
+          "target_role_or_null": "task0__stateful_object",
+          "tool_name": "toggle_on",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_00",
+        "owner_subtask_id": "subtask_0",
+        "question": "What was the outcome of the attempted action on lightswitch?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "task1__faucet",
+          "tool_name": "toggle_off",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_01",
+        "owner_subtask_id": "subtask_1",
+        "question": "What was the outcome of the attempted action on faucet?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "subtask_id": "subtask_1",
+          "type": "subtask_handoff"
+        },
+        "answer_set": [
+          "subtask 1: Turn on the electric switch.",
+          "subtask 2: In the bathroom, briefly inspect and make the area tidy and safe. Apply these rules only to relevant issues you actually observe: if water is running, turn it off; if a storage container is open, close it; and if a dirty dish needs putting away, wash it before storing it. Some issue types may not be present. Do not repeatedly search just to find an example of every rule. After handling the applicable issues you observed, stop.",
+          "all subtasks are complete"
+        ],
+        "id": "qa_overlay_02",
+        "question": "Which subtask is active after this handoff?",
+        "question_type": "composite_progress_choice",
+        "resolver": {
+          "all_complete_answer": "all subtasks are complete",
+          "answer_by_active_subtask_id": {
+            "subtask_0": "subtask 1: Turn on the electric switch.",
+            "subtask_1": "subtask 2: In the bathroom, briefly inspect and make the area tidy and safe. Apply these rules only to relevant issues you actually observe: if water is running, turn it off; if a storage container is open, close it; and if a dirty dish needs putting away, wash it before storing it. Some issue types may not be present. Do not repeatedly search just to find an example of every rule. After handling the applicable issues you observed, stop."
+          },
+          "subtask_ids": [
+            "subtask_0",
+            "subtask_1"
+          ],
+          "type": "composite_progress_choice"
+        }
+      }
+    ],
+    "schema_version": "qa_overlay.v1"
+  },
+  "reset_plan": {
+    "assertions": [],
+    "required_init_mutations": [
+      "state_override"
+    ],
+    "runtime_capabilities_required": [],
+    "state_and_relation_init": [
+      {
+        "args": [
+          "task0__stateful_object"
+        ],
+        "predicate": "toggled_off"
+      },
+      {
+        "args": [
+          "task1__faucet"
+        ],
+        "predicate": "toggled_on"
+      }
+    ]
+  },
+  "roles": {
+    "task0__stateful_object": {
+      "abilities": [
+        "receptacle",
+        "support_surface",
+        "toggleable"
+      ],
+      "bbox_size": [
+        0.03614012908935547,
+        0.07621467971801758,
+        0.11430620193481446
+      ],
+      "bddl_inst": "task0__stateful_object",
+      "category": "electric_switch",
+      "center": [
+        0.5474137663841248,
+        -3.0825767517089844,
+        1.2002872228622437
+      ],
+      "extent": [
+        0.04,
+        0.07620000209628529,
+        0.11429999512732253
+      ],
+      "init_states": {},
+      "model": "wseglt",
+      "object_id": "electric_switch_wseglt_8",
+      "object_type": "LightSwitch",
+      "position": {
+        "x": 0.5474137663841248,
+        "y": 1.2002872228622437,
+        "z": -3.0825767517089844
+      },
+      "requires_spawn": false,
+      "room_id": "television_room_0",
+      "root_orientation_xyzw": [
+        7.549790126404332e-08,
+        1.0,
+        -3.1391647326017846e-07,
+        -2.3697540715221337e-14
+      ],
+      "root_position": {
+        "x": 0.5474137663841248,
+        "y": -3.0825767517089844,
+        "z": 1.2002872228622437
+      },
+      "root_yaw": 3.1415925025939906,
+      "scale": [
+        0.9988896250724792,
+        0.9998074173927307,
+        0.9999457001686096
+      ],
+      "source_kind": "scene_instance",
+      "synset": "switch.n.01"
+    },
+    "task1__faucet": {
+      "abilities": [
+        "toggleable",
+        "water_source"
+      ],
+      "bbox_size": [
+        0.6356998596191407,
+        1.320156982421875,
+        1.0297031555175782
+      ],
+      "bddl_inst": "task1__faucet",
+      "category": "derived_faucet",
+      "center": [
+        -0.48441624641418457,
+        3.007452964782715,
+        0.451850563287735
+      ],
+      "extent": [
+        0.6578000442696321,
+        1.5482000897263934,
+        0.9872999645291021
+      ],
+      "init_states": {},
+      "model": "zexzrc",
+      "object_id": "furniture_sink_zexzrc_0::faucet",
+      "object_type": "Faucet",
+      "position": {
+        "x": -0.48441624641418457,
+        "y": 0.451850563287735,
+        "z": 3.007452964782715
+      },
+      "requires_spawn": false,
+      "room_id": "bathroom_0",
+      "root_orientation_xyzw": [
+        0.0,
+        0.0,
+        0.0027621332556009293,
+        0.9999961853027344
+      ],
+      "root_position": {
+        "x": -0.48441624641418457,
+        "y": 3.007452964782715,
+        "z": 0.451850563287735
+      },
+      "root_yaw": 0.0055242735356812196,
+      "scale": [
+        1.0347651243209839,
+        1.1727393865585327,
+        0.9588199853897095
+      ],
+      "source_kind": "derived_scene_part",
+      "synset": "faucet.n.01"
+    }
+  },
+  "source": {
+    "composite_child_task_ids": [
+      "behavior_Beechwood_1_int_Beechwood_1_int_var0000_dynamic_state_change_toggle_001_seed105199395_02",
+      "behavior_Beechwood_1_int_Beechwood_1_int_var0000_tidy_by_policy_001_seed105199395_00"
+    ],
+    "layout_variant_id": "Beechwood_1_int_var0000",
+    "occupancy_bounds": [
+      -10.285743713378906,
+      -9.410677909851074,
+      7.454256057739258,
+      11.296900749206543
+    ],
+    "room_catalog": [
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 16,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 0.457,
+            "y": 0.0,
+            "z": 3.811
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "bathroom_0",
+        "room_type": "bathroom",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 20,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -6.924,
+            "y": 0.0,
+            "z": -2.308
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "bathroom_1",
+        "room_type": "bathroom",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 22,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -2.188,
+            "y": 0.0,
+            "z": -4.796
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "bedroom_0",
+        "room_type": "bedroom",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 13,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 2.81,
+            "y": 0.0,
+            "z": -0.724
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "childs_room_0",
+        "room_type": "childs_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 12,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 2.985,
+            "y": 0.0,
+            "z": 3.186
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "childs_room_1",
+        "room_type": "childs_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 8,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -5.606,
+            "y": 0.0,
+            "z": -0.999
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "closet_0",
+        "room_type": "closet",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 0.976,
+            "y": 0.0,
+            "z": -0.723
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "closet_1",
+        "room_type": "closet",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 4.937,
+            "y": 0.0,
+            "z": 4.586
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "closet_2",
+        "room_type": "closet",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 11,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -0.449,
+            "y": 0.0,
+            "z": -1.159
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "corridor_0",
+        "room_type": "corridor",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 23,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 2.01,
+            "y": 0.0,
+            "z": 7.582
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "playroom_0",
+        "room_type": "playroom",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -2.53,
+            "y": 0.0,
+            "z": -2.467
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "storage_room_0",
+        "room_type": "storage_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 4.937,
+            "y": 0.0,
+            "z": 6.742
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "storage_room_1",
+        "room_type": "storage_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 1.019,
+            "y": 0.0,
+            "z": 2.804
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "storage_room_2",
+        "room_type": "storage_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 16,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 2.388,
+            "y": 0.0,
+            "z": -4.39
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "television_room_0",
+        "room_type": "television_room",
+        "source": "profile_in_rooms"
+      }
+    ],
+    "scene_model": "Beechwood_1_int",
+    "source_json": "assets/behavior/behavior-example-09-01.json",
+    "stage3_match_status": "matched_requires_runtime_validation",
+    "start_pose": {
+      "pitch": 0.0,
+      "pose_source": "object_center_centroid_placeholder",
+      "room_id": "television_room_0",
+      "selection_source": "task_relevant_room_representative_pose",
+      "x": 2.388,
+      "y": -4.39,
+      "yaw": 0.0,
+      "z": 1.55
+    },
+    "template_id": "dynamic_state_change_toggle_001",
+    "template_version": "0.1",
+    "type": "template"
+  },
+  "version": "stage4.0-composite",
+  "evaluation_binding": {
+    "require_observation": false
+  },
+  "task_binding_spec": {
+    "schema_version": "task-binding-spec.v1",
+    "task_id": "behavior-example-09",
+    "task_spec_sha256": "351f12cbffdae05444ce7b1cda569d5b283ff659cba3549149f9da9e7d5ff182",
+    "compiler_version": "task-binding-compiler.v12",
+    "roles": {
+      "task0__stateful_object": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "electric switch",
+          "light switch",
+          "switch"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "task1__faucet": {
+        "source_policy": "observation",
+        "public_terms": [
+          "faucet",
+          "tap"
+        ],
+        "generic_terms": [],
+        "activation": "concrete_reference",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      }
+    },
+    "collections": {}
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "template_id": "human_qa_and_insert_simple_place_001",
+  "template_version": "0.1",
+  "category": "human_interactive_execution",
+  "description": "Place one object while answering a helper question and completing a before-stop insert task.",
+  "family_spec_template": {
+    "family": "human_interactive_execution",
+    "scope": {
+      "type": "single_room",
+      "label": "kitchen",
+      "room_ids_from_role": "primary_receptacle"
+    },
+    "human": {
+      "primary_task": {
+        "type": "simple_place",
+        "object_role": "primary_object",
+        "receptacle_role": "primary_receptacle"
+      },
+      "human_events_template": [
+        {
+          "id": "qa_0",
+          "type": "qa",
+          "question_type": "post_place_next_action",
+          "question_template": "After placing the {primary_object_type_lower}, what should you do next with the visible {primary_receptacle_type_lower} to leave the destination in a finished state?",
+          "answer_set": ["close the destination", "no destination action needed"],
+          "evaluator_answer_resolver": "post_place_next_action",
+          "activation": {
+            "type": "milestone",
+            "milestone": "after_successful_tool_on_role",
+            "tool": "put_down",
+            "role": "primary_receptacle"
+          },
+          "requires_visible_roles": ["primary_receptacle"]
+        },
+        {
+          "id": "insert_0",
+          "type": "insert",
+          "priority": "before_stop",
+          "instruction_template": "Also turn off the {room_light_type_lower} before you stop.",
+          "activation": {
+            "type": "milestone",
+            "milestone": "after_successful_tool_on_role",
+            "tool": "put_down",
+            "role": "primary_receptacle"
+          },
+          "goal_predicates": [
+            {"type": "object_toggled_off", "object_role": "room_light"}
+          ]
+        }
+      ]
+    }
+  },
+  "requires": {
+    "primary_object": {
+      "taxonomy_group": "pickupable_task_objects",
+      "must_be_pickupable": true,
+      "must_not_have_closed_parent_receptacle": true
+    },
+    "primary_receptacle": {
+      "taxonomy_group": "place_receptacles",
+      "object_type_allowlist": ["CounterTop", "DiningTable", "Fridge", "GarbageCan"],
+      "must_be_receptacle": true,
+      "must_not_be_pickupable": true,
+      "different_from": ["primary_object"]
+    },
+    "room_light": {
+      "taxonomy_group": "lights",
+      "must_be_toggleable": true,
+      "same_room_as": "primary_receptacle",
+      "different_from": ["primary_object", "primary_receptacle"]
+    }
+  },
+  "initial_state_constraints": [
+    {
+      "type": "object_not_in_receptacle",
+      "object_role": "primary_object",
+      "receptacle_role": "primary_receptacle"
+    },
+    {"type": "object_toggled_on", "object_role": "room_light"}
+  ],
+  "goal_predicates": [
+    {
+      "type": "object_in_receptacle",
+      "object_role": "primary_object",
+      "receptacle_role": "primary_receptacle"
+    },
+    {
+      "type": "object_closed",
+      "object_role": "primary_receptacle",
+      "include_if": {"role": "primary_receptacle", "field": "openable", "equals": true}
+    },
+    {"type": "object_toggled_off", "object_role": "room_light"}
+  ],
+  "goal_options": {"require_model_stop": true},
+  "instruction_templates": [
+    "Put the {primary_object} on or in the {primary_receptacle}. The {scope_room_label} helper may speak with new tasks or questions. Read `human_messages`, use `answer(question_id, value)` for QA, and complete any added task before you stop."
+  ],
+  "expected_events": ["human_qa_posted", "human_insert_posted"],
+  "expected_brain_behaviors": ["complete_primary_task", "answer_human_qa_correctly", "complete_insert_before_stop"]
+}

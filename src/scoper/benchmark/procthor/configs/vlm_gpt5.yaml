@@ -1,0 +1,28 @@
+adapter:
+  type: openai
+  model: gpt-5
+  api_key_env: OPENAI_API_KEY
+  # Reasoning models require max_completion_tokens (not max_tokens) and reject
+  # non-default temperature; the adapter handles both automatically. Budget is
+  # larger because reasoning tokens count against it.
+  max_tokens: 4096
+  temperature: 1.0
+  extra:
+    # Optional knobs forwarded to chat.completions.create:
+    request_params:
+      reasoning_effort: low
+
+observation:
+  mode: multi_frame
+  num_frames: 3
+  image_format: png
+  max_resolution: [1024, 1024]
+  max_history_turns: 5
+
+retry:
+  max_retries: 3
+  backoff_base: 2.0
+  backoff_cap: 30.0
+  timeout_seconds: 180.0
+
+prompt_template: detailed

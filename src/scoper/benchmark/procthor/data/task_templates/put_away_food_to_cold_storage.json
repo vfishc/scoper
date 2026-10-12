@@ -1,0 +1,170 @@
+{
+    "template_id": "put_away_food_to_cold_storage_001",
+    "template_version": "0.1",
+    "category": "put_away_by_category",
+    "description": "Put cold food items into the fridge while leaving non-food distractors out.",
+    "family_spec_template": {
+        "family": "put_away_by_category",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "storage_0",
+            "required_room_types": ["kitchen"]
+        },
+        "put_away": {
+            "semantic_category": "cold_food",
+            "target_roles_prefix": "target_",
+            "protected_distractor_roles_prefix": "distractor_",
+            "storage_roles": [
+                "storage_0"
+            ]
+        }
+    },
+    "requires": {
+        "storage_0": {
+            "taxonomy_group": "cold_food_storage",
+            "must_be_receptacle": true,
+            "must_be_openable": true,
+            "must_not_be_pickupable": true
+        },
+        "target_0": {
+            "taxonomy_group": "cold_food",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "same_room_as": "storage_0",
+            "different_from": [
+                "storage_0"
+            ],
+            "relocate_if": {
+                "modes": [
+                    "evacuate_from_goal_receptacle"
+                ],
+                "to_receptacle_role": "target_0_relocate_target",
+                "fallback_to": null
+            }
+        },
+        "target_0_relocate_target": {
+            "taxonomy_group": "open_surface_receptacles",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true,
+            "same_room_as": "storage_0",
+            "relocate_target_only": true,
+            "optional": true
+        },
+        "target_1": {
+            "taxonomy_group": "cold_food",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "same_room_as": "storage_0",
+            "different_from": [
+                "storage_0",
+                "target_0"
+            ],
+            "optional": true
+        },
+        "target_2": {
+            "taxonomy_group": "cold_food",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "same_room_as": "storage_0",
+            "different_from": [
+                "storage_0",
+                "target_0",
+                "target_1"
+            ],
+            "optional": true
+        },
+        "distractor_0": {
+            "taxonomy_group": "dishware",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "same_room_as": "storage_0",
+            "different_from": [
+                "storage_0",
+                "target_0",
+                "target_1",
+                "target_2"
+            ],
+            "optional": true
+        },
+        "distractor_1": {
+            "taxonomy_group": "cleaning_supplies",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "same_room_as": "storage_0",
+            "different_from": [
+                "storage_0",
+                "target_0",
+                "target_1",
+                "target_2",
+                "distractor_0"
+            ],
+            "optional": true
+        }
+    },
+    "initial_state_constraints": [
+        {
+            "type": "object_not_in_receptacle",
+            "object_role": "target_0",
+            "receptacle_role": "storage_0"
+        }
+    ],
+    "goal_predicates": [
+        {
+            "type": "object_in_any_receptacle",
+            "object_role": "target_0",
+            "receptacle_roles": [
+                "storage_0"
+            ]
+        },
+        {
+            "type": "object_in_any_receptacle",
+            "object_role": "target_1",
+            "receptacle_roles": [
+                "storage_0"
+            ],
+            "include_if": "target_1"
+        },
+        {
+            "type": "object_in_any_receptacle",
+            "object_role": "target_2",
+            "receptacle_roles": [
+                "storage_0"
+            ],
+            "include_if": "target_2"
+        },
+        {
+            "type": "object_not_in_any_receptacle",
+            "object_role": "distractor_0",
+            "receptacle_roles": [
+                "storage_0"
+            ],
+            "include_if": "distractor_0"
+        },
+        {
+            "type": "object_not_in_any_receptacle",
+            "object_role": "distractor_1",
+            "receptacle_roles": [
+                "storage_0"
+            ],
+            "include_if": "distractor_1"
+        },
+        {
+            "type": "object_closed",
+            "object_role": "storage_0"
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "In the kitchen, put away all food that should be kept cold into the fridge. Do not put non-food items in the fridge. Make sure the fridge is closed before you stop."
+    ],
+    "expected_events": [
+        "put_away_targets"
+    ],
+    "expected_brain_behaviors": [
+        "store_matching_category",
+        "avoid_protected_distractors"
+    ]
+}

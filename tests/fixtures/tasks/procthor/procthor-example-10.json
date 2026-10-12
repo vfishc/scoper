@@ -1,0 +1,864 @@
+{
+  "backend": "procthor",
+  "category": "composite",
+  "family_spec": {
+    "composite": {
+      "ordering": "sequential",
+      "subtasks": [
+        {
+          "category": "dynamic_state_change",
+          "goal_predicates": [
+            {
+              "object_role": "task0__stateful_object",
+              "owner_subtask_id": "subtask_0",
+              "type": "object_toggled_on"
+            }
+          ],
+          "instruction_fragment": "Turn on the floor lamp.",
+          "source_task_id": "procthor__composite_3__test_000016__000434__procthor_dynamic_state_change_toggle_001_000002",
+          "subtask_id": "subtask_0"
+        },
+        {
+          "category": "explore_then_act",
+          "family_spec": {
+            "explore": {
+              "discovery_spec": {
+                "hint_room": null,
+                "initially_visible": false,
+                "max_exploration_steps": 30,
+                "target_role": "task1__target_object"
+              },
+              "post_discovery_task": {
+                "target_receptacle_role": "task1__target_receptacle",
+                "task_type": "pickup_and_place"
+              }
+            },
+            "family": "explore_then_act",
+            "scope": {
+              "label": "house",
+              "room_ids": [],
+              "type": "whole_house"
+            }
+          },
+          "goal_predicates": [
+            {
+              "object_role": "task1__target_object",
+              "owner_subtask_id": "subtask_1",
+              "receptacle_role": "task1__target_receptacle",
+              "type": "object_in_receptacle"
+            }
+          ],
+          "instruction_fragment": "Find a apple and put it on the shelf.",
+          "source_task_id": "procthor__composite_3__test_000016__000434__procthor_explore_then_place_001_000001",
+          "subtask_id": "subtask_1"
+        },
+        {
+          "category": "recover_and_store_incident_object",
+          "family_spec": {
+            "family": "recover_and_store_incident_object",
+            "recover": {
+              "incident": {
+                "activation": {
+                  "expected_visibility": "navigation_stream_or_scan",
+                  "initially_visible": false,
+                  "type": "visual_discovery"
+                },
+                "id": "incident_0",
+                "object_role": "task2__incident_faucet",
+                "policy_text": "if you notice water running, turn it off right away",
+                "support_roles": {},
+                "type": "faucet_on",
+                "urgency": "immediate"
+              },
+              "primary_task": {
+                "object_role": "task2__primary_object",
+                "receptacle_role": "task2__primary_receptacle",
+                "type": "food_to_fridge_single"
+              }
+            },
+            "scope": {
+              "label": "house",
+              "room_ids": [],
+              "type": "whole_house"
+            }
+          },
+          "goal_predicates": [
+            {
+              "object_role": "task2__primary_object",
+              "owner_subtask_id": "subtask_2",
+              "receptacle_role": "task2__primary_receptacle",
+              "type": "object_in_receptacle"
+            },
+            {
+              "object_role": "task2__primary_receptacle",
+              "owner_subtask_id": "subtask_2",
+              "type": "object_closed"
+            },
+            {
+              "object_role": "task2__incident_faucet",
+              "owner_subtask_id": "subtask_2",
+              "type": "object_toggled_off"
+            }
+          ],
+          "instruction_fragment": "For objects or conditions that need to be identified by observation, inspect: bathroom. Objects already named in the instruction can be navigated to directly, without first navigating to a room. Put the tomato in the fridge. While working, keep the house tidy and safe: if you notice water running, turn it off right away. Make sure everything is handled before you stop. Leave the fridge closed when finished.",
+          "source_task_id": "procthor__composite_3__test_000016__000434__procthor_recover_faucet_on_then_food_to_fridge_001_000002",
+          "subtask_id": "subtask_2"
+        }
+      ]
+    },
+    "family": "composite",
+    "scope": {
+      "label": "house",
+      "room_ids": [],
+      "type": "whole_house"
+    }
+  },
+  "goal": {
+    "predicates": [
+      {
+        "object_role": "task0__stateful_object",
+        "owner_subtask_id": "subtask_0",
+        "type": "object_toggled_on"
+      },
+      {
+        "object_role": "task1__target_object",
+        "owner_subtask_id": "subtask_1",
+        "receptacle_role": "task1__target_receptacle",
+        "type": "object_in_receptacle"
+      },
+      {
+        "object_role": "task2__primary_object",
+        "owner_subtask_id": "subtask_2",
+        "receptacle_role": "task2__primary_receptacle",
+        "type": "object_in_receptacle"
+      },
+      {
+        "object_role": "task2__primary_receptacle",
+        "owner_subtask_id": "subtask_2",
+        "type": "object_closed"
+      },
+      {
+        "object_role": "task2__incident_faucet",
+        "owner_subtask_id": "subtask_2",
+        "type": "object_toggled_off"
+      }
+    ],
+    "require_model_stop": true,
+    "type": "predicate"
+  },
+  "id": "procthor-example-10",
+  "init": {
+    "agent_pose": {
+      "horizon": 0.0,
+      "position": {
+        "x": 11.0,
+        "y": 0.9009997844696045,
+        "z": 7.0
+      },
+      "rotation": {
+        "y": 0.0
+      }
+    },
+    "object_pose_overrides": [
+      {
+        "floor_position_candidates": [
+          {
+            "x": 7.908017307365509,
+            "y": 0.05,
+            "z": 0.17551619009165073
+          },
+          {
+            "x": 7.7863116254954114,
+            "y": 0.05,
+            "z": 0.47280462016551117
+          },
+          {
+            "x": 7.9426994765151635,
+            "y": 0.05,
+            "z": 0.3324697392530368
+          },
+          {
+            "x": 7.494780112925532,
+            "y": 0.05,
+            "z": 0.6500389267662333
+          },
+          {
+            "x": 7.653216579778888,
+            "y": 0.05,
+            "z": 0.6636475515619016
+          },
+          {
+            "x": 7.986276261184755,
+            "y": 0.05,
+            "z": 0.5198917872275997
+          },
+          {
+            "x": 8.154618574733652,
+            "y": 0.05,
+            "z": 0.193328392638055
+          },
+          {
+            "x": 7.82885577746876,
+            "y": 0.05,
+            "z": 0.6946974368037871
+          },
+          {
+            "x": 8.176242950907767,
+            "y": 0.05,
+            "z": 0.36702867541048967
+          },
+          {
+            "x": 7.495898811564979,
+            "y": 0.05,
+            "z": 0.9000240290342487
+          },
+          {
+            "x": 8.02592473175345,
+            "y": 0.05,
+            "z": 0.7311314928069177
+          },
+          {
+            "x": 7.672824178541245,
+            "y": 0.05,
+            "z": 0.9086147446327442
+          },
+          {
+            "x": 8.207529878965028,
+            "y": 0.05,
+            "z": 0.5577469680296585
+          },
+          {
+            "x": 7.858930174435687,
+            "y": 0.05,
+            "z": 0.9296887383883383
+          },
+          {
+            "x": 8.402992939777228,
+            "y": 0.05,
+            "z": 0.20432615457890874
+          },
+          {
+            "x": 8.417576500526222,
+            "y": 0.05,
+            "z": 0.39048006118698453
+          }
+        ],
+        "mode": "near_primary_object_floor",
+        "object_role": "task2__primary_object",
+        "open_parent_during_relocate": true,
+        "rationale": {
+          "candidates": [
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 0.7815707050959524,
+              "floor_position": {
+                "x": 7.908017307365509,
+                "y": 0.05,
+                "z": 0.17551619009165073
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 8.25,
+                "y": 0.9009997844696045,
+                "z": 0.25
+              },
+              "reachable_position_index": 684,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 0.8413356815959626,
+              "floor_position": {
+                "x": 7.7863116254954114,
+                "y": 0.05,
+                "z": 0.47280462016551117
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 8.0,
+                "y": 0.9009997844696045,
+                "z": 0.75
+              },
+              "reachable_position_index": 658,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 0.8697793651045981,
+              "floor_position": {
+                "x": 7.9426994765151635,
+                "y": 0.05,
+                "z": 0.3324697392530368
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 8.25,
+                "y": 0.9009997844696045,
+                "z": 0.5
+              },
+              "reachable_position_index": 659,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 0.9164286783806693,
+              "floor_position": {
+                "x": 7.494780112925532,
+                "y": 0.05,
+                "z": 0.6500389267662333
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 7.5,
+                "y": 0.9009997844696045,
+                "z": 1.0
+              },
+              "reachable_position_index": 683,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 0.9535068506787607,
+              "floor_position": {
+                "x": 7.653216579778888,
+                "y": 0.05,
+                "z": 0.6636475515619016
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 7.75,
+                "y": 0.9009997844696045,
+                "z": 1.0
+              },
+              "reachable_position_index": 657,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.0134986536050905,
+              "floor_position": {
+                "x": 7.986276261184755,
+                "y": 0.05,
+                "z": 0.5198917872275997
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 8.25,
+                "y": 0.9009997844696045,
+                "z": 0.75
+              },
+              "reachable_position_index": 632,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.0272227405957153,
+              "floor_position": {
+                "x": 8.154618574733652,
+                "y": 0.05,
+                "z": 0.193328392638055
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 8.5,
+                "y": 0.9009997844696045,
+                "z": 0.25
+              },
+              "reachable_position_index": 660,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.0504804167732573,
+              "floor_position": {
+                "x": 7.82885577746876,
+                "y": 0.05,
+                "z": 0.6946974368037871
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 8.0,
+                "y": 0.9009997844696045,
+                "z": 1.0
+              },
+              "reachable_position_index": 631,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.0958329871356063,
+              "floor_position": {
+                "x": 8.176242950907767,
+                "y": 0.05,
+                "z": 0.36702867541048967
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 8.5,
+                "y": 0.9009997844696045,
+                "z": 0.5
+              },
+              "reachable_position_index": 633,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.1664068327372374,
+              "floor_position": {
+                "x": 7.495898811564979,
+                "y": 0.05,
+                "z": 0.9000240290342487
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 7.5,
+                "y": 0.9009997844696045,
+                "z": 1.25
+              },
+              "reachable_position_index": 656,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.1928297857435086,
+              "floor_position": {
+                "x": 8.02592473175345,
+                "y": 0.05,
+                "z": 0.7311314928069177
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 8.25,
+                "y": 0.9009997844696045,
+                "z": 1.0
+              },
+              "reachable_position_index": 605,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.1957586258057693,
+              "floor_position": {
+                "x": 7.672824178541245,
+                "y": 0.05,
+                "z": 0.9086147446327442
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 7.75,
+                "y": 0.9009997844696045,
+                "z": 1.25
+              },
+              "reachable_position_index": 630,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.2130594843585039,
+              "floor_position": {
+                "x": 8.207529878965028,
+                "y": 0.05,
+                "z": 0.5577469680296585
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 8.5,
+                "y": 0.9009997844696045,
+                "z": 0.75
+              },
+              "reachable_position_index": 606,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.2744302581631095,
+              "floor_position": {
+                "x": 7.858930174435687,
+                "y": 0.05,
+                "z": 0.9296887383883383
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 8.0,
+                "y": 0.9009997844696045,
+                "z": 1.25
+              },
+              "reachable_position_index": 604,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.2745667305126713,
+              "floor_position": {
+                "x": 8.402992939777228,
+                "y": 0.05,
+                "z": 0.20432615457890874
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 8.75,
+                "y": 0.9009997844696045,
+                "z": 0.25
+              },
+              "reachable_position_index": 634,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            },
+            {
+              "anchor_object_id": "Faucet|5|1|1",
+              "anchor_role": "task2__incident_faucet",
+              "anchor_room_id": "room|5",
+              "distance_to_anchor": 1.33048251676876,
+              "floor_position": {
+                "x": 8.417576500526222,
+                "y": 0.05,
+                "z": 0.39048006118698453
+              },
+              "floor_room_id": "room|5",
+              "reachable_position": {
+                "x": 8.75,
+                "y": 0.9009997844696045,
+                "z": 0.5
+              },
+              "reachable_position_index": 607,
+              "reachable_room_id": "room|5",
+              "room_membership_available": true,
+              "scope_room_ids": []
+            }
+          ],
+          "floor_candidate_source": "reachable_positions_near_anchor",
+          "mode": "near_primary_object_floor"
+        },
+        "restore_parent_state_after_relocate": true,
+        "to_floor_anchor_role": "task2__incident_faucet",
+        "type": "relocate_object"
+      },
+      {
+        "object_ids": [
+          "Egg|surface|6|16",
+          "Egg|surface|6|17"
+        ],
+        "rationale": {
+          "reason": "remove_unrelated_pickupable_objects_before_required_put_down",
+          "receptacle_object_id": "Fridge|6|1",
+          "required_for": [
+            {
+              "object_role": "task2__primary_object",
+              "receptacle_role": "task2__primary_receptacle",
+              "source": "goal.predicates"
+            },
+            {
+              "object_role": "task2__primary_object",
+              "receptacle_role": "task2__primary_receptacle",
+              "source": "family_spec.receptacle_role"
+            }
+          ]
+        },
+        "receptacle_role": "task2__primary_receptacle",
+        "type": "clear_receptacle_clutter"
+      }
+    ],
+    "object_state_overrides": [
+      {
+        "is_toggled": false,
+        "object_role": "task0__stateful_object",
+        "type": "set_toggle_state"
+      },
+      {
+        "is_toggled": true,
+        "object_role": "task2__incident_faucet",
+        "type": "set_toggle_state"
+      }
+    ]
+  },
+  "instruction": "Complete these tasks in order: (1) Turn on the floor lamp. (2) Find a apple and put it on the shelf. (3) For objects or conditions that need to be identified by observation, inspect: bathroom. Objects already named in the instruction can be navigated to directly, without first navigating to a room. Put the tomato in the fridge. While working, keep the house tidy and safe: if you notice water running, turn it off right away. Make sure everything is handled before you stop. Leave the fridge closed when finished. Stop only after completing all subtasks; a subtask instruction to stop means finish that subtask and continue to the next one.",
+  "metadata": {
+    "composite_generation": {
+      "auto_shared_roles": {},
+      "explicit_shared_roles": {},
+      "role_namespace": [
+        {
+          "stateful_object": "task0__stateful_object"
+        },
+        {
+          "target_object": "task1__target_object",
+          "target_receptacle": "task1__target_receptacle"
+        },
+        {
+          "incident_faucet": "task2__incident_faucet",
+          "primary_object": "task2__primary_object",
+          "primary_receptacle": "task2__primary_receptacle"
+        }
+      ],
+      "source_task_ids": [
+        "procthor__composite_3__test_000016__000434__procthor_dynamic_state_change_toggle_001_000002",
+        "procthor__composite_3__test_000016__000434__procthor_explore_then_place_001_000001",
+        "procthor__composite_3__test_000016__000434__procthor_recover_faucet_on_then_food_to_fridge_001_000002"
+      ]
+    }
+  },
+  "online_requirements": {
+    "expected_brain_behaviors": [
+      "adapt_after_trigger",
+      "complete_primary_task",
+      "detect_state_change",
+      "discover_by_type",
+      "discover_incident_via_streaming",
+      "handoff_between_subtasks",
+      "navigate_and_store",
+      "repair_immediate_incident_first"
+    ],
+    "expected_events": [
+      "dynamic_state_change",
+      "explore_then_act",
+      "recover_incident_faucet_on",
+      "sequential_composite"
+    ]
+  },
+  "qa_overlay": {
+    "questions": [
+      {
+        "activation": {
+          "target_role_or_null": "task0__stateful_object",
+          "tool_name": "toggle_on",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_00",
+        "owner_subtask_id": "subtask_0",
+        "question": "What was the outcome of the attempted action on floorlamp?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "task1__target_receptacle",
+          "tool_name": "put_down",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_01",
+        "owner_subtask_id": "subtask_1",
+        "question": "What was the outcome of the attempted action on shelf?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "task2__primary_receptacle",
+          "tool_name": "put_down",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_02",
+        "owner_subtask_id": "subtask_2",
+        "question": "What was the outcome of the attempted action on fridge?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      }
+    ],
+    "schema_version": "qa_overlay.v1"
+  },
+  "roles": {
+    "task0__stateful_object": {
+      "object_id": "FloorLamp|4|3|1",
+      "object_type": "FloorLamp"
+    },
+    "task1__target_object": {
+      "object_id": "Apple|surface|6|14",
+      "object_type": "Apple"
+    },
+    "task1__target_receptacle": {
+      "object_id": "TVStand|7|2|0___4",
+      "object_type": "Shelf"
+    },
+    "task2__incident_faucet": {
+      "object_id": "Faucet|5|1|1",
+      "object_type": "Faucet"
+    },
+    "task2__primary_object": {
+      "object_id": "Tomato|surface|6|13",
+      "object_type": "Tomato"
+    },
+    "task2__primary_receptacle": {
+      "object_id": "Fridge|6|1",
+      "object_type": "Fridge"
+    }
+  },
+  "source": {
+    "house_id": "test_000016",
+    "house_path": "prior://procthor-10k/test/16",
+    "split": "test"
+  },
+  "template": {
+    "template_id": "composite_sequential",
+    "template_version": "0.1"
+  },
+  "version": "0.1",
+  "evaluation_binding": {
+    "require_observation": false
+  },
+  "task_binding_spec": {
+    "schema_version": "task-binding-spec.v1",
+    "task_id": "procthor-example-10",
+    "task_spec_sha256": "32ba144f2b11168d5ede75cf2cb3e5a559d83adc0b37047880aef353564f5f98",
+    "compiler_version": "task-binding-compiler.v12",
+    "roles": {
+      "task0__stateful_object": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "floor lamp"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "task1__target_object": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "apple"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "task1__target_receptacle": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "shelf"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "task2__incident_faucet": {
+        "source_policy": "observation",
+        "public_terms": [
+          "faucet",
+          "tap"
+        ],
+        "generic_terms": [],
+        "activation": "concrete_reference",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "task2__primary_object": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "tomato"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "task2__primary_receptacle": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "fridge",
+          "refrigerator"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      }
+    },
+    "collections": {}
+  }
+}

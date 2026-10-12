@@ -1,0 +1,43 @@
+adapter:
+  type: openai
+  model: GPT-4o
+  api_key_env: EB_HARNESS_EVAL_API_KEY
+  base_url: https://mg.aid.pub/v1
+  max_tokens: 512
+  temperature: 0.0
+  extra:
+    image_detail: high
+    reasoning_model: false
+    use_max_completion_tokens: false
+
+observation:
+  mode: single_frame
+  num_frames: 1
+  image_format: jpeg
+  max_resolution: [512, 512]
+  jpeg_quality: 90
+  max_history_turns: 2
+
+metadata:
+  mode: standard
+  expose_visible_catalog: true
+  expose_raw_object_ids: false
+  expose_states: false
+  expose_bbox: false
+  expose_segmentation: false
+  log_privileged_metadata: true
+
+retry:
+  max_retries: 1
+  timeout_seconds: 180.0
+
+prompt_template: detailed
+eval_mode: standard_vlm
+
+binding:
+  allow_role_handles: false
+  allow_visible_aliases: true
+  allow_memory: true
+  allow_description_match: true
+  allow_raw_object_ids: false
+  allow_task_text_candidates: false

@@ -1,0 +1,24 @@
+adapter:
+  type: gemini
+  model: gemini-2.5-flash
+  api_key_env: GEMINI_API_KEY
+  max_tokens: 1024
+  temperature: 0.0
+  extra:
+    # Gemini 2.5 enables thinking by default, which can consume the entire
+    # max_tokens budget and return no answer text. Disable it for tool-call use.
+    thinking_budget: 0
+
+observation:
+  mode: streaming
+  max_history_turns: 8
+  image_format: png
+  max_resolution: [1024, 1024]
+
+retry:
+  max_retries: 3
+  backoff_base: 2.0
+  backoff_cap: 30.0
+  timeout_seconds: 120.0
+
+prompt_template: chain_of_thought

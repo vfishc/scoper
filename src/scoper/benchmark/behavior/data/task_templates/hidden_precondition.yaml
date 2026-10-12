@@ -1,0 +1,28 @@
+template_id: hidden_precondition_001
+template_version: "1.0"
+category: static_simple
+description: "Open a container, then place an object inside it."
+
+roles:
+  target_object:
+    abilities_required: ["rigidBody"]
+    default_extent: [0.15, 0.15, 0.15]
+  target_container:
+    abilities_required: ["openable"]
+    different_from: ["target_object"]
+    default_extent: [0.70, 0.70, 1.60]
+
+init_constraints:
+  - predicate: open
+    args: [target_container]
+    negate: true
+
+goal_predicates:
+  - type: object_in_receptacle
+    args: {object: target_object, receptacle: target_container}
+  - type: object_open
+    args: {object: target_container}
+
+instruction_templates:
+  - "Open the {target_container} and put the {target_object} inside."
+  - "Place the {target_object} into the {target_container}."

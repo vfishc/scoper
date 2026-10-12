@@ -1,0 +1,74 @@
+{
+    "template_id": "failure_recovery_partial_open_container_001",
+    "template_version": "0.1",
+    "category": "verify_after_action",
+    "description": "Open-container verification task where the first open call jams at 5% openness. A recovery-aware brain must verify the container state and re-issue open.",
+    "family_spec_template": {
+        "family": "verify_after_action",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "container"
+        },
+        "verify": {
+            "verification_task": {
+                "type": "open_container",
+                "requires_clean_final_state": false,
+                "container_role": "container"
+            },
+            "execution_anomaly": {
+                "mode": "partial_open",
+                "tool": "open",
+                "target_role": "container",
+                "max_count": 1,
+                "agent_visible_feedback": "generic_finished"
+            }
+        }
+    },
+    "requires": {
+        "container": {
+            "taxonomy_group": "openable_containers",
+            "must_be_receptacle": true,
+            "must_be_openable": true
+        }
+    },
+    "initial_state_constraints": [
+        {
+            "type": "object_closed",
+            "object_role": "container"
+        }
+    ],
+    "goal_predicates": [
+        {
+            "type": "object_open",
+            "object_role": "container"
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Open the {container}. Make sure it is actually open before you stop.",
+        "Make sure the {container} is open before you stop."
+    ],
+    "expected_events": [
+        "tool_execution_failure_partial_open",
+        "recover_from_partial_open"
+    ],
+    "expected_brain_behaviors": [
+        "detect_jammed_container",
+        "retry_open_until_fully_open"
+    ],
+    "disturbance_spec": {
+        "seed": 0,
+        "failures": [
+            {
+                "tool": "open",
+                "mode": "partial_open",
+                "after_step": 0,
+                "max_count": 1,
+                "cooldown": 0
+            }
+        ]
+    }
+}

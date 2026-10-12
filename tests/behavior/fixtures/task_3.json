@@ -1,0 +1,34 @@
+{
+  "name": "eb_behavior_stage3_smoke",
+  "version": "1.0",
+  "tasks": [
+    {
+      "id": "behavior_stage3_heat_000001",
+      "version": "1.0",
+      "backend": "behavior",
+      "category": "prepare_heat",
+      "source": {"type": "template", "scene_model": "Rs_int"},
+      "instruction": "Cook the apple on the stove.",
+      "roles": {
+        "floor": {"synset": "floor.n.01", "bddl_inst": "floors_1", "category": "floors",
+                  "center": [5.0, 3.0, -0.02], "extent": [10.0, 6.0, 0.04]},
+        "target_object": {"synset": "apple.n.01", "bddl_inst": "apple.n.01_1", "category": "apple",
+                          "abilities": ["pickupable", "cookable", "heatable"], "extent": [0.12, 0.12, 0.12]},
+        "heatsource": {"synset": "stove.n.01", "bddl_inst": "stove.n.01_1", "category": "stove",
+                       "abilities": ["heatSource", "toggleable"],
+                       "center": [2.5, 4.5, 0.45], "extent": [0.7, 0.7, 0.9], "init_states": {"toggled_on": false}}
+      },
+      "init": [
+        {"predicate": "toggled_off", "args": ["heatsource"]}
+      ],
+      "goal": {
+        "type": "predicates",
+        "require_model_stop": false,
+        "bddl_goal": null,
+        "predicates": [
+          {"type": "object_cooked", "args": {"object": "target_object", "heatsource": "heatsource"}}
+        ]
+      }
+    }
+  ]
+}

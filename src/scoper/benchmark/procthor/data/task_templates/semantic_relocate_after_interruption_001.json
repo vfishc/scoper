@@ -1,0 +1,116 @@
+{
+    "template_id": "semantic_relocate_after_interruption_001",
+    "template_version": "0.1",
+    "category": "mid_execution_state_disturbance",
+    "description": "Interact with an object, stage it, handle another task, then return after the object has moved.",
+    "family_spec_template": {
+        "family": "mid_execution_state_disturbance",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "target_receptacle"
+        },
+        "mid_execution": {
+            "primary_task": {
+                "type": "object_relocated",
+                "object_role": "target_object",
+                "receptacle_role": "target_receptacle",
+                "staging_receptacle_role": "staging_receptacle",
+                "interrupt_role": "faucet",
+                "interrupt_tools": ["navigate_to", "toggle_on", "toggle_off"]
+            },
+            "disturbance": {
+                "type": "relocate_object",
+                "target_role": "target_object",
+                "activation": {
+                    "type": "after_tool_result",
+                    "tool": "put_down",
+                    "target_role": "staging_receptacle",
+                    "success": true,
+                    "after_distinct_tool_count": 2,
+                    "requires_target_not_held": true,
+                    "required_parent_role": "staging_receptacle"
+                },
+                "requires_out_of_view": false,
+                "once": true
+            }
+        }
+    },
+    "requires": {
+        "target_object": {
+            "taxonomy_group": "pickupable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true
+        },
+        "staging_receptacle": {
+            "taxonomy_group": "place_receptacles",
+            "must_be_receptacle": true,
+            "different_from": ["target_object"]
+        },
+        "target_receptacle": {
+            "taxonomy_group": "place_receptacles",
+            "must_be_receptacle": true,
+            "different_from": ["target_object", "staging_receptacle"]
+        },
+        "sink_basin": {
+            "object_type_allowlist": ["SinkBasin"],
+            "must_be_receptacle": true
+        },
+        "faucet": {
+            "object_type_allowlist": ["Faucet"],
+            "must_be_toggleable": true,
+            "near_role": "sink_basin"
+        }
+    },
+    "initial_state_constraints": [
+        {"type": "object_toggled_off", "object_role": "faucet"}
+    ],
+    "goal_predicates": [
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "target_receptacle"
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Find the {target_object}, stage it on the {staging_receptacle}, handle the faucet, then return and put the {target_object} in the {target_receptacle} even if it has moved."
+    ],
+    "expected_events": [
+        "semantic_relocate_object_after_interruption",
+        "recover_from_object_relocated"
+    ],
+    "expected_brain_behaviors": [
+        "interact_with_object_before_disturbance",
+        "perform_distinct_interruption",
+        "inspect_old_staging_location",
+        "relocalize_moved_object"
+    ],
+    "disturbance_spec": {
+        "seed": 0,
+        "disturbances": [
+            {
+                "type": "relocate_object",
+                "target_role": "target_object",
+                "requires_out_of_view": false,
+                "once": true,
+                "activation": {
+                    "type": "after_tool_result",
+                    "tool": "put_down",
+                    "target_role": "staging_receptacle",
+                    "success": true,
+                    "after_distinct_tool_count": 2,
+                    "requires_target_not_held": true,
+                    "required_parent_role": "staging_receptacle"
+                },
+                "extra": {
+                    "min_distance": 0.5,
+                    "max_distance": 3.0,
+                    "exclude_roles": ["target_receptacle", "staging_receptacle"]
+                }
+            }
+        ]
+    }
+}

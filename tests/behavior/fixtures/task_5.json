@@ -1,0 +1,99 @@
+{
+  "name": "eb_behavior_stage5_smoke",
+  "version": "1.0",
+  "tasks": [
+    {
+      "id": "behavior_stage5_sliced_000001",
+      "version": "1.0",
+      "backend": "behavior",
+      "category": "static_simple",
+      "source": {"type": "template", "scene_model": "Rs_int"},
+      "instruction": "Slice the apple with the knife.",
+      "roles": {
+        "floor": {"synset": "floor.n.01", "bddl_inst": "floors_1", "category": "floors", "center": [5.0, 3.0, -0.02], "extent": [10.0, 6.0, 0.04]},
+        "tool": {"synset": "carving_knife.n.01", "bddl_inst": "carving_knife.n.01_1", "category": "carving_knife", "abilities": ["pickupable", "cutting_tool"], "extent": [0.20, 0.04, 0.04]},
+        "target_object": {"synset": "apple.n.01", "bddl_inst": "apple.n.01_1", "category": "apple", "abilities": ["sliceable"], "center": [2.5, 4.5, 0.06], "extent": [0.12, 0.12, 0.12], "init_states": {"sliced": false}}
+      },
+      "init": [{"predicate": "sliced", "args": ["target_object"]}],
+      "goal": {"type": "predicates", "require_model_stop": false, "bddl_goal": null, "predicates": [{"type": "object_sliced", "args": {"object": "target_object", "tool": "tool"}}]}
+    },
+    {
+      "id": "behavior_stage5_clean_000001",
+      "version": "1.0",
+      "backend": "behavior",
+      "category": "static_simple",
+      "source": {"type": "template", "scene_model": "Rs_int"},
+      "instruction": "Wipe the countertop clean with the rag.",
+      "roles": {
+        "floor": {"synset": "floor.n.01", "bddl_inst": "floors_1", "category": "floors", "center": [5.0, 3.0, -0.02], "extent": [10.0, 6.0, 0.04]},
+        "tool": {"synset": "rag.n.01", "bddl_inst": "rag.n.01_1", "category": "rag", "abilities": ["pickupable", "cleaning_tool"], "extent": [0.15, 0.15, 0.05]},
+        "target_object": {"synset": "countertop.n.01", "bddl_inst": "countertop.n.01_1", "category": "countertop", "abilities": ["stainable", "support_surface"], "center": [2.5, 4.5, 0.45], "extent": [0.7, 0.7, 0.9], "init_states": {"dirty": true}}
+      },
+      "init": [{"predicate": "dirty", "args": ["target_object"]}],
+      "goal": {"type": "predicates", "require_model_stop": false, "bddl_goal": null, "predicates": [{"type": "object_clean", "args": {"object": "target_object", "tool": "tool"}}]}
+    },
+    {
+      "id": "behavior_stage5_soaked_000001",
+      "version": "1.0",
+      "backend": "behavior",
+      "category": "static_simple",
+      "source": {"type": "template", "scene_model": "Rs_int"},
+      "instruction": "Soak the sponge under the sink.",
+      "roles": {
+        "floor": {"synset": "floor.n.01", "bddl_inst": "floors_1", "category": "floors", "center": [5.0, 3.0, -0.02], "extent": [10.0, 6.0, 0.04]},
+        "target_object": {"synset": "sponge.n.01", "bddl_inst": "sponge.n.01_1", "category": "sponge", "abilities": ["pickupable", "soakable"], "extent": [0.12, 0.10, 0.05]},
+        "source": {"synset": "sink.n.01", "bddl_inst": "sink.n.01_1", "category": "sink", "abilities": ["fluidSource", "water_source", "support_surface"], "center": [2.5, 4.5, 0.45], "extent": [0.7, 0.7, 0.9]}
+      },
+      "init": [],
+      "goal": {"type": "predicates", "require_model_stop": false, "bddl_goal": null, "predicates": [{"type": "object_soaked", "args": {"object": "target_object", "source": "source"}}]}
+    },
+    {
+      "id": "behavior_stage5_filled_000001",
+      "version": "1.0",
+      "backend": "behavior",
+      "category": "static_simple",
+      "source": {"type": "template", "scene_model": "Rs_int"},
+      "instruction": "Fill the bowl with water from the sink.",
+      "roles": {
+        "floor": {"synset": "floor.n.01", "bddl_inst": "floors_1", "category": "floors", "center": [5.0, 3.0, -0.02], "extent": [10.0, 6.0, 0.04]},
+        "target_object": {"synset": "bowl.n.01", "bddl_inst": "bowl.n.01_1", "category": "bowl", "abilities": ["pickupable", "fillable", "container"], "extent": [0.20, 0.20, 0.12]},
+        "source": {"synset": "sink.n.01", "bddl_inst": "sink.n.01_1", "category": "sink", "abilities": ["fluidSource", "water_source", "support_surface"], "center": [2.5, 4.5, 0.45], "extent": [0.7, 0.7, 0.9]}
+      },
+      "init": [],
+      "goal": {"type": "predicates", "require_model_stop": false, "bddl_goal": null, "predicates": [{"type": "object_filled", "args": {"object": "target_object", "source": "source"}}]}
+    },
+    {
+      "id": "behavior_stage5_prepare_heat_store_000001",
+      "version": "1.0",
+      "backend": "behavior",
+      "category": "prepare_then_place",
+      "source": {"type": "template", "scene_model": "Rs_int"},
+      "instruction": "Cook the apple on the stove, then put it on the breakfast table.",
+      "roles": {
+        "floor": {"synset": "floor.n.01", "bddl_inst": "floors_1", "category": "floors", "center": [5.0, 3.0, -0.02], "extent": [10.0, 6.0, 0.04]},
+        "target_object": {"synset": "apple.n.01", "bddl_inst": "apple.n.01_1", "category": "apple", "abilities": ["pickupable", "cookable", "heatable"], "extent": [0.12, 0.12, 0.12]},
+        "heatsource": {"synset": "stove.n.01", "bddl_inst": "stove.n.01_1", "category": "stove", "abilities": ["heatSource", "toggleable"], "center": [2.5, 4.5, 0.45], "extent": [0.7, 0.7, 0.9], "init_states": {"toggled_on": false}},
+        "target_receptacle": {"synset": "breakfast_table.n.01", "bddl_inst": "breakfast_table.n.01_1", "category": "breakfast_table", "abilities": ["support_surface"], "center": [6.5, 4.5, 0.45], "extent": [0.7, 0.7, 0.9]}
+      },
+      "init": [{"predicate": "toggled_off", "args": ["heatsource"]}],
+      "family_spec": {
+        "prepare": {
+          "target_role": "target_object",
+          "stages": [
+            {"type": "heat", "heatsource": "heatsource"},
+            {"type": "store", "receptacle": "target_receptacle"}
+          ]
+        }
+      },
+      "goal": {
+        "type": "predicates",
+        "require_model_stop": false,
+        "bddl_goal": null,
+        "predicates": [
+          {"type": "object_cooked", "args": {"object": "target_object", "heatsource": "heatsource"}},
+          {"type": "object_on_receptacle", "args": {"object": "target_object", "receptacle": "target_receptacle"}}
+        ]
+      }
+    }
+  ]
+}

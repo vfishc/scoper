@@ -1,0 +1,648 @@
+{
+  "backend": "behavior",
+  "category": "verify_after_action",
+  "failure_spec": [
+    {
+      "after_step": 0,
+      "cooldown": 0,
+      "max_count": 1,
+      "mode": "drop_beside",
+      "tool": "put_down"
+    }
+  ],
+  "family_spec": {
+    "family": "verify_after_action",
+    "scope": {
+      "label": "living room",
+      "room_ids": [
+        "living_room_0"
+      ],
+      "type": "single_room"
+    },
+    "verify": {
+      "execution_anomaly": {
+        "agent_visible_feedback": "generic_finished",
+        "max_count": 1,
+        "mode": "drop_beside",
+        "target_role": "target_receptacle",
+        "tool": "put_down"
+      },
+      "verification_task": {
+        "object_role": "target_object",
+        "receptacle_role": "target_receptacle",
+        "requires_clean_final_state": false,
+        "type": "place_object"
+      }
+    }
+  },
+  "goal": {
+    "bddl_goal": null,
+    "predicates": [
+      {
+        "args": {
+          "object": "target_object",
+          "receptacle": "target_receptacle"
+        },
+        "type": "object_on_receptacle"
+      }
+    ],
+    "require_model_stop": true,
+    "type": "predicates"
+  },
+  "id": "behavior-example-06",
+  "init": [],
+  "init_source_predicates": [],
+  "instruction": "Place the plant pot on the breakfast table. Make sure it is actually placed correctly before you stop.",
+  "metrics_config": {
+    "require_model_stop": true,
+    "track_predicate_progress": true,
+    "track_tool_success_rate": true
+  },
+  "online_requirements": {
+    "expected_brain_behaviors": [
+      "detect_drop_beside",
+      "re_pick_fallen_object",
+      "retry_put_down_after_failure"
+    ],
+    "expected_events": [
+      "tool_execution_failure_drop_beside",
+      "recover_from_drop_beside"
+    ]
+  },
+  "oracle_teacher_hint": {
+    "expected_brain_behaviors": [
+      "detect_drop_beside",
+      "re_pick_fallen_object",
+      "retry_put_down_after_failure"
+    ],
+    "expected_events": [
+      "tool_execution_failure_drop_beside",
+      "recover_from_drop_beside"
+    ],
+    "expected_plan_skeleton": [
+      "navigate_to_object",
+      "pick_up",
+      "navigate_to_receptacle",
+      "place"
+    ],
+    "family": "verify_after_action"
+  },
+  "renderer_asset_provenance": {
+    "assignments": [],
+    "audit_performed": false,
+    "failures": [],
+    "requires_symbolic_and_oracle_admission": true,
+    "schema_version": "balanced-concrete-assets.v1",
+    "status": "skipped_by_user"
+  },
+  "reset_plan": {
+    "assertions": [],
+    "required_init_mutations": [
+      "spawn_object"
+    ],
+    "runtime_capabilities_required": [
+      "spawn_placement"
+    ],
+    "state_and_relation_init": []
+  },
+  "roles": {
+    "spawn_support_1": {
+      "abilities": [
+        "receptacle",
+        "support_surface"
+      ],
+      "auxiliary_spawn_support": true,
+      "bbox_size": [
+        0.5080029296875,
+        0.6390993041992188,
+        0.39465631103515625
+      ],
+      "bddl_inst": "coffee_table_qlmqyy_0",
+      "category": "coffee_table",
+      "center": [
+        3.859013080596924,
+        -7.99119234085083,
+        0.2735796272754669
+      ],
+      "extent": [
+        0.757399937301525,
+        0.8774000130098648,
+        0.39549999947855397
+      ],
+      "init_states": {},
+      "model": "qlmqyy",
+      "object_id": "coffee_table_qlmqyy_0",
+      "object_type": "CoffeeTable",
+      "position": {
+        "x": 3.859013080596924,
+        "y": 0.2735796272754669,
+        "z": -7.99119234085083
+      },
+      "requires_spawn": false,
+      "room_id": "living_room_0",
+      "scale": [
+        1.4909361600875854,
+        1.372869610786438,
+        1.0021377801895142
+      ],
+      "source_kind": "scene_instance",
+      "synset": "coffee_table.n.01"
+    },
+    "target_object": {
+      "abilities": [
+        "breakable",
+        "dirtyable",
+        "disinfectable",
+        "dustyable",
+        "fillable",
+        "freezable",
+        "grassyable",
+        "heatable",
+        "moldyable",
+        "nonSubstance",
+        "pickupable",
+        "receptacle",
+        "rigidBody",
+        "rustable",
+        "scratchable",
+        "stainable",
+        "stickyable",
+        "support_surface",
+        "tarnishable",
+        "wetable",
+        "wrinkleable"
+      ],
+      "bddl_inst": "pot.n.04_259443534",
+      "catalog_object_id": "spawnable:plant_pot",
+      "category": "plant_pot",
+      "center": [
+        4.077713049247686,
+        -7.99119234085083,
+        0.5513296270147439
+      ],
+      "extent": [
+        0.1734118811759722,
+        0.19839396886996796,
+        0.11999999999999998
+      ],
+      "init_states": {
+        "contains": {},
+        "filled": {},
+        "saturated": {}
+      },
+      "model": "ygrtaz",
+      "object_id": "spawnable:target_object:bowl",
+      "object_type": "PlantPot",
+      "position": null,
+      "requires_spawn": true,
+      "room_id": null,
+      "source_kind": "spawnable_asset",
+      "spawn_placement": {
+        "anchor_role": "target_receptacle",
+        "background_occupants_checked": 0,
+        "clearance": 0.02,
+        "mode": "on_support_surface",
+        "offset": [
+          0.21869996865076252,
+          -0.0,
+          0.27774999973927694
+        ],
+        "slot": 0,
+        "support_role": "spawn_support_1"
+      },
+      "synset": "pot.n.04"
+    },
+    "target_receptacle": {
+      "abilities": [
+        "receptacle",
+        "support_surface"
+      ],
+      "bbox_size": [
+        0.49741897583007816,
+        1.1938009643554688,
+        0.48083885192871095
+      ],
+      "bddl_inst": "breakfast_table.n.01_1",
+      "category": "breakfast_table",
+      "center": [
+        2.683701276779175,
+        -7.4408111572265625,
+        0.5577861666679382
+      ],
+      "extent": [
+        0.5184999948276527,
+        0.7083000254966101,
+        0.689400025940995
+      ],
+      "init_states": {},
+      "model": "skczfi",
+      "object_id": "breakfast_table_skczfi_0",
+      "object_type": "DiningTable",
+      "position": {
+        "x": 2.683701276779175,
+        "y": 0.5577861666679382,
+        "z": -7.4408111572265625
+      },
+      "requires_spawn": false,
+      "room_id": "living_room_0",
+      "root_orientation_xyzw": [
+        4.305359652789775e-06,
+        -1.2396654710755683e-05,
+        -0.7071060538291931,
+        0.7071076035499573
+      ],
+      "root_position": {
+        "x": 2.683701276779175,
+        "y": -7.4408111572265625,
+        "z": 0.5577861666679382
+      },
+      "root_yaw": -1.5707942698263149,
+      "scale": [
+        1.0423808097839355,
+        0.5933150053024292,
+        1.4337444305419922
+      ],
+      "source_kind": "scene_instance",
+      "synset": "breakfast_table.n.01"
+    }
+  },
+  "source": {
+    "layout_variant_id": "Beechwood_0_int_var0000",
+    "occupancy_bounds": [
+      -8.296287536621094,
+      -12.375242233276367,
+      8.597738265991211,
+      4.568439483642578
+    ],
+    "room_catalog": [
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 11,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 2.176,
+            "y": 0.0,
+            "z": -0.134
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "bathroom_0",
+        "room_type": "bathroom",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 7,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 2.004,
+            "y": 0.0,
+            "z": -2.942
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "corridor_0",
+        "room_type": "corridor",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 17,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -4.552,
+            "y": 0.0,
+            "z": -4.384
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "dining_room_0",
+        "room_type": "dining_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 43,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -0.905,
+            "y": 0.0,
+            "z": -7.889
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "kitchen_0",
+        "room_type": "kitchen",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 17,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 4.365,
+            "y": 0.0,
+            "z": -7.452
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "living_room_0",
+        "room_type": "living_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 21,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -2.859,
+            "y": 0.0,
+            "z": -0.239
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "living_room_1",
+        "room_type": "living_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 15,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 4.64,
+            "y": 0.0,
+            "z": -3.571
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "private_office_0",
+        "room_type": "private_office",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -0.075,
+            "y": 0.0,
+            "z": -4.632
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "storage_room_0",
+        "room_type": "storage_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 2.414,
+            "y": 0.0,
+            "z": -4.318
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "storage_room_1",
+        "room_type": "storage_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 4,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 5.307,
+            "y": 0.0,
+            "z": 0.213
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "storage_room_2",
+        "room_type": "storage_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 14,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 4.38,
+            "y": 0.0,
+            "z": -0.526
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "utility_room_0",
+        "room_type": "utility_room",
+        "source": "profile_in_rooms"
+      }
+    ],
+    "scene_model": "Beechwood_0_int",
+    "source_json": "assets/behavior/behavior-example-06-01.json",
+    "stage3_match_status": "matched_requires_spawn",
+    "start_pose": {
+      "pitch": 0.0,
+      "pose_source": "object_center_centroid_placeholder",
+      "room_id": "living_room_0",
+      "selection_source": "task_relevant_room_representative_pose",
+      "x": 4.365,
+      "y": -7.452,
+      "yaw": 0.0,
+      "z": 1.55
+    },
+    "template_id": "failure_recovery_drop_beside_receptacle_001",
+    "template_version": "0.1",
+    "type": "template"
+  },
+  "template": {
+    "template_file": "failure_recovery_drop_beside.json",
+    "template_id": "failure_recovery_drop_beside_receptacle_001",
+    "template_version": "0.1"
+  },
+  "version": "stage4.0",
+  "evaluation_binding": {
+    "require_observation": false
+  },
+  "binding_policy": {
+    "roles": {
+      "target_object": {
+        "public_terms": [
+          "plant pot"
+        ]
+      }
+    }
+  },
+  "qa_overlay": {
+    "questions": [
+      {
+        "activation": {
+          "type": "before_stop"
+        },
+        "answer_set": [
+          "plantpot object on receptacle diningtable remains",
+          "that requirement is complete"
+        ],
+        "id": "qa_overlay_00",
+        "question": "Which listed task requirement is still incomplete?",
+        "question_type": "remaining_requirement_choice",
+        "resolver": {
+          "answer_by_incomplete_mask": {
+            "0": "that requirement is complete",
+            "1": "plantpot object on receptacle diningtable remains"
+          },
+          "clause_ids": [
+            "goal_clause_0"
+          ],
+          "type": "remaining_requirement_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "target_object",
+          "tool_name": "pick_up",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_01",
+        "question": "What was the outcome of picking up plantpot?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "target_receptacle",
+          "tool_name": "put_down",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_02",
+        "question": "What was the outcome of the attempted action on diningtable?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      }
+    ],
+    "schema_version": "qa_overlay.v1"
+  },
+  "task_binding_spec": {
+    "schema_version": "task-binding-spec.v1",
+    "task_id": "behavior-example-06",
+    "task_spec_sha256": "6f61b72c49e4f020e953baa61f8e24733b1ff24530e3465de5dc0e7398a9d8f8",
+    "compiler_version": "task-binding-compiler.v12",
+    "roles": {
+      "target_object": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "plant pot"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "target_receptacle": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "breakfast table",
+          "dining table"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      }
+    },
+    "collections": {}
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "template_id": "completion_timing_place_001",
+  "template_version": "0.1",
+  "category": "completion_timing",
+  "description": "A clear predicate goal that should be followed by an explicit stop.",
+  "requires": {
+    "target_object": {
+      "taxonomy_group": "pickupable_task_objects",
+      "must_be_pickupable": true,
+      "must_be_visible_from_start": true
+    },
+    "target_receptacle": {
+      "taxonomy_group": "place_receptacles",
+      "must_be_receptacle": true,
+      "different_from": ["target_object"]
+    }
+  },
+  "initial_state_constraints": [
+    {
+      "type": "object_not_in_receptacle",
+      "object_role": "target_object",
+      "receptacle_role": "target_receptacle"
+    }
+  ],
+  "goal_predicates": [
+    {
+      "type": "object_in_receptacle",
+      "object_role": "target_object",
+      "receptacle_role": "target_receptacle"
+    }
+  ],
+  "goal_options": {
+    "require_model_stop": true
+  },
+  "instruction_templates": [
+    "Put the {target_object} in the {target_receptacle} and stop when you are done.",
+    "Move the {target_object} to the {target_receptacle}, then stop."
+  ],
+  "expected_events": ["completion_candidate"],
+  "expected_brain_behaviors": ["recognize_completion", "stop_after_completion"]
+}

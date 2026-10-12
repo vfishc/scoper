@@ -1,0 +1,673 @@
+{
+  "backend": "behavior",
+  "category": "composite",
+  "family_spec": {
+    "composite": {
+      "ordering": "sequential",
+      "subtasks": [
+        {
+          "category": "static_simple",
+          "goal_predicates": [
+            {
+              "args": {
+                "object": "task0__target_object",
+                "receptacle": "task0__target_receptacle"
+              },
+              "owner_subtask_id": "subtask_0",
+              "type": "object_on_receptacle"
+            }
+          ],
+          "instruction_fragment": "Move the mug to the breakfast table.",
+          "source_task_id": "behavior__composite_2__Pomaria_2_int_var0000__000022__behavior_Pomaria_2_int_Pomaria_2_int_var0000_static_place_001_seed4088778904_01",
+          "subtask_id": "subtask_0"
+        },
+        {
+          "category": "tidy_by_policy",
+          "family_spec": {
+            "family": "tidy_by_policy",
+            "scope": {
+              "label": "bathroom",
+              "room_ids": [
+                "bathroom_0"
+              ],
+              "type": "single_room"
+            },
+            "tidy": {
+              "policy_rules": [
+                "turn_off_running_faucets",
+                "close_storage_containers",
+                "wash_dirty_dishes_before_storage"
+              ],
+              "policy_text": "Apply these rules only to relevant issues you actually observe: if water is running, turn it off; if a storage container is open, close it; and if a dirty dish needs putting away, wash it before storing it. Some issue types may not be present.",
+              "violations": [
+                {
+                  "object_role": "task1__faucet",
+                  "type": "faucet_on",
+                  "urgency": "immediate"
+                }
+              ]
+            }
+          },
+          "goal_predicates": [
+            {
+              "args": {
+                "object": "task1__faucet"
+              },
+              "owner_subtask_id": "subtask_1",
+              "type": "object_toggled_off"
+            }
+          ],
+          "instruction_fragment": "For objects or conditions that need to be identified by observation, inspect: bathroom 1. Objects already named in the instruction can be navigated to directly, without first navigating to a room. In the bathroom, briefly inspect and make the area tidy and safe. Apply these rules only to relevant issues you actually observe: if water is running, turn it off; if a storage container is open, close it; and if a dirty dish needs putting away, wash it before storing it. Some issue types may not be present. Do not repeatedly search just to find an example of every rule. After handling the applicable issues you observed, stop.",
+          "source_task_id": "behavior__composite_2__Pomaria_2_int_var0000__000022__behavior_Pomaria_2_int_Pomaria_2_int_var0000_tidy_by_policy_001_seed4088778904_00",
+          "subtask_id": "subtask_1"
+        }
+      ]
+    },
+    "family": "composite"
+  },
+  "goal": {
+    "bddl_goal": null,
+    "predicates": [
+      {
+        "args": {
+          "object": "task0__target_object",
+          "receptacle": "task0__target_receptacle"
+        },
+        "owner_subtask_id": "subtask_0",
+        "type": "object_on_receptacle"
+      },
+      {
+        "args": {
+          "object": "task1__faucet"
+        },
+        "owner_subtask_id": "subtask_1",
+        "type": "object_toggled_off"
+      }
+    ],
+    "require_model_stop": true,
+    "type": "predicates"
+  },
+  "id": "behavior-example-05",
+  "init": [
+    {
+      "args": [
+        "task1__faucet"
+      ],
+      "predicate": "toggled_on"
+    }
+  ],
+  "instruction": "Complete these tasks in order: (1) Move the mug to the breakfast table. (2) For objects or conditions that need to be identified by observation, inspect: bathroom 1. Objects already named in the instruction can be navigated to directly, without first navigating to a room. In the bathroom, briefly inspect and make the area tidy and safe. Apply these rules only to relevant issues you actually observe: if water is running, turn it off; if a storage container is open, close it; and if a dirty dish needs putting away, wash it before storing it. Some issue types may not be present. Do not repeatedly search just to find an example of every rule. After handling the applicable issues you observed, stop. Stop only after completing all subtasks; a subtask instruction to stop means finish that subtask and continue to the next one.",
+  "metrics_config": {
+    "track_predicate_progress": true,
+    "track_tool_success_rate": true
+  },
+  "oracle_teacher_hint": {
+    "expected_brain_behaviors": [
+      "sequential_composition",
+      "handoff_between_subtasks"
+    ],
+    "expected_events": [
+      "sequential_composite"
+    ],
+    "family": "composite"
+  },
+  "qa_overlay": {
+    "questions": [
+      {
+        "activation": {
+          "target_role_or_null": "task0__target_receptacle",
+          "tool_name": "put_down",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_00",
+        "owner_subtask_id": "subtask_0",
+        "question": "What was the outcome of the attempted action on diningtable?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "task1__faucet",
+          "tool_name": "toggle_off",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_01",
+        "owner_subtask_id": "subtask_1",
+        "question": "What was the outcome of the attempted action on faucet?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "subtask_id": "subtask_1",
+          "type": "subtask_handoff"
+        },
+        "answer_set": [
+          "subtask 1: Move the mug to the breakfast table.",
+          "subtask 2: In the bathroom, briefly inspect and make the area tidy and safe. Apply these rules only to relevant issues you actually observe: if water is running, turn it off; if a storage container is open, close it; and if a dirty dish needs putting away, wash it before storing it. Some issue types may not be present. Do not repeatedly search just to find an example of every rule. After handling the applicable issues you observed, stop.",
+          "all subtasks are complete"
+        ],
+        "id": "qa_overlay_02",
+        "question": "Which subtask is active after this handoff?",
+        "question_type": "composite_progress_choice",
+        "resolver": {
+          "all_complete_answer": "all subtasks are complete",
+          "answer_by_active_subtask_id": {
+            "subtask_0": "subtask 1: Move the mug to the breakfast table.",
+            "subtask_1": "subtask 2: In the bathroom, briefly inspect and make the area tidy and safe. Apply these rules only to relevant issues you actually observe: if water is running, turn it off; if a storage container is open, close it; and if a dirty dish needs putting away, wash it before storing it. Some issue types may not be present. Do not repeatedly search just to find an example of every rule. After handling the applicable issues you observed, stop."
+          },
+          "subtask_ids": [
+            "subtask_0",
+            "subtask_1"
+          ],
+          "type": "composite_progress_choice"
+        }
+      }
+    ],
+    "schema_version": "qa_overlay.v1"
+  },
+  "renderer_asset_provenance": {
+    "assignments": [],
+    "audit_performed": false,
+    "failures": [],
+    "requires_symbolic_and_oracle_admission": true,
+    "schema_version": "balanced-concrete-assets.v1",
+    "status": "skipped_by_user"
+  },
+  "reset_plan": {
+    "assertions": [
+      {
+        "args": {
+          "object": "task0__target_object",
+          "receptacle": "task0__target_receptacle"
+        },
+        "relation": "ontop",
+        "type": "object_not_in_receptacle"
+      },
+      {
+        "args": {
+          "object": "task0__target_object",
+          "receptacle": "task0__target_receptacle"
+        },
+        "relation": "ontop",
+        "type": "object_not_in_receptacle"
+      }
+    ],
+    "required_init_mutations": [
+      "spawn_object"
+    ],
+    "runtime_capabilities_required": [
+      "spawn_placement",
+      "visibility_query_or_controlled_spawn_visibility"
+    ],
+    "state_and_relation_init": [
+      {
+        "args": [
+          "task1__faucet"
+        ],
+        "predicate": "toggled_on"
+      }
+    ]
+  },
+  "roles": {
+    "task0__spawn_support_1": {
+      "abilities": [
+        "receptacle",
+        "support_surface"
+      ],
+      "auxiliary_spawn_support": true,
+      "bbox_size": [
+        0.49741897583007816,
+        1.1938009643554688,
+        0.48083885192871095
+      ],
+      "bddl_inst": "task0__spawn_support_1",
+      "category": "breakfast_table",
+      "center": [
+        -1.4453415870666504,
+        3.754796028137207,
+        0.517892062664032
+      ],
+      "extent": [
+        0.3689000137202584,
+        1.1471999921102543,
+        0.6400999611281987
+      ],
+      "init_states": {},
+      "model": "skczfi",
+      "object_id": "breakfast_table_skczfi_0",
+      "object_type": "DiningTable",
+      "position": {
+        "x": -1.4453415870666504,
+        "y": 0.517892062664032,
+        "z": 3.754796028137207
+      },
+      "requires_spawn": false,
+      "room_id": "bathroom_0",
+      "scale": [
+        0.7416283488273621,
+        0.9609642028808594,
+        1.3312151432037354
+      ],
+      "source_kind": "scene_instance",
+      "synset": "breakfast_table.n.01"
+    },
+    "task0__target_object": {
+      "abilities": [
+        "breakable",
+        "dirtyable",
+        "disinfectable",
+        "dustyable",
+        "fillable",
+        "freezable",
+        "grassyable",
+        "heatable",
+        "moldyable",
+        "nonSubstance",
+        "pickupable",
+        "receptacle",
+        "rigidBody",
+        "rustable",
+        "scratchable",
+        "stainable",
+        "stickyable",
+        "support_surface",
+        "tarnishable",
+        "wetable",
+        "wrinkleable"
+      ],
+      "bddl_inst": "mug.n.04_259443534",
+      "catalog_object_id": "spawnable:mug",
+      "category": "mug",
+      "center": [
+        -1.4208915802065212,
+        3.754796028137207,
+        0.904707365419192
+      ],
+      "extent": [
+        0.16479685927363733,
+        0.2,
+        0.09353064438212119
+      ],
+      "init_states": {
+        "contains": {},
+        "filled": {},
+        "saturated": {}
+      },
+      "model": "jgethp",
+      "object_id": "spawnable:target_object:bowl",
+      "object_type": "Mug",
+      "position": null,
+      "requires_spawn": true,
+      "room_id": null,
+      "source_kind": "spawnable_asset",
+      "spawn_placement": {
+        "anchor_role": "task0__target_receptacle",
+        "background_occupants_checked": 0,
+        "clearance": 0.02,
+        "mode": "on_support_surface",
+        "offset": [
+          0.024450006860129186,
+          -0.0,
+          0.38681530275515996
+        ],
+        "slot": 0,
+        "support_role": "task0__spawn_support_1"
+      },
+      "synset": "mug.n.04"
+    },
+    "task0__target_receptacle": {
+      "abilities": [
+        "receptacle",
+        "support_surface"
+      ],
+      "bbox_size": [
+        0.49741897583007816,
+        1.1938009643554688,
+        0.48083885192871095
+      ],
+      "bddl_inst": "task0__target_receptacle",
+      "category": "breakfast_table",
+      "center": [
+        -0.499804824590683,
+        1.8090020418167114,
+        0.7170913219451904
+      ],
+      "extent": [
+        0.5383999962187773,
+        0.8978000579354194,
+        0.8862999833131017
+      ],
+      "init_states": {},
+      "model": "skczfi",
+      "object_id": "breakfast_table_skczfi_1",
+      "object_type": "DiningTable",
+      "position": {
+        "x": -0.499804824590683,
+        "y": 0.7170913219451904,
+        "z": 1.8090020418167114
+      },
+      "requires_spawn": false,
+      "room_id": "bathroom_0",
+      "root_orientation_xyzw": [
+        9.540598512103315e-06,
+        -1.5118674127734266e-05,
+        0.7071074843406677,
+        0.7071060538291931
+      ],
+      "root_position": {
+        "x": -0.499804824590683,
+        "y": 1.8090020418167114,
+        "z": 0.7170913219451904
+      },
+      "root_yaw": 1.5707983160732892,
+      "scale": [
+        1.0823873281478882,
+        0.7520517110824585,
+        1.843237042427063
+      ],
+      "source_kind": "scene_instance",
+      "synset": "breakfast_table.n.01"
+    },
+    "task1__faucet": {
+      "abilities": [
+        "toggleable",
+        "water_source"
+      ],
+      "bbox_size": [
+        0.581067611694336,
+        0.6582706298828125,
+        1.029703125
+      ],
+      "bddl_inst": "task1__faucet",
+      "category": "derived_faucet",
+      "center": [
+        0.7115177512168884,
+        2.484779119491577,
+        0.4152767062187195
+      ],
+      "extent": [
+        0.588999981238936,
+        0.7880999999619671,
+        0.890299982749857
+      ],
+      "init_states": {},
+      "model": "ksecxq",
+      "object_id": "pedestal_sink_ksecxq_0::faucet",
+      "object_type": "Faucet",
+      "position": {
+        "x": 0.7115177512168884,
+        "y": 0.4152767062187195,
+        "z": 2.484779119491577
+      },
+      "requires_spawn": false,
+      "room_id": "bathroom_0",
+      "root_orientation_xyzw": [
+        -5.196327368395259e-09,
+        9.06527475308394e-09,
+        1.0,
+        1.0291722674082848e-06
+      ],
+      "root_position": {
+        "x": 0.7115177512168884,
+        "y": 2.484779119491577,
+        "z": 0.4152767062187195
+      },
+      "root_yaw": 3.1415905952452583,
+      "scale": [
+        1.0136513710021973,
+        1.197227954864502,
+        0.8646181225776672
+      ],
+      "source_kind": "derived_scene_part",
+      "synset": "faucet.n.01"
+    }
+  },
+  "source": {
+    "composite_child_task_ids": [
+      "behavior__composite_2__Pomaria_2_int_var0000__000022__behavior_Pomaria_2_int_Pomaria_2_int_var0000_static_place_001_seed4088778904_01",
+      "behavior__composite_2__Pomaria_2_int_var0000__000022__behavior_Pomaria_2_int_Pomaria_2_int_var0000_tidy_by_policy_001_seed4088778904_00"
+    ],
+    "layout_variant_id": "Pomaria_2_int_var0000",
+    "occupancy_bounds": [
+      -9.384795665740967,
+      -5.120204210281372,
+      3.1437430381774902,
+      7.769795894622803
+    ],
+    "room_catalog": [
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 16,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -0.198,
+            "y": 0.0,
+            "z": 3.037
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "bathroom_0",
+        "room_type": "bathroom",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 9,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -2.752,
+            "y": 0.0,
+            "z": 3.274
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "bathroom_1",
+        "room_type": "bathroom",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 19,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -1.622,
+            "y": 0.0,
+            "z": -0.641
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "bedroom_0",
+        "room_type": "bedroom",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -4.606,
+            "y": 0.0,
+            "z": -1.714
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "closet_0",
+        "room_type": "closet",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -4.597,
+            "y": 0.0,
+            "z": 0.344
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "closet_1",
+        "room_type": "closet",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 5,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -5.533,
+            "y": 0.0,
+            "z": 1.664
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "corridor_0",
+        "room_type": "corridor",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 4,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -3.575,
+            "y": 0.0,
+            "z": 2.469
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "storage_room_0",
+        "room_type": "storage_room",
+        "source": "profile_in_rooms"
+      }
+    ],
+    "scene_model": "Pomaria_2_int",
+    "source_json": "assets/behavior/behavior-example-05-01.json",
+    "stage3_match_status": "matched_requires_runtime_validation",
+    "start_pose": {
+      "pitch": 0.0,
+      "pose_source": "object_center_centroid_placeholder",
+      "room_id": "bathroom_0",
+      "selection_source": "task_relevant_room_representative_pose",
+      "x": -0.198,
+      "y": 3.037,
+      "yaw": 0.0,
+      "z": 1.55
+    },
+    "template_id": "static_place_001",
+    "template_version": "0.1",
+    "type": "template"
+  },
+  "version": "stage4.0-composite",
+  "evaluation_binding": {
+    "require_observation": false
+  },
+  "task_binding_spec": {
+    "schema_version": "task-binding-spec.v1",
+    "task_id": "behavior-example-05",
+    "task_spec_sha256": "be541dbb97fd02566fdf13a891de98838af6e18c1475699d63c4f4bf2d4a0d55",
+    "compiler_version": "task-binding-compiler.v12",
+    "roles": {
+      "task0__target_object": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "mug"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "task0__target_receptacle": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "breakfast table",
+          "dining table"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "task1__faucet": {
+        "source_policy": "observation",
+        "public_terms": [
+          "faucet",
+          "tap"
+        ],
+        "generic_terms": [],
+        "activation": "concrete_reference",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      }
+    },
+    "collections": {}
+  }
+}

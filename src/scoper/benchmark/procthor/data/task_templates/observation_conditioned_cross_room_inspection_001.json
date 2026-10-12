@@ -1,0 +1,64 @@
+{
+  "template_id": "observation_conditioned_cross_room_inspection_001",
+  "template_version": "2.0",
+  "category": "observation_conditioned_room_inspection",
+  "description": "Inspect two distinct rooms and repair one visually discovered safety issue in each.",
+  "requires": {
+    "issue_faucet": {
+      "taxonomy_group": "faucets",
+      "must_be_toggleable": true,
+      "visible_from_initial_pose": false
+    },
+    "issue_container": {
+      "taxonomy_group": "policy_open_containers",
+      "must_be_openable": true,
+      "different_room_from": "issue_faucet",
+      "different_from": ["issue_faucet"],
+      "visible_from_initial_pose": false
+    }
+  },
+  "initial_state_constraints": [
+    {"type": "object_toggled_on", "object_role": "issue_faucet"},
+    {"type": "object_open", "object_role": "issue_container"}
+  ],
+  "goal_predicates": [
+    {"type": "object_toggled_off", "object_role": "issue_faucet"},
+    {"type": "object_closed", "object_role": "issue_container"}
+  ],
+  "goal_options": {"require_model_stop": true},
+  "instruction_templates": [
+    "Inspect the {scope_room_labels}. In each room, resolve only household issues supported by what you observe, then stop."
+  ],
+  "expected_events": ["navigate_to_room", "scan", "repair_visible_issue"],
+  "expected_brain_behaviors": ["inspect_each_room_before_repair", "handle_cross_room_issues"],
+  "family_spec_template": {
+    "family": "observation_conditioned_room_inspection",
+    "scope": {"type": "connected_area", "room_ids_from_roles": ["issue_faucet", "issue_container"]},
+    "observation_conditioned": {
+      "rooms_from_roles": ["issue_faucet", "issue_container"],
+      "public_discovery_mode": "visual_only",
+      "require_visual_evidence": true,
+      "scan_policy": {"num_views": 4, "require_room_entry_before_scan": true},
+      "latent_payload_templates": [
+        {
+          "latent_id": "issue_0",
+          "issue_type": "faucet_on",
+          "room_from_role": "issue_faucet",
+          "object_role": "issue_faucet",
+          "object_family_from_role": "issue_faucet",
+          "repair_plan_template": "toggle_off",
+          "goal_predicates": [{"type": "object_toggled_off", "object_role": "issue_faucet"}]
+        },
+        {
+          "latent_id": "issue_1",
+          "issue_type": "open_container",
+          "room_from_role": "issue_container",
+          "object_role": "issue_container",
+          "object_family_from_role": "issue_container",
+          "repair_plan_template": "close",
+          "goal_predicates": [{"type": "object_closed", "object_role": "issue_container"}]
+        }
+      ]
+    }
+  }
+}

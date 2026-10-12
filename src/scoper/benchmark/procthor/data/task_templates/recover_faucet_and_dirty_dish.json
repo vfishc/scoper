@@ -1,0 +1,112 @@
+{
+    "template_id": "recover_faucet_and_dirty_dish_001",
+    "template_version": "0.3",
+    "category": "recover_multi_incident",
+    "description": "Turn off a running faucet and clean a dirty dish.",
+    "family_spec_template": {
+        "family": "recover_multi_incident",
+        "scope": {
+            "type": "single_room",
+            "room_ids_from_role": "sink_basin"
+        },
+        "recover": {
+            "incidents": [
+                {
+                    "id": "faucet_incident_0",
+                    "type": "faucet_on",
+                    "object_role": "faucet",
+                    "urgency": "high",
+                    "activation": {
+                        "type": "visual_discovery",
+                        "expected_visibility": "navigation_stream_or_scan",
+                        "initially_visible": false
+                    },
+                    "policy_text": "if you notice water running while cleaning, turn it off right away"
+                },
+                {
+                    "id": "dirty_dish_incident_0",
+                    "type": "dirty_dish",
+                    "object_role": "dirty_plate",
+                    "support_roles": {
+                        "sink": "sink_basin",
+                        "faucet": "faucet"
+                    },
+                    "urgency": "normal"
+                }
+            ]
+        }
+    },
+    "requires": {
+        "faucet": {
+            "taxonomy_group": "faucets",
+            "must_be_toggleable": true,
+            "visible_from_initial_pose": false
+        },
+        "sink_basin": {
+            "taxonomy_group": "sink_basins",
+            "must_be_receptacle": true,
+            "same_room_as": "faucet"
+        },
+        "dirty_plate": {
+            "taxonomy_group": "dirtyable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "same_room_as": "sink_basin",
+            "different_from": [
+                "faucet",
+                "sink_basin"
+            ],
+            "relocate_if": {
+                "modes": [
+                    "same_room_as"
+                ],
+                "anchor_role": "sink_basin",
+                "to_receptacle_role": "dirty_plate_relocate_target",
+                "fallback_to": null
+            }
+        },
+        "dirty_plate_relocate_target": {
+            "taxonomy_group": "open_surface_receptacles",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true,
+            "same_room_as": "sink_basin",
+            "relocate_target_only": true,
+            "optional": true
+        }
+    },
+    "initial_state_constraints": [
+        {
+            "type": "object_toggled_on",
+            "object_role": "faucet"
+        },
+        {
+            "type": "object_dirty",
+            "object_role": "dirty_plate"
+        }
+    ],
+    "goal_predicates": [
+        {
+            "type": "object_toggled_off",
+            "object_role": "faucet"
+        },
+        {
+            "type": "object_clean",
+            "object_role": "dirty_plate"
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Clean the dirty dish in the {scope_room_label}. If you notice water running while cleaning, turn it off right away."
+    ],
+    "expected_events": [
+        "faucet_on",
+        "dirty_dish"
+    ],
+    "expected_brain_behaviors": [
+        "handle_multiple_incidents",
+        "discover_incident_via_streaming",
+        "prioritize_faucet_then_clean_dish"
+    ]
+}

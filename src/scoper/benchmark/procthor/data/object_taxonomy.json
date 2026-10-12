@@ -1,0 +1,195 @@
+{
+  "version": "0.1",
+  "groups": {
+    "pickupable_task_objects": [
+      "Apple",
+      "Book",
+      "Bowl",
+      "Cup",
+      "Fork",
+      "KeyChain",
+      "Ladle",
+      "Lettuce",
+      "Mug",
+      "Pan",
+      "Pencil",
+      "Plate",
+      "Pot",
+      "Potato",
+      "SoapBottle",
+      "Spatula",
+      "Spoon",
+      "SprayBottle",
+      "Tomato"
+    ],
+    "place_receptacles": [
+      "ArmChair",
+      "Bowl",
+      "Cabinet",
+      "CoffeeTable",
+      "CounterTop",
+      "DiningTable",
+      "Drawer",
+      "Fridge",
+      "GarbageCan",
+      "Microwave",
+      "Ottoman",
+      "Plate",
+      "Shelf",
+      "SideTable",
+      "Sink",
+      "SinkBasin",
+      "Sofa",
+      "TVStand"
+    ],
+    "openable_containers": [
+      "Cabinet",
+      "Drawer",
+      "Fridge",
+      "Microwave"
+    ],
+    "toggleable_objects": [
+      "DeskLamp",
+      "Faucet",
+      "FloorLamp",
+      "LightSwitch",
+      "StoveBurner",
+      "StoveKnob"
+    ],
+    "lights": [
+      "DeskLamp",
+      "FloorLamp",
+      "LightSwitch"
+    ],
+    "sliceable_task_objects": [
+      "Apple",
+      "Bread",
+      "Lettuce",
+      "Potato",
+      "Tomato"
+    ],
+    "knife_objects": [
+      "Knife",
+      "ButterKnife"
+    ],
+    "heat_sources": [
+      "Microwave"
+    ],
+    "cool_sources": [
+      "Fridge"
+    ],
+    "sink_basins": [
+      "SinkBasin"
+    ],
+    "faucets": [
+      "Faucet"
+    ],
+    "dirtyable_task_objects": [
+      "Bowl",
+      "Cup",
+      "Mug",
+      "Pan",
+      "Plate",
+      "Pot"
+    ],
+    "dirtyable_heatable_task_objects": [
+      "Mug"
+    ],
+    "heatable_task_objects": [
+      "Apple",
+      "Bread",
+      "Egg",
+      "Lettuce",
+      "Potato",
+      "Tomato"
+    ],
+    "coolable_task_objects": [
+      "Apple",
+      "Bread",
+      "Egg",
+      "Lettuce",
+      "Potato",
+      "Tomato"
+    ],
+    "cold_food": [
+      "Apple",
+      "Bread",
+      "Egg",
+      "Lettuce",
+      "Potato",
+      "Tomato"
+    ],
+    "dishware": [
+      "Bowl",
+      "Cup",
+      "Mug",
+      "Plate",
+      "Pot",
+      "Pan"
+    ],
+    "cleaning_supplies": [
+      "SoapBottle",
+      "SprayBottle"
+    ],
+    "dishware_storage": [
+      "Cabinet",
+      "Drawer",
+      "Shelf"
+    ],
+    "cleaning_supply_storage": [
+      "Cabinet",
+      "Shelf",
+      "CounterTop"
+    ],
+    "cold_food_storage": [
+      "Fridge"
+    ],
+    "policy_open_containers": [
+      "Fridge",
+      "Cabinet",
+      "Drawer",
+      "Microwave"
+    ],
+    "place_receptacles_no_counter": [
+      "ArmChair",
+      "Bowl",
+      "Cabinet",
+      "CoffeeTable",
+      "DiningTable",
+      "Drawer",
+      "Fridge",
+      "GarbageCan",
+      "Microwave",
+      "Ottoman",
+      "Plate",
+      "Shelf",
+      "SideTable",
+      "Sofa",
+      "TVStand"
+    ],
+    "open_surface_receptacles": [
+      "CoffeeTable",
+      "CounterTop",
+      "DiningTable",
+      "Shelf",
+      "SideTable"
+    ]
+  },
+  "excluded_object_types": [
+    "BaseballBat",
+    "CreditCard",
+    "Floor",
+    "Painting",
+    "PaperTowelRoll",
+    "Poster",
+    "RoomDecor",
+    "Statue",
+    "Wall"
+  ],
+  "aliases": {
+    "Dining_Table": "DiningTable",
+    "Sink_Basin": "SinkBasin",
+    "Soap_Bottle": "SoapBottle",
+    "Spray_Bottle": "SprayBottle"
+  }
+}

@@ -1,0 +1,99 @@
+{
+    "template_id": "recover_open_container_then_simple_place_001",
+    "template_version": "0.1",
+    "category": "recover_and_store_incident_object",
+    "description": "Place a primary object while closing an open storage container discovered en route before stopping.",
+    "family_spec_template": {
+        "family": "recover_and_store_incident_object",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "primary_receptacle"
+        },
+        "recover": {
+            "primary_task": {
+                "type": "simple_place",
+                "object_role": "primary_object",
+                "receptacle_role": "primary_receptacle"
+            },
+            "incident": {
+                "id": "incident_0",
+                "type": "open_container",
+                "object_role": "incident_container",
+                "support_roles": {},
+                "urgency": "before_stop",
+                "activation": {
+                    "type": "visual_discovery",
+                    "expected_visibility": "navigation_stream_or_scan",
+                    "initially_visible": false
+                },
+                "policy_text": "if you notice a storage container left open, close it before you finish"
+            }
+        }
+    },
+    "requires": {
+        "primary_object": {
+            "taxonomy_group": "pickupable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true
+        },
+        "primary_receptacle": {
+            "taxonomy_group": "place_receptacles",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true,
+            "different_from": [
+                "primary_object"
+            ]
+        },
+        "incident_container": {
+            "taxonomy_group": "policy_open_containers",
+            "must_be_openable": true,
+            "same_room_as": "primary_receptacle",
+            "different_from": [
+                "primary_object",
+                "primary_receptacle"
+            ],
+            "visible_from_initial_pose": false
+        }
+    },
+    "initial_state_constraints": [
+        {
+            "type": "object_open",
+            "object_role": "incident_container"
+        }
+    ],
+    "goal_predicates": [
+        {
+            "type": "object_in_receptacle",
+            "object_role": "primary_object",
+            "receptacle_role": "primary_receptacle"
+        },
+        {
+            "type": "object_closed",
+            "object_role": "incident_container"
+        },
+        {
+            "type": "object_closed",
+            "object_role": "primary_receptacle",
+            "include_if": {
+                "role": "primary_receptacle",
+                "field": "openable",
+                "equals": true
+            }
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Put the {primary_object} on or in the {primary_receptacle}. While working, keep the {scope_room_label} tidy and safe: if you notice a storage container left open, close it before you finish. Make sure everything is handled before you stop."
+    ],
+    "expected_events": [
+        "recover_incident_open_container"
+    ],
+    "expected_brain_behaviors": [
+        "complete_primary_task",
+        "discover_incident_via_streaming",
+        "close_incident_container_before_stop"
+    ]
+}

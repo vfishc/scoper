@@ -1,0 +1,120 @@
+{
+    "template_id": "slice_and_cool_then_place_001",
+    "template_version": "0.1",
+    "category": "prepare_multi_stage",
+    "description": "Multi-stage prepare task: slice a target object, cool it in the fridge, then place it.",
+    "family_spec_template": {
+        "family": "prepare_multi_stage",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "fridge",
+            "required_room_types": ["kitchen"]
+        },
+        "prepare": {
+            "target_role": "target_object",
+            "final_receptacle_role": "target_receptacle",
+            "device_roles": [
+                "knife",
+                "countertop",
+                "fridge"
+            ],
+            "tool_roles": [
+                "knife"
+            ],
+            "stages": [
+                {
+                    "type": "slice",
+                    "receptacle_role": "countertop",
+                    "tool_role": "knife"
+                },
+                {
+                    "type": "cool",
+                    "receptacle_role": "fridge"
+                },
+                {
+                    "type": "store",
+                    "receptacle_role": "target_receptacle"
+                }
+            ],
+            "intermediate_state_checks": true
+        }
+    },
+    "requires": {
+        "target_object": {
+            "taxonomy_group": "sliceable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "same_room_as": "fridge",
+            "different_from": [
+                "knife",
+                "countertop",
+                "fridge",
+                "target_receptacle"
+            ]
+        },
+        "knife": {
+            "taxonomy_group": "knife_objects",
+            "must_be_pickupable": true,
+            "same_room_as": "fridge",
+            "different_from": [
+                "target_object",
+                "countertop",
+                "fridge",
+                "target_receptacle"
+            ]
+        },
+        "countertop": {
+            "taxonomy_group": "open_surface_receptacles",
+            "must_be_receptacle": true,
+            "same_room_as": "fridge"
+        },
+        "fridge": {
+            "taxonomy_group": "cool_sources",
+            "must_be_receptacle": true,
+            "must_be_openable": true,
+            "same_room_as": "target_receptacle"
+        },
+        "target_receptacle": {
+            "taxonomy_group": "place_receptacles",
+            "must_be_receptacle": true,
+            "same_room_as": "fridge",
+            "different_from": [
+                "target_object",
+                "knife",
+                "countertop",
+                "fridge"
+            ]
+        }
+    },
+    "initial_state_constraints": [],
+    "goal_predicates": [
+        {
+            "type": "object_sliced",
+            "object_role": "target_object"
+        },
+        {
+            "type": "object_cool",
+            "object_role": "target_object"
+        },
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "target_receptacle"
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Slice the {target_object}, cool it in the fridge, then place it on the {target_receptacle}."
+    ],
+    "expected_events": [
+        "slice_object",
+        "fridge_cool",
+        "multi_stage_prepare"
+    ],
+    "expected_brain_behaviors": [
+        "slice_then_cool_then_place"
+    ]
+}

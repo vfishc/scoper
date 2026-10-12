@@ -1,0 +1,313 @@
+{
+  "backend": "procthor",
+  "category": "composite",
+  "family_spec": {
+    "composite": {
+      "ordering": "sequential",
+      "subtasks": [
+        {
+          "category": "dynamic_state_change",
+          "goal_predicates": [
+            {
+              "object_role": "task0__stateful_object",
+              "owner_subtask_id": "subtask_0",
+              "type": "object_toggled_on"
+            }
+          ],
+          "instruction_fragment": "Turn on the floor lamp.",
+          "source_task_id": "procthor__composite_2__test_000441__000391__procthor_dynamic_state_change_toggle_001_000001",
+          "subtask_id": "subtask_0"
+        },
+        {
+          "category": "explore_then_act",
+          "family_spec": {
+            "explore": {
+              "discovery_spec": {
+                "hint_room": null,
+                "initially_visible": false,
+                "max_exploration_steps": 30,
+                "target_role": "task1__target_object"
+              },
+              "post_discovery_task": {
+                "target_receptacle_role": "task1__target_receptacle",
+                "task_type": "pickup_and_place"
+              }
+            },
+            "family": "explore_then_act",
+            "scope": {
+              "label": "house",
+              "room_ids": [],
+              "type": "whole_house"
+            }
+          },
+          "goal_predicates": [
+            {
+              "object_role": "task1__target_object",
+              "owner_subtask_id": "subtask_1",
+              "receptacle_role": "task1__target_receptacle",
+              "type": "object_in_receptacle"
+            },
+            {
+              "object_role": "task1__target_receptacle",
+              "owner_subtask_id": "subtask_1",
+              "type": "object_closed"
+            }
+          ],
+          "instruction_fragment": "Find a mug and put it in the fridge. Leave the fridge closed when finished.",
+          "source_task_id": "procthor__composite_2__test_000441__000391__procthor_explore_then_place_001_000002",
+          "subtask_id": "subtask_1"
+        }
+      ]
+    },
+    "family": "composite",
+    "scope": {
+      "label": "house",
+      "room_ids": [],
+      "type": "whole_house"
+    }
+  },
+  "goal": {
+    "predicates": [
+      {
+        "object_role": "task0__stateful_object",
+        "owner_subtask_id": "subtask_0",
+        "type": "object_toggled_on"
+      },
+      {
+        "object_role": "task1__target_object",
+        "owner_subtask_id": "subtask_1",
+        "receptacle_role": "task1__target_receptacle",
+        "type": "object_in_receptacle"
+      },
+      {
+        "object_role": "task1__target_receptacle",
+        "owner_subtask_id": "subtask_1",
+        "type": "object_closed"
+      }
+    ],
+    "require_model_stop": true,
+    "type": "predicate"
+  },
+  "id": "procthor-example-09",
+  "init": {
+    "agent_pose": {
+      "horizon": 0.0,
+      "position": {
+        "x": 6.0,
+        "y": 0.9009997844696045,
+        "z": 4.0
+      },
+      "rotation": {
+        "y": 0.0
+      }
+    },
+    "object_pose_overrides": [
+      {
+        "object_ids": [
+          "Egg|surface|6|8",
+          "Egg|surface|6|9"
+        ],
+        "rationale": {
+          "reason": "remove_unrelated_pickupable_objects_before_required_put_down",
+          "receptacle_object_id": "Fridge|6|2",
+          "required_for": [
+            {
+              "object_role": "task1__target_object",
+              "receptacle_role": "task1__target_receptacle",
+              "source": "goal.predicates"
+            }
+          ]
+        },
+        "receptacle_role": "task1__target_receptacle",
+        "type": "clear_receptacle_clutter"
+      }
+    ],
+    "object_state_overrides": [
+      {
+        "is_toggled": false,
+        "object_role": "task0__stateful_object",
+        "type": "set_toggle_state"
+      }
+    ]
+  },
+  "instruction": "Complete these tasks in order: (1) Turn on the floor lamp. (2) Find a mug and put it in the fridge. Leave the fridge closed when finished. Stop only after completing all subtasks; a subtask instruction to stop means finish that subtask and continue to the next one.",
+  "metadata": {
+    "composite_generation": {
+      "auto_shared_roles": {},
+      "explicit_shared_roles": {},
+      "role_namespace": [
+        {
+          "stateful_object": "task0__stateful_object"
+        },
+        {
+          "target_object": "task1__target_object",
+          "target_receptacle": "task1__target_receptacle"
+        }
+      ],
+      "source_task_ids": [
+        "procthor__composite_2__test_000441__000391__procthor_dynamic_state_change_toggle_001_000001",
+        "procthor__composite_2__test_000441__000391__procthor_explore_then_place_001_000002"
+      ]
+    }
+  },
+  "online_requirements": {
+    "expected_brain_behaviors": [
+      "adapt_after_trigger",
+      "detect_state_change",
+      "discover_by_type",
+      "handoff_between_subtasks",
+      "navigate_and_store"
+    ],
+    "expected_events": [
+      "dynamic_state_change",
+      "explore_then_act",
+      "sequential_composite"
+    ]
+  },
+  "qa_overlay": {
+    "questions": [
+      {
+        "activation": {
+          "target_role_or_null": "task0__stateful_object",
+          "tool_name": "toggle_on",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_00",
+        "owner_subtask_id": "subtask_0",
+        "question": "What was the outcome of the attempted action on floorlamp?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "task1__target_receptacle",
+          "tool_name": "close",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_01",
+        "owner_subtask_id": "subtask_1",
+        "question": "What was the outcome of the attempted action on fridge?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "subtask_id": "subtask_1",
+          "type": "subtask_handoff"
+        },
+        "answer_set": [
+          "subtask 1: Turn on the floor lamp.",
+          "subtask 2: Find a mug somewhere in the house and put it in the fridge.",
+          "all subtasks are complete"
+        ],
+        "id": "qa_overlay_02",
+        "question": "Which subtask is active after this handoff?",
+        "question_type": "composite_progress_choice",
+        "resolver": {
+          "all_complete_answer": "all subtasks are complete",
+          "answer_by_active_subtask_id": {
+            "subtask_0": "subtask 1: Turn on the floor lamp.",
+            "subtask_1": "subtask 2: Find a mug somewhere in the house and put it in the fridge."
+          },
+          "subtask_ids": [
+            "subtask_0",
+            "subtask_1"
+          ],
+          "type": "composite_progress_choice"
+        }
+      }
+    ],
+    "schema_version": "qa_overlay.v1"
+  },
+  "roles": {
+    "task0__stateful_object": {
+      "object_id": "FloorLamp|2|3|1",
+      "object_type": "FloorLamp"
+    },
+    "task1__target_object": {
+      "object_id": "Mug|surface|6|0",
+      "object_type": "Mug"
+    },
+    "task1__target_receptacle": {
+      "object_id": "Fridge|6|2",
+      "object_type": "Fridge"
+    }
+  },
+  "source": {
+    "house_id": "test_000441",
+    "house_path": "prior://procthor-10k/test/441",
+    "split": "test"
+  },
+  "template": {
+    "template_id": "composite_sequential",
+    "template_version": "0.1"
+  },
+  "version": "0.1",
+  "evaluation_binding": {
+    "require_observation": false
+  },
+  "task_binding_spec": {
+    "schema_version": "task-binding-spec.v1",
+    "task_id": "procthor-example-09",
+    "task_spec_sha256": "278e3db9be60134b945a77ada068acb6642e43d052a4de4ec2c1a9602d68279e",
+    "compiler_version": "task-binding-compiler.v12",
+    "roles": {
+      "task0__stateful_object": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "floor lamp"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "task1__target_object": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "mug"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "task1__target_receptacle": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "fridge",
+          "refrigerator"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      }
+    },
+    "collections": {}
+  }
+}

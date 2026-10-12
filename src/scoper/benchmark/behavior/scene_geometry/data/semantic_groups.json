@@ -1,0 +1,139 @@
+{
+  "semantic_compatibility": {
+    "armchair": ["armchair", "bench", "sofa"],
+    "bed": ["bed"],
+    "bench": ["bench", "armchair", "sofa"],
+    "bookcase": ["bookcase", "shelf"],
+    "bottom_cabinet": ["bottom_cabinet", "bottom_cabinet_no_top", "console_table", "stand"],
+    "bottom_cabinet_no_top": ["bottom_cabinet_no_top", "bottom_cabinet", "console_table", "stand"],
+    "breakfast_table": ["breakfast_table", "pedestal_table"],
+    "coffee_table": ["coffee_table", "ottoman", "pedestal_table"],
+    "console_table": ["console_table", "desk", "bottom_cabinet", "stand"],
+    "desk": ["desk", "console_table"],
+    "floor_lamp": ["floor_lamp"],
+    "nightstand": ["nightstand", "console_table", "stand"],
+    "ottoman": ["ottoman", "coffee_table", "bench"],
+    "pedestal_table": ["pedestal_table", "breakfast_table", "coffee_table"],
+    "shelf": ["shelf", "bookcase"],
+    "sofa": ["sofa", "armchair", "bench"],
+    "stand": ["stand", "console_table", "bottom_cabinet"],
+    "standing_tv": ["standing_tv"],
+    "straight_chair": ["straight_chair", "swivel_chair", "armchair"],
+    "swivel_chair": ["swivel_chair", "straight_chair", "armchair"],
+    "wardrobe": ["wardrobe", "bookcase", "shelf"]
+  },
+  "room_groups": {
+    "living_room": [
+      {
+        "id": "sofa_tv_coffee_table",
+        "anchors": ["in_middle", "on_edge"],
+        "roles": [
+          {"id": "sofa", "categories": ["sofa"], "offset": [0.0, -1.2], "yaw": 0.0, "required": true},
+          {"id": "coffee_table", "categories": ["coffee_table", "ottoman"], "offset": [0.0, 0.65], "yaw": 0.0, "required": true},
+          {"id": "tv", "categories": ["standing_tv"], "offset": [0.0, 2.4], "yaw": 3.141592653589793, "required": false}
+        ]
+      },
+      {
+        "id": "sofa_coffee_table",
+        "anchors": ["in_middle", "on_edge"],
+        "roles": [
+          {"id": "sofa", "categories": ["sofa", "armchair"], "offset": [0.0, -0.95], "yaw": 0.0, "required": true},
+          {"id": "coffee_table", "categories": ["coffee_table", "ottoman"], "offset": [0.0, 0.9], "yaw": 0.0, "required": true}
+        ]
+      },
+      {
+        "id": "armchair_floor_lamp",
+        "anchors": ["on_edge", "in_corner"],
+        "roles": [
+          {"id": "armchair", "categories": ["armchair", "straight_chair", "swivel_chair"], "offset": [0.0, 0.0], "yaw": 0.0, "required": true},
+          {"id": "floor_lamp", "categories": ["floor_lamp"], "offset": [-0.85, 0.25], "yaw": 0.0, "required": false}
+        ]
+      }
+    ],
+    "television_room": [
+      {
+        "id": "sofa_tv_coffee_table",
+        "anchors": ["in_middle", "on_edge"],
+        "roles": [
+          {"id": "sofa", "categories": ["sofa"], "offset": [0.0, -1.2], "yaw": 0.0, "required": true},
+          {"id": "coffee_table", "categories": ["coffee_table", "ottoman"], "offset": [0.0, 0.65], "yaw": 0.0, "required": false},
+          {"id": "tv", "categories": ["standing_tv"], "offset": [0.0, 2.4], "yaw": 3.141592653589793, "required": true}
+        ]
+      }
+    ],
+    "bedroom": [
+      {
+        "id": "bed_nightstand",
+        "anchors": ["on_edge"],
+        "roles": [
+          {"id": "bed", "categories": ["bed"], "offset": [0.0, 0.0], "yaw": 0.0, "required": true},
+          {"id": "nightstand", "categories": ["nightstand"], "offset": [1.35, -0.15], "yaw": 0.0, "required": false}
+        ]
+      },
+      {
+        "id": "bed_desk_chair",
+        "anchors": ["on_edge"],
+        "roles": [
+          {"id": "bed", "categories": ["bed"], "offset": [-0.85, 0.0], "yaw": 0.0, "required": true},
+          {"id": "desk", "categories": ["desk", "console_table"], "offset": [1.25, 0.0], "yaw": 0.0, "required": false},
+          {"id": "chair", "categories": ["straight_chair", "swivel_chair"], "offset": [1.25, 0.9], "yaw": 3.141592653589793, "required": false}
+        ]
+      }
+    ],
+    "childs_room": [
+      {
+        "id": "bed_desk_chair",
+        "anchors": ["on_edge"],
+        "roles": [
+          {"id": "bed", "categories": ["bed"], "offset": [-0.85, 0.0], "yaw": 0.0, "required": true},
+          {"id": "desk", "categories": ["desk", "console_table"], "offset": [1.25, 0.0], "yaw": 0.0, "required": false},
+          {"id": "chair", "categories": ["straight_chair", "swivel_chair"], "offset": [1.25, 0.9], "yaw": 3.141592653589793, "required": false}
+        ]
+      }
+    ],
+    "dining_room": [
+      {
+        "id": "table_chairs",
+        "anchors": ["in_middle"],
+        "roles": [
+          {"id": "table", "categories": ["breakfast_table", "pedestal_table"], "offset": [0.0, 0.0], "yaw": 0.0, "required": true},
+          {"id": "chair_a", "categories": ["straight_chair", "swivel_chair", "armchair"], "offset": [0.0, -1.05], "yaw": 0.0, "required": false},
+          {"id": "chair_b", "categories": ["straight_chair", "swivel_chair", "armchair"], "offset": [0.0, 1.05], "yaw": 3.141592653589793, "required": false}
+        ]
+      }
+    ],
+    "kitchen": [
+      {
+        "id": "table_chairs",
+        "anchors": ["in_middle"],
+        "roles": [
+          {"id": "table", "categories": ["breakfast_table", "pedestal_table"], "offset": [0.0, 0.0], "yaw": 0.0, "required": true},
+          {"id": "chair_a", "categories": ["straight_chair", "swivel_chair"], "offset": [0.0, -1.0], "yaw": 0.0, "required": false},
+          {"id": "chair_b", "categories": ["straight_chair", "swivel_chair"], "offset": [0.0, 1.0], "yaw": 3.141592653589793, "required": false}
+        ]
+      }
+    ],
+    "private_office": [
+      {
+        "id": "desk_chair_bookshelf",
+        "anchors": ["on_edge"],
+        "roles": [
+          {"id": "desk", "categories": ["desk"], "offset": [0.0, 0.0], "yaw": 0.0, "required": true},
+          {"id": "chair", "categories": ["swivel_chair", "straight_chair"], "offset": [0.0, 0.9], "yaw": 3.141592653589793, "required": false},
+          {"id": "bookcase", "categories": ["bookcase", "shelf"], "offset": [1.3, 0.0], "yaw": 0.0, "required": false}
+        ]
+      }
+    ],
+    "shared_office": [
+      {
+        "id": "desk_chair_bookshelf",
+        "anchors": ["on_edge"],
+        "roles": [
+          {"id": "desk", "categories": ["desk"], "offset": [0.0, 0.0], "yaw": 0.0, "required": true},
+          {"id": "chair", "categories": ["swivel_chair", "straight_chair"], "offset": [0.0, 0.9], "yaw": 3.141592653589793, "required": false},
+          {"id": "bookcase", "categories": ["bookcase", "shelf"], "offset": [1.3, 0.0], "yaw": 0.0, "required": false}
+        ]
+      }
+    ]
+  }
+}

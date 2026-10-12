@@ -1,0 +1,41 @@
+VERSION = 'direct-tool-guidance.v4'
+
+def public_history_limit(maximum):
+    return min(48, max(1, int(maximum)))
+
+def qa_phase_guidance(history):
+    if any((item.get('tool_name') == 'stop' for item in history)):
+        return 'Physical task execution has ended because you requested stop. This does not indicate task success. Only answer pending questions using their question_id and allowed answer values; do not navigate, scan, manipulate objects or call stop again. Questions are assessments, not new tasks.'
+    return ''
+
+def stop_budget_guidance(step, maximum):
+    remaining = max(0, int(maximum) - max(1, int(step)) + 1)
+    return f'Episode budget: {maximum} tool calls total; {remaining} remain including this decision. Actions, scan, answer and stop share this budget. Use stop when visual evidence supports every requested clause, including all composite subtasks. Do not repeat completed actions while waiting for an evaluator success message. If a clause remains, select an action that advances it; stop is not a request for help or a subtask separator. Answer pending questions when they appear. After stop, physical actions cannot resume. Return exactly one tool-call JSON with at most one short sentence of reasoning; no extra prose.'
+COMMON = {'navigate_to': 'Move toward one concrete object, receptacle, or a room specified in the instruction. For rooms, use the exact public label supplied in the instruction, without inventing room names or numbers. Named objects may be approached directly without guessing their room. A request does not guarantee arrival; inspect RGB before interacting. Room arrival does not replace approaching the particular object. If the target is not there, you may navigate to the same listed object again; a successful scan or look_for is not a prerequisite for another navigation request.', 'navigate_to_room': 'Move into a room using its natural public name and number when specified. Then navigate to the particular object before interacting.', 'pick_up': 'Pick up one movable object after navigating to it. Only one object can be held; put down the current object first if necessary.', 'put_down': 'Place the held object on or inside the destination receptacle. object_ref names the destination, not the held object. Navigate to the destination and open it when using a closed interior. Successful placement releases the object; an unsuccessful request may or may not release it.', 'open': 'Open one nearby openable container after navigating to it. Does not pick up or place any object.', 'close': 'Close one nearby openable container after navigating to it. Does not transfer any object into it.', 'toggle_on': 'Switch on one nearby toggleable device after navigating to it. This does not pick up or place an object.', 'toggle_off': 'Switch off one nearby toggleable device after navigating to it. This does not move an object.', 'scan': 'Collect RGB views in place, at most eight, including at later task stages or during recovery. May be used repeatedly; one scan consumes one step. Scanning does not itself repair or move objects.', 'look_for': 'Turn the camera toward one concrete object without walking to it; this does not replace navigation before interaction.', 'answer': 'Answer a pending question using its question_id and an allowed answer value. This does not execute a physical task action.', 'stop': 'End physical task execution when RGB supports completion of every requested clause. Pending QA then allows only answers; task actions cannot resume.'}
+BEHAVIOR = {'drop': 'Release the held object at the current position. This is not targeted placement in a receptacle.', 'wipe': 'Hold a suitable cleaning tool, navigate to the dirty object, then wipe that object; object_ref names the object being cleaned.', 'cut': 'Hold a suitable cutting tool, navigate to the sliceable object, then cut that object. object_ref names the food, not the knife.', 'soak_under': 'Clean a held dirty washable object under a running water source. Navigate to the source, turn it on if needed, then call soak_under with the source as object_ref. This does not place the held object into a destination.', 'fill': 'Fill the target container from a suitable fluid source. object_ref names the container and source names the source; both are concrete public names, never role handles.', 'pour': 'Hold a container with contents, navigate to the receiving target, then pour into that target. object_ref names the receiver.', 'heat': 'Hold the item to heat, navigate to a suitable heat source, open its interior if needed, then call heat with the device as object_ref. It places the item and turns on the device to heat it; the item is no longer held after successful placement. Retrieve it before carrying it elsewhere.', 'cool': 'Hold the item to cool, navigate to a suitable cold source such as a fridge, open it if needed, then call cool with the device as object_ref. It places and cools the item; the item is no longer held after successful placement. Retrieve it before carrying it elsewhere.'}
+
+def tool_description(backend, name, fallback):
+    if backend not in {'behavior', 'procthor'}:
+        raise ValueError('unknown backend')
+    if backend == 'behavior' and name in BEHAVIOR:
+        return BEHAVIOR[name]
+    if name == 'scan':
+        detail = ' Use num_views=4 to 8 to look around the room. num_views=1 only refreshes the current direction and does not add directional coverage.' if backend == 'behavior' else ' Pass empty arguments {}; this collects up to eight directions.'
+        return COMMON[name] + detail
+    if backend == 'procthor' and name == 'slice':
+        return 'Hold a knife, navigate to a sliceable food, then slice it. object_ref names the food, not the knife. Put the knife down before picking up the food for transport.'
+    return COMMON.get(name, fallback)
+
+def public_tool_contract(backend, tool_specs):
+    contract = {'version': VERSION, 'allowed_model_tools': [item['name'] for item in tool_specs], 'interaction': 'Use concrete public names. Navigate to the relevant object before interaction. The requested action is not proof of success; inspect RGB. Do not infer inventory or task completion from the simulator marker.'}
+    contract['task_information'] = 'For observation tasks, inspect the rooms named in the instruction and determine the relevant objects and conditions from RGB. A vocabulary lists callable categories, not which objects exist or which conditions hold. For explicitly specified tasks, follow the named objects, order and final states. Navigation requests may use a natural room label as object_ref; navigating to a room does not replace approaching an object before interaction. Storage and dishware describe a purpose or group, not concrete object names. For composite tasks complete every subtask before the final stop.'
+    if backend == 'procthor':
+        contract['washing'] = 'To wash a dirty washable object, put it in a sink, navigate to its associated faucet and turn it on. Running that faucet cleans suitable objects in the sink. Turn water off after use, and navigate to and pick up the object again before moving it elsewhere. There is no separate wash tool.'
+        contract['heating'] = 'To heat a suitable item, place it inside a microwave, close the door and turn the microwave on. Turn it off after heating, open it and pick up the item again before transporting it.'
+        contract['cooling'] = 'To cool a suitable item, place it in a fridge. Open it before placement and close it for storage. If the task requests a different final destination, reopen and pick up the item before carrying it there.'
+    elif backend == 'behavior':
+        contract['washing'] = 'For water washing, hold the washable object, navigate to the water source, turn it on if needed, use soak_under on the source, then turn it off after use. wipe instead uses a held cleaning tool on the dirty target.'
+        contract['temperature'] = 'heat and cool target devices, not the item being held. They include placement. Before further transport, navigate to and pick up the item again; turn off heating devices and close containers when required.'
+    else:
+        raise ValueError('unknown backend')
+    return contract

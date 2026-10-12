@@ -1,0 +1,396 @@
+{
+  "backend": "behavior",
+  "category": "observation_conditioned_container_inspection",
+  "conditional_storage_policy": {
+    "cabinet_role": "cabinet",
+    "dishware_types": [
+      "Bowl",
+      "Cup",
+      "Mug",
+      "Plate"
+    ],
+    "expected_branch": "dishware",
+    "initial_state": "closed",
+    "mandatory_observation_gate": false,
+    "schema_version": "conditional-storage-policy.v1"
+  },
+  "goal": {
+    "predicates": [
+      {
+        "args": {
+          "object": "cabinet"
+        },
+        "type": "object_closed"
+      }
+    ],
+    "require_model_stop": true,
+    "type": "predicates"
+  },
+  "id": "behavior-example-01",
+  "init": [
+    {
+      "args": [
+        "contents",
+        "cabinet"
+      ],
+      "interior_floor_clearance": 0.04,
+      "interior_offset_xy": [
+        0.04485000165078309,
+        0.01788000553513257
+      ],
+      "predicate": "inside"
+    },
+    {
+      "args": [
+        "cabinet"
+      ],
+      "predicate": "closed"
+    }
+  ],
+  "instruction": "Inspect the cabinet. Open it to check its contents. If it contains dishware (cups, mugs, bowls, or plates), close it; otherwise, leave it open.",
+  "metrics_config": {
+    "require_model_stop": true,
+    "track_predicate_progress": true,
+    "track_tool_success_rate": true
+  },
+  "online_requirements": {
+    "expected_brain_behaviors": [],
+    "expected_events": []
+  },
+  "qa_overlay": {
+    "questions": [
+      {
+        "activation": {
+          "target_role_or_null": null,
+          "tool_name": "scan",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_01",
+        "question": "What was the outcome of scanning the scene?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      },
+      {
+        "activation": {
+          "target_role_or_null": "cabinet",
+          "tool_name": "navigate_to",
+          "type": "after_tool_result"
+        },
+        "answer_set": [
+          "the action succeeded",
+          "the action failed",
+          "the result is uncertain"
+        ],
+        "id": "qa_overlay_02",
+        "question": "What was the outcome of navigating to cabinet?",
+        "question_type": "post_action_outcome_choice",
+        "resolver": {
+          "answer_by_outcome": {
+            "ambiguous": "the result is uncertain",
+            "failure": "the action failed",
+            "success": "the action succeeded"
+          },
+          "type": "post_action_outcome_choice"
+        }
+      }
+    ],
+    "schema_version": "qa_overlay.v1"
+  },
+  "roles": {
+    "cabinet": {
+      "abilities": [
+        "container",
+        "openable",
+        "receptacle"
+      ],
+      "bbox_size": [
+        0.22681927490234374,
+        0.4800739288330078,
+        0.6241825866699219
+      ],
+      "bddl_inst": "cabinet.n.01_1",
+      "category": "top_cabinet",
+      "center": [
+        0.9214639663696289,
+        8.97010326385498,
+        1.7355239391326904
+      ],
+      "extent": [
+        0.3495000055026103,
+        0.2596000184504419,
+        0.7213000096331416
+      ],
+      "init_states": {
+        "contains": {},
+        "filled": {},
+        "open": false
+      },
+      "model": "dmwxyl",
+      "object_id": "top_cabinet_dmwxyl_0",
+      "object_type": "Cabinet",
+      "position": {
+        "x": 0.9214639663696289,
+        "y": 1.7355239391326904,
+        "z": 8.97010326385498
+      },
+      "requires_spawn": false,
+      "room_id": "kitchen_0",
+      "root_orientation_xyzw": [
+        -0.00018125679343938828,
+        -0.0001658442197367549,
+        0.7071077823638916,
+        -0.7071057558059692
+      ],
+      "root_position": {
+        "x": 0.9214639663696289,
+        "y": 8.97010326385498,
+        "z": 1.7355239391326904
+      },
+      "root_yaw": -1.5707992135629407,
+      "scale": [
+        1.5408743619918823,
+        0.5407500863075256,
+        1.155591368675232
+      ],
+      "source_kind": "scene_instance",
+      "synset": "cabinet.n.01"
+    },
+    "contents": {
+      "abilities": [
+        "container",
+        "pickupable",
+        "receptacle",
+        "soakable",
+        "wipeable"
+      ],
+      "bddl_inst": "coffee_cup.n.01_123466692",
+      "catalog_object_id": "spawnable:coffee_cup",
+      "category": "coffee_cup",
+      "center": [
+        0.9214639663696289,
+        8.97010326385498,
+        1.7355239391326904
+      ],
+      "extent": [
+        0.19999999999999998,
+        0.19999999999999998,
+        0.08456821361677848
+      ],
+      "init_states": {
+        "contains": {},
+        "filled": {},
+        "saturated": {}
+      },
+      "model": "rixzrk",
+      "object_id": "spawnable:issue_dish:bowl",
+      "object_type": "Cup",
+      "position": null,
+      "requires_spawn": true,
+      "room_id": "kitchen_0",
+      "source_kind": "spawnable_asset",
+      "synset": "coffee_cup.n.01"
+    }
+  },
+  "source": {
+    "layout_variant_id": "Benevolence_1_int_var0000",
+    "occupancy_bounds": [
+      -4.1532206535339355,
+      -3.2163926362991333,
+      5.366779565811157,
+      11.288607597351074
+    ],
+    "room_catalog": [
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 7,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -1.427,
+            "y": 0.0,
+            "z": 3.413
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "corridor_0",
+        "room_type": "corridor",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 10,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 2.37,
+            "y": 0.0,
+            "z": 5.052
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "dining_room_0",
+        "room_type": "dining_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 28,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 1.77,
+            "y": 0.0,
+            "z": 8.026
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "kitchen_0",
+        "room_type": "kitchen",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 23,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": 0.903,
+            "y": 0.0,
+            "z": 1.974
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "living_room_0",
+        "room_type": "living_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 3,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -0.529,
+            "y": 0.0,
+            "z": 7.605
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "pantry_room_0",
+        "room_type": "pantry_room",
+        "source": "profile_in_rooms"
+      },
+      {
+        "geometry_status": "estimated_from_object_centers",
+        "object_count": 4,
+        "reachable_status": "profile_fallback",
+        "representative_reachable_pose": {
+          "position": {
+            "x": -1.586,
+            "y": 0.0,
+            "z": 8.104
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "source": "object_center_centroid_placeholder"
+        },
+        "room_id": "storage_room_0",
+        "room_type": "storage_room",
+        "source": "profile_in_rooms"
+      }
+    ],
+    "scene_model": "Benevolence_1_int",
+    "source_json": "assets/behavior/behavior-example-01-01.json",
+    "stage3_match_status": "matched_requires_runtime_validation",
+    "start_pose": {
+      "pitch": 0.0,
+      "pose_source": "object_center_centroid_placeholder",
+      "room_id": "kitchen_0",
+      "selection_source": "task_relevant_room_representative_pose",
+      "x": 1.77,
+      "y": 8.026,
+      "yaw": 0.0,
+      "z": 1.55
+    },
+    "template_id": "inspect_and_restore_storage_container_001",
+    "template_version": "1.0",
+    "type": "template"
+  },
+  "template": {
+    "template_id": "inspect_and_restore_storage_container_001",
+    "template_version": "1.0"
+  },
+  "version": "stage4.0",
+  "task_binding_spec": {
+    "schema_version": "task-binding-spec.v1",
+    "task_id": "behavior-example-01",
+    "task_spec_sha256": "a233fdac003e47bafa3f6dc0f8906bc0b9f1fe0da45803820670254ae7c040e0",
+    "compiler_version": "task-binding-compiler.v12",
+    "roles": {
+      "cabinet": {
+        "source_policy": "task_explicit",
+        "public_terms": [
+          "cabinet",
+          "storage cabinet",
+          "wall cabinet"
+        ],
+        "generic_terms": [],
+        "activation": "episode_start",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      },
+      "contents": {
+        "source_policy": "observation",
+        "public_terms": [
+          "coffee cup",
+          "cup"
+        ],
+        "generic_terms": [],
+        "activation": "concrete_reference",
+        "allow_unseen_navigation": true,
+        "collection_id": null
+      }
+    },
+    "collections": {}
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "template_id": "hidden_precondition_place_001",
+  "template_version": "0.1",
+  "category": "hidden_precondition",
+  "description": "Target object starts inside a closed container and must be moved elsewhere.",
+  "requires": {
+    "target_object": {
+      "taxonomy_group": "pickupable_task_objects",
+      "must_be_pickupable": true,
+      "must_have_parent_receptacle": true
+    },
+    "source_container": {
+      "taxonomy_group": "openable_containers",
+      "must_be_receptacle": true,
+      "must_be_openable": true,
+      "different_from": ["target_object"]
+    },
+    "target_receptacle": {
+      "taxonomy_group": "place_receptacles",
+      "must_be_receptacle": true,
+      "different_from": ["target_object", "source_container"]
+    }
+  },
+  "initial_state_constraints": [
+    {
+      "type": "object_in_receptacle",
+      "object_role": "target_object",
+      "receptacle_role": "source_container"
+    },
+    {
+      "type": "object_closed",
+      "object_role": "source_container"
+    }
+  ],
+  "goal_predicates": [
+    {
+      "type": "object_in_receptacle",
+      "object_role": "target_object",
+      "receptacle_role": "target_receptacle"
+    }
+  ],
+  "instruction_templates": [
+    "Put the {target_object} in the {target_receptacle}.",
+    "Move the {target_object} to the {target_receptacle}."
+  ],
+  "expected_events": ["closed_receptacle"],
+  "expected_brain_behaviors": ["handle_precondition", "repair_failed_skill"]
+}

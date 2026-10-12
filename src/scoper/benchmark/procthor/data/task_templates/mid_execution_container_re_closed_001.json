@@ -1,0 +1,85 @@
+{
+    "template_id": "mid_execution_container_re_closed_001",
+    "template_version": "0.2",
+    "category": "mid_execution_state_disturbance",
+    "description": "Place two distinguishable objects into one openable receptacle, with an unannounced intermediate closure.",
+    "family_spec_template": {
+        "family": "mid_execution_state_disturbance",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "target_receptacle"
+        },
+        "mid_execution": {
+            "primary_task": {
+                "type": "container_re_closed",
+                "object_role": "target_object",
+                "receptacle_role": "target_receptacle"
+            },
+            "disturbance": {
+                "type": "close_object",
+                "target_role": "target_receptacle",
+                "activation": {"type": "high_level_step", "after_step": 5},
+                "requires_out_of_view": false,
+                "once": true
+            }
+        }
+    },
+    "requires": {
+        "target_object": {
+            "taxonomy_group": "pickupable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true
+        },
+        "target_receptacle": {
+            "taxonomy_group": "openable_containers",
+            "must_be_receptacle": true,
+            "must_be_openable": true,
+            "same_room_as": "target_object",
+            "different_from": ["target_object"]
+        }
+    },
+    "initial_state_constraints": [
+        {
+            "type": "object_not_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "target_receptacle"
+        },
+        {"type": "object_closed", "object_role": "target_receptacle"}
+    ],
+    "goal_predicates": [
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "target_receptacle"
+        },
+        {"type": "object_closed", "object_role": "target_receptacle"}
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Put the {target_object} and the {target_object_2} in the {target_receptacle}, then close it."
+    ],
+    "expected_events": [
+        "mid_execution_close_object",
+        "recover_from_container_re_closed"
+    ],
+    "expected_brain_behaviors": [
+        "detect_container_re_closed",
+        "reopen_target_receptacle",
+        "complete_container_placement"
+    ],
+    "disturbance_spec": {
+        "seed": 0,
+        "disturbances": [
+            {
+                "type": "close_object",
+                "target_role": "target_receptacle",
+                "after_step": 5,
+                "requires_out_of_view": false,
+                "once": true
+            }
+        ]
+    }
+}

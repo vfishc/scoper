@@ -1,0 +1,69 @@
+{
+    "template_id": "explore_then_place_001",
+    "template_version": "0.1",
+    "category": "explore_then_act",
+    "description": "Discover a hidden target object by type and place it in a receptacle.",
+    "family_spec_template": {
+        "family": "explore_then_act",
+        "scope": {
+            "type": "whole_house",
+            "label": "home",
+            "room_ids": []
+        },
+        "explore": {
+            "discovery_spec": {
+                "target_role": "target_object",
+                "initially_visible": false,
+                "hint_room": null,
+                "max_exploration_steps": 30
+            },
+            "post_discovery_task": {
+                "task_type": "pickup_and_place",
+                "target_receptacle_role": "target_receptacle"
+            }
+        }
+    },
+    "requires": {
+        "target_object": {
+            "taxonomy_group": "pickupable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_be_visible_from_start": true,
+            "visible_from_initial_pose": false
+        },
+        "target_receptacle": {
+            "taxonomy_group": "place_receptacles",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true
+        }
+    },
+    "initial_state_constraints": [],
+    "goal_predicates": [
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "target_receptacle"
+        },
+        {
+            "type": "object_closed",
+            "object_role": "target_receptacle",
+            "include_if": {
+                "role": "target_receptacle",
+                "field": "openable",
+                "equals": true
+            }
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Find a {target_object} somewhere in the house and put it in the {target_receptacle}."
+    ],
+    "expected_events": [
+        "explore_then_act"
+    ],
+    "expected_brain_behaviors": [
+        "discover_by_type",
+        "navigate_and_store"
+    ]
+}

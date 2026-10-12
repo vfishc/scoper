@@ -1,0 +1,120 @@
+{
+    "template_id": "wash_and_heat_then_store_001",
+    "template_version": "0.1",
+    "category": "prepare_multi_stage",
+    "description": "Multi-stage prepare task: wash a target object, heat it in a microwave, then store it.",
+    "family_spec_template": {
+        "family": "prepare_multi_stage",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "storage_receptacle",
+            "required_room_types": ["kitchen"]
+        },
+        "prepare": {
+            "target_role": "target_object",
+            "final_receptacle_role": "storage_receptacle",
+            "device_roles": [
+                "sink_basin",
+                "faucet",
+                "microwave"
+            ],
+            "tool_roles": [],
+            "stages": [
+                {
+                    "type": "wash",
+                    "receptacle_role": "sink_basin",
+                    "faucet_role": "faucet"
+                },
+                {
+                    "type": "heat",
+                    "receptacle_role": "microwave"
+                },
+                {
+                    "type": "store",
+                    "receptacle_role": "storage_receptacle"
+                }
+            ],
+            "intermediate_state_checks": true
+        }
+    },
+    "requires": {
+        "target_object": {
+            "taxonomy_group": "dirtyable_heatable_task_objects",
+            "must_be_pickupable": true,
+            "must_not_have_closed_parent_receptacle": true,
+            "same_room_as": "storage_receptacle",
+            "different_from": [
+                "storage_receptacle",
+                "sink_basin",
+                "faucet",
+                "microwave"
+            ]
+        },
+        "sink_basin": {
+            "taxonomy_group": "sink_basins",
+            "must_be_receptacle": true
+        },
+        "faucet": {
+            "taxonomy_group": "faucets",
+            "must_be_toggleable": true,
+            "parent_of_role_base": "sink_basin"
+        },
+        "microwave": {
+            "taxonomy_group": "heat_sources",
+            "must_be_receptacle": true,
+            "must_be_openable": true,
+            "must_be_toggleable": true,
+            "same_room_as": "storage_receptacle"
+        },
+        "storage_receptacle": {
+            "taxonomy_group": "dishware_storage",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true
+        }
+    },
+    "initial_state_constraints": [
+        {
+            "type": "object_dirty",
+            "object_role": "target_object"
+        }
+    ],
+    "goal_predicates": [
+        {
+            "type": "object_clean",
+            "object_role": "target_object"
+        },
+        {
+            "type": "object_hot",
+            "object_role": "target_object"
+        },
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "storage_receptacle"
+        },
+        {
+            "type": "object_closed",
+            "object_role": "storage_receptacle",
+            "include_if": {
+                "role": "storage_receptacle",
+                "field": "openable",
+                "equals": true
+            }
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Wash the {target_object}, heat it in the microwave, then store it in the {storage_receptacle}."
+    ],
+    "expected_events": [
+        "faucet_clean",
+        "microwave_heat",
+        "multi_stage_prepare"
+    ],
+    "expected_brain_behaviors": [
+        "complete_wash_heat_store_in_order"
+    ]
+}

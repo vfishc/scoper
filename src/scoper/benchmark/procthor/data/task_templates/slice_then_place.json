@@ -1,0 +1,88 @@
+{
+    "template_id": "slice_then_place_001",
+    "template_version": "0.3",
+    "category": "prepare_then_place",
+    "description": "Agent must acquire a knife, slice a sliceable object, then place the sliced pieces in a receptacle. Target object must be visible from the start (not in a closed container).",
+    "family_spec_template": {
+        "family": "prepare_then_place",
+        "scope": {
+            "type": "single_room",
+            "label": "kitchen",
+            "room_ids_from_role": "target_receptacle"
+        },
+        "prepare": {
+            "subtemplate": "slice_then_place",
+            "target_role": "target_object",
+            "device_roles": [],
+            "tool_roles": [
+                "knife"
+            ],
+            "final_receptacle_role": "target_receptacle"
+        }
+    },
+    "requires": {
+        "target_object": {
+            "taxonomy_group": "sliceable_task_objects",
+            "must_be_pickupable": true,
+            "must_be_sliceable": true,
+            "must_not_have_closed_parent_receptacle": true
+        },
+        "knife": {
+            "taxonomy_group": "knife_objects",
+            "must_be_pickupable": true,
+            "different_from": [
+                "target_object"
+            ],
+            "relocate_if": {
+                "modes": [
+                    "unblock_from_closed_container"
+                ],
+                "to_receptacle_role": "knife_relocate_target",
+                "fallback_to": null
+            }
+        },
+        "knife_relocate_target": {
+            "taxonomy_group": "open_surface_receptacles",
+            "must_be_receptacle": true,
+            "must_not_be_pickupable": true,
+            "same_room_as": "target_receptacle",
+            "relocate_target_only": true,
+            "optional": true
+        },
+        "target_receptacle": {
+            "taxonomy_group": "place_receptacles",
+            "must_be_receptacle": true,
+            "different_from": [
+                "target_object",
+                "knife"
+            ],
+            "must_not_be_pickupable": true
+        }
+    },
+    "initial_state_constraints": [],
+    "goal_predicates": [
+        {
+            "type": "object_sliced",
+            "object_role": "target_object"
+        },
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "target_receptacle"
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": true
+    },
+    "instruction_templates": [
+        "Slice the {target_object} and put it in the {target_receptacle}.",
+        "Cut the {target_object} and place the slices on the {target_receptacle}."
+    ],
+    "expected_events": [
+        "slice_target"
+    ],
+    "expected_brain_behaviors": [
+        "pick_up_knife_first",
+        "slice_before_placement"
+    ]
+}

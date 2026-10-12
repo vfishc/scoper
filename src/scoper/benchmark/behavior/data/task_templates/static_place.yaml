@@ -1,0 +1,21 @@
+template_id: static_place_001
+template_version: "1.0"
+category: static_simple
+description: "Pick up an object and place it on a receptacle."
+
+roles:
+  target_object:
+    abilities_required: ["rigidBody"]
+    default_extent: [0.15, 0.15, 0.15]
+  target_receptacle:
+    abilities_required: ["sceneObject"]
+    different_from: ["target_object"]
+    default_extent: [0.80, 0.80, 0.90]
+
+goal_predicates:
+  - type: object_on_receptacle
+    args: {object: target_object, receptacle: target_receptacle}
+
+instruction_templates:
+  - "Put the {target_object} on the {target_receptacle}."
+  - "Place the {target_object} onto the {target_receptacle}."

@@ -1,0 +1,71 @@
+{
+  "template_id": "behavior_augmented_put_away_dishware_001",
+  "template_version": "0.1",
+  "category": "put_away_by_category",
+  "family_spec_template": {
+    "family": "put_away_by_category",
+    "scope": {
+      "type": "whole_house",
+      "label": "augmented scene",
+      "room_ids_from_role": "storage_0"
+    },
+    "put_away": {
+      "semantic_category": "dishware",
+      "target_roles_prefix": "target_",
+      "storage_roles": ["storage_0"]
+    }
+  },
+  "requires": {
+    "storage_0": {
+      "taxonomy_group": "dishware_storage",
+      "must_be_receptacle": true,
+      "must_not_be_pickupable": true
+    },
+    "target_0": {
+      "taxonomy_group": "dishware",
+      "must_be_pickupable": true,
+      "must_not_have_closed_parent_receptacle": true,
+      "same_room_as": "storage_0",
+      "different_from": ["storage_0"]
+    },
+    "target_0_relocate_target": {
+      "taxonomy_group": "open_surface_receptacles",
+      "must_be_receptacle": true,
+      "must_not_be_pickupable": true,
+      "same_room_as": "storage_0",
+      "relocate_target_only": true,
+      "optional": true
+    }
+  },
+  "initial_state_constraints": [
+    {
+      "type": "object_not_in_receptacle",
+      "object_role": "target_0",
+      "receptacle_role": "storage_0"
+    }
+  ],
+  "goal_predicates": [
+    {
+      "type": "object_in_any_receptacle",
+      "object_role": "target_0",
+      "receptacle_roles": ["storage_0"]
+    },
+    {
+      "type": "object_closed",
+      "object_role": "storage_0",
+      "include_if": {
+        "role": "storage_0",
+        "field": "openable",
+        "equals": true
+      }
+    }
+  ],
+  "goal_options": {
+    "require_model_stop": true
+  },
+  "instruction_templates": [
+    "Put the dishware away in the storage container."
+  ],
+  "expected_events": ["put_away_targets"],
+  "expected_brain_behaviors": ["store_matching_category"]
+}

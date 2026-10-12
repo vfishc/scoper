@@ -1,0 +1,69 @@
+{
+    "template_id": "disturbance_recovery_recloses_fridge_001",
+    "template_version": "0.2",
+    "category": "disturbance_recovery",
+    "description": "Single-object hidden-precondition task (put object from closed container into receptacle). After agent opens the container and picks up the object, a disturbance RE-CLOSES the container. Because the oracle's plan doesn't touch the container again, the task still completes — but the trace shows the disturbance fired and the world state changed. This is the 'silent out-of-view' disturbance pattern.",
+    "requires": {
+        "target_object": {
+            "taxonomy_group": "pickupable_task_objects",
+            "must_be_pickupable": true,
+            "must_have_parent_receptacle": true
+        },
+        "source_container": {
+            "taxonomy_group": "openable_containers",
+            "must_be_receptacle": true,
+            "must_be_openable": true,
+            "different_from": ["target_object"]
+        },
+        "target_receptacle": {
+            "taxonomy_group": "place_receptacles",
+            "must_be_receptacle": true,
+            "different_from": ["target_object", "source_container"]
+        }
+    },
+    "initial_state_constraints": [
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "source_container"
+        },
+        {
+            "type": "object_closed",
+            "object_role": "source_container"
+        }
+    ],
+    "goal_predicates": [
+        {
+            "type": "object_in_receptacle",
+            "object_role": "target_object",
+            "receptacle_role": "target_receptacle"
+        }
+    ],
+    "goal_options": {
+        "require_model_stop": false
+    },
+    "instruction_templates": [
+        "Put the {target_object} in the {target_receptacle}.",
+        "Move the {target_object} to the {target_receptacle}."
+    ],
+    "expected_events": [
+        "closed_receptacle",
+        "disturbance_recloses_container"
+    ],
+    "expected_brain_behaviors": [
+        "handle_precondition",
+        "tolerate_silent_state_change"
+    ],
+    "disturbance_spec": {
+        "seed": 0,
+        "disturbances": [
+            {
+                "type": "close_object",
+                "target_role": "source_container",
+                "after_step": 4,
+                "requires_out_of_view": true,
+                "once": true
+            }
+        ]
+    }
+}
