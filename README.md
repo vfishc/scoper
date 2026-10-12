@@ -1,19 +1,107 @@
+<div align="center">
+
 # SCOPER
 
-**Towards a Systematic Study of Embodied System 2 over Full Task Execution Cycles**
+### Towards a Systematic Study of Embodied System 2<br>over Full Task Execution Cycles
 
-Yuxi Wei · Ye Fang · Shuai Yang · Tong Wu · Tai Wang* · Xiaojuan Qi*  
-The University of Hong Kong · Morphi Robot · Fudan University · Shanghai Jiao Tong University  
-*Co-corresponding authors
+**Yuxi Wei**<sup>1,2</sup> · **Ye Fang**<sup>2,3</sup> · **Shuai Yang**<sup>4</sup><br>
+**Tong Wu**<sup>2,3</sup> · **Tai Wang**<sup>2,*</sup> · **Xiaojuan Qi**<sup>1,*</sup>
 
-[Paper PDF](docs/downloads/SCOPER_preprint.pdf) · [Project website](https://vfishc.github.io/scoper/) · [Benchmark data (bundled)](task_bank/) · [Data distribution guide](DATA_DISTRIBUTION.md)
+<sup>1</sup>The University of Hong Kong · <sup>2</sup>Morphi Robot<br>
+<sup>3</sup>Fudan University · <sup>4</sup>Shanghai Jiao Tong University<br>
+<sup>*</sup>Co-corresponding authors
 
-**arXiv:** identifier/link pending submission.  
-**Hugging Face:** [vfishc/SCOPER](https://huggingface.co/datasets/vfishc/SCOPER).
+**[Paper PDF](https://vfishc.github.io/scoper/downloads/SCOPER_preprint.pdf)** · **[Project website](https://vfishc.github.io/scoper/)** · **[Hugging Face dataset](https://huggingface.co/datasets/vfishc/SCOPER)** · **[Visual gallery](https://vfishc.github.io/scoper/#gallery)**
 
+**870 tasks · 2 simulators · 35 base templates · 3,450 situated questions**
 
-SCOPER studies observation-grounded planning, execution and recovery across the full embodied task cycle.
-This repository contains two benchmark backends, a selected harness library, and a generated task bank.
+</div>
+
+<p align="center">
+  <a href="https://vfishc.github.io/scoper/">
+    <img src="docs/assets/teaser.webp" width="100%" alt="SCOPER overview: evaluation gaps, a scene-grounded benchmark and an evidence-based execution harness">
+  </a>
+</p>
+<p align="center"><em>Observe, plan, execute, verify and recover—throughout the full task cycle.</em></p>
+
+**An action request is not proof of success.** An embodied agent must discover relevant scene conditions, choose what to do, and check whether its actions worked. SCOPER brings these decisions together through high-level goals, ongoing visual feedback and controlled execution failures.
+
+| SCOPER-bench | SCOPER-harness | What the evaluation reveals |
+| --- | --- | --- |
+| Validated tasks across ProcTHOR and BEHAVIOR, covering routine execution, observation-dependent decisions, recovery and composition. | Training-free evidence memory, a dynamic agenda, progress verification and bounded recovery using the same model backbone. | Where agents lose evidence, repeat unsuccessful actions, stop too early or exhaust the action budget. |
+
+> **Release scope:** generation, oracle execution and direct-VLM evaluation are available through the unified CLI. The selected harness library is included, but its unified simulator-CLI integration is not included in this release.
+
+**Explore:** [Execution examples](#execution-examples) · [Benchmark](#benchmark-at-a-glance) · [Harness](#harness-design) · [Get started](#get-started) · [Installation](#installation-and-usage) · [Assets](#download-assets) · [Citation](#citation)
+
+## Execution examples
+
+<table>
+  <tr>
+    <td align="center" width="33%"><img src="docs/assets/before.webp" width="100%" alt="Before an attempted placement"><br><b>1. Attempt placement</b></td>
+    <td align="center" width="33%"><img src="docs/assets/failure.webp" width="100%" alt="Object drops beside its intended receptacle"><br><b>2. Notice the failure</b></td>
+    <td align="center" width="33%"><img src="docs/assets/recovery.webp" width="100%" alt="Object reacquired during recovery"><br><b>3. Reacquire and continue</b></td>
+  </tr>
+</table>
+
+Selected BEHAVIOR demonstration frames; intermediate actions are omitted. These illustrate the task rather than establish a particular model's performance.
+
+<p align="center">
+  <a href="docs/downloads/figures/trace_figure_sample.pdf">
+    <img src="docs/assets/trace_figure_sample.webp" width="100%" alt="Three full-cycle examples: failure recovery, observation-conditioned kitchen tidying, and additional cleaning needs discovered during placement">
+  </a>
+</p>
+
+The task can change as evidence arrives: an injected failure requires recovery, an inspection identifies what needs attention, and a placement task can reveal an additional cleaning obligation.
+
+**[Browse all nine simulation examples and real-observation figures →](https://vfishc.github.io/scoper/#gallery)**
+
+## Benchmark at a glance
+
+| | ProcTHOR | BEHAVIOR |
+| --- | ---: | ---: |
+| Task episodes | 450 | 420 |
+| Attached situated QA | 1,819 | 1,631 |
+| Two-subtask composites | 50 | 50 |
+| Three-subtask composites | 50 | 50 |
+
+Four task groups test **routine execution**, **observation-dependent decisions**, **failure recovery** and **composite execution**. The model receives public instructions, tool vocabulary and images—not private simulator state or the teacher's plan. Atomic / two-subtask / three-subtask budgets are 24 / 36 / 48 calls, including QA answers.
+
+<details>
+<summary><b>See the task construction and validation pipeline</b></summary>
+
+<p align="center"><img src="docs/assets/benchmark_construction.webp" width="100%" alt="Task templates matched to scenes, initialized, statically checked and validated by oracle execution before QA attachment"></p>
+
+Templates specify object roles, initial conditions, goals and optional events. Compatible layouts are initialized, checked and executed by a privileged teacher. Trace-aligned QA probes states, relations, outcomes, issues, obligations and progress.
+
+</details>
+
+## Harness design
+
+<p align="center">
+  <a href="docs/downloads/figures/method.pdf"><img src="docs/assets/method.webp" width="100%" alt="SCOPER-harness architecture: evidence memory, adaptive agenda, progress verification and recovery"></a>
+</p>
+
+**Evidence Memory** retains observations relevant to future decisions. A **dynamic agenda** tracks requirements and newly discovered needs. **Progress Verification** checks action effects, while **recovery and anti-deadlock controls** keep execution moving. The method is training-free but uses additional inference calls.
+
+**[Explore model comparisons, ablations and per-template results →](https://vfishc.github.io/scoper/#evaluation)**
+
+## Get started
+
+For a lightweight structural check (Python 3.11+; no simulator launch):
+
+```bash
+git clone https://github.com/vfishc/scoper.git
+cd scoper
+python -m pip install -e .
+scoper-procthor check-bank task_bank/procthor
+scoper-behavior check-bank task_bank/behavior
+```
+
+For real generation, rendering or model evaluation, complete the [environment installation](#install-environments) and [asset downloads](#download-assets) below. The [Hugging Face dataset](https://huggingface.co/datasets/vfishc/SCOPER) mirrors the bundled task bank; simulator geometry and model weights are obtained from their original publishers.
+
+<details>
+<summary><b>Release contents, validation and known boundaries</b></summary>
 
 | Release contents | Status |
 | --- | --- |
@@ -28,19 +116,10 @@ The recorded 1.3.0 acceptance has 343 passing tests and 12 subtests. Both bank s
 
 The standalone storage-inspection template replaces the former native-QA task. Existing composite children remain unchanged. The new inspection task's stricter visual-evidence acceptance is still a separate validation item. Historical paper tables are not new evaluations of this replacement bank.
 
-## Citation
 
-```bibtex
-@misc{wei2026scoper,
-  title = {Towards a Systematic Study of Embodied System 2 over Full Task Execution Cycles},
-  author = {Wei, Yuxi and Fang, Ye and Yang, Shuai and Wu, Tong and Wang, Tai and Qi, Xiaojuan},
-  year = {2026},
-  howpublished = {Preprint},
-  url = {https://vfishc.github.io/scoper/}
-}
-```
+</details>
 
-The citation will be updated with the arXiv identifier when available; no conference acceptance is implied.
+---
 
 ## Installation and usage
 
@@ -404,3 +483,19 @@ The preceding isolated candidate passed bounded real Qwen3.5-9B and oracle
 rollouts on both backends. These demonstrate interface operation, not full-bank
 score reproduction. Selected-harness simulator integration and stricter
 visual-evidence acceptance of the new inspection task remain separate work.
+
+
+## Citation
+
+```bibtex
+@misc{wei2026scoper,
+  title = {Towards a Systematic Study of Embodied System 2 over Full Task Execution Cycles},
+  author = {Wei, Yuxi and Fang, Ye and Yang, Shuai and Wu, Tong and Wang, Tai and Qi, Xiaojuan},
+  year = {2026},
+  howpublished = {Preprint},
+  url = {https://vfishc.github.io/scoper/}
+}
+```
+
+The citation will be updated with the arXiv identifier when available; no conference acceptance is implied.
+
